@@ -254,7 +254,7 @@ public class Main extends javax.swing.JFrame {
 
     private void lblBanHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBanHangMouseClicked
         // TODO add your handling code here:
-         childPanel = new QLDonHang();
+        childPanel = new QLDonHang();
         PnlMain.removeAll();
         PnlMain.add(childPanel);
         PnlMain.validate();

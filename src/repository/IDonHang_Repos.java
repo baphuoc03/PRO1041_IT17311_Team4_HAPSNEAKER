@@ -13,4 +13,5 @@ import model.DonHang_Model;
  */
 public interface IDonHang_Repos {
     List<DonHang_Model> getAllDonHang();
+    List<DonHang_Model> FindDonHang(String keyWord);
 }

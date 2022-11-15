@@ -9,8 +9,8 @@ import java.util.List;
 import model.PhanLoai_Model;
 import repository.IPhanLoai_repos;
 import repository.PhanLoai_repos;
-import service.IPhanLoai_Service;
 import viewmodel.PhanLoai_View;
+import service.IPhanLoai_Service;
 
 /**
  *

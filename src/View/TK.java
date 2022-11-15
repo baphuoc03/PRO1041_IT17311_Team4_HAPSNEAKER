@@ -4,16 +4,23 @@
  */
 package view;
 
+import viewmodel.TKDoanhThu_View;
 import View.TK_TheoNgaychild;
 import java.awt.Color;
+import java.text.NumberFormat;
+import java.util.List;
+import java.util.Locale;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
+import service.ITKDoanhThu_service;
+import service.impl.TKDoanhThu_Service;
 
 /**
  *
@@ -21,12 +28,17 @@ import org.jfree.data.category.DefaultCategoryDataset;
  */
 public class TK extends javax.swing.JPanel {
     private JPanel panel;
+    ITKDoanhThu_service tKDoanhThu_service = new TKDoanhThu_Service();
+    List<TKDoanhThu_View> listDoanhThuThang;
+    DefaultTableModel mol;
+    NumberFormat numberFM = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
     /**
      * Creates new form TK
      */
     public TK() {
         initComponents();
         testbarchar();
+        filltblDoanhThuThang();
     }
 
     /**
@@ -53,7 +65,7 @@ public class TK extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         tabDoanhThu = new javax.swing.JTabbedPane();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblTK_Thang = new javax.swing.JTable();
         pnlBieuDo = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
@@ -195,7 +207,7 @@ public class TK extends javax.swing.JPanel {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblTK_Thang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -226,7 +238,7 @@ public class TK extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblTK_Thang);
 
         tabDoanhThu.addTab("Bảng", jScrollPane1);
 
@@ -415,22 +427,30 @@ public class TK extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JPanel pnlBieuDo;
     private javax.swing.JPanel pnlTK_TheoNgay;
     private javax.swing.JTabbedPane tabDoanhThu;
+    private javax.swing.JTable tblTK_Thang;
     // End of variables declaration//GEN-END:variables
     public void testbarchar(){
+        listDoanhThuThang = tKDoanhThu_service.getTKDoanhThu();
         DefaultCategoryDataset dbSet  = new DefaultCategoryDataset();
-        dbSet.addValue(1000000, "Doanh Thu", "1");
-        dbSet.addValue(2000000, "Doanh Thu", "2");
-        dbSet.addValue(2300000, "Doanh Thu", "3");
-        dbSet.addValue(1700000, "Doanh Thu", "4");
+        for (TKDoanhThu_View t : listDoanhThuThang) {
+            dbSet.setValue(t.getTongDoanhThu(),"Doanh Thu",t.getThang()+"");
+        }
         JFreeChart Barchar = ChartFactory.createBarChart("Doanh thu theo nam", "Thang","Doanh Thu", dbSet,PlotOrientation.VERTICAL,false,false,false);
         ChartPanel chartPanel = new ChartPanel(Barchar);
         chartPanel.setPreferredSize(new java.awt.Dimension(100, 100));
         pnlBieuDo.removeAll();
         pnlBieuDo.add(chartPanel);
+    }
+    public void filltblDoanhThuThang(){
+        listDoanhThuThang = tKDoanhThu_service.getTKDoanhThu();
+        mol = (DefaultTableModel) tblTK_Thang.getModel();
+        mol.setRowCount(0);
+        for (TKDoanhThu_View t : listDoanhThuThang) {
+            mol.addRow(new Object[]{t.getThang(),t.getSlSanPham(),numberFM.format(t.getTongGiaBan()),numberFM.format(t.getTongGiaGia()),numberFM.format(t.getTongDoanhThu())});
+        }
     }
 }

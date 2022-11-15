@@ -2,9 +2,9 @@ package view;
 
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
-import service.IPhanLoai_Service;
 import service.impl.PhanLoai_Service;
 import viewmodel.PhanLoai_View;
+import service.IPhanLoai_Service;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license

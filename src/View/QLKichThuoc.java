@@ -2,9 +2,9 @@ package view;
 
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
-import service.IKichThuoc_service;
 import service.impl.KichThuoc_Service;
 import viewmodel.KichThuoc_View;
+import service.IKichThuoc_service;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
