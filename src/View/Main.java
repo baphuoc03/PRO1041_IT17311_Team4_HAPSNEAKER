@@ -25,6 +25,7 @@ public class Main extends javax.swing.JFrame {
     public Main() {
         initComponents();
         testbarchar();
+        setLocationRelativeTo(null);
     }
 
     /**

@@ -75,4 +75,10 @@ public class ThuocTinhSP_repos implements IThuocTinhSP_Repos {
             return null;
         }
     }
+
+    @Override
+    public int undateSL(ThuocTinhSP_Model sp,int SL) {
+        String sql = "Update thuoctinhsanpham set SoLuong = ? WHERE Id = ?";
+        return JDBC_Helper.Update(sql,sp.getSl()-SL,sp.getId());
+    }
 }

@@ -4,6 +4,8 @@
  */
 package view;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Tuan Anh
@@ -65,6 +67,11 @@ public class Doi_MK extends javax.swing.JFrame {
         jButton1.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Xác Nhận");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel6.setText("Mật Khẩu Mới");
 
@@ -74,6 +81,11 @@ public class Doi_MK extends javax.swing.JFrame {
         jButton2.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("Hủy");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -161,6 +173,23 @@ public class Doi_MK extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        Dang_nhap dn = new Dang_nhap();
+        dn.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        int comfirm = JOptionPane.showConfirmDialog(this, "Đổi Mật Khẩu Thành Công", "Thành Công", JOptionPane.OK_CANCEL_OPTION);
+        if (comfirm == 0) {
+            Dang_nhap dn = new Dang_nhap();
+            dn.setVisible(true);
+            this.dispose();
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

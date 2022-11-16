@@ -36,6 +36,11 @@ public class ThuocTinhSP_service implements IThuocTinhSP_Service{
     public ThuocTinhSP_Model getById(String id) {
         return repo.getById(id);
     }
+
+    @Override
+    public int updateSL(ThuocTinhSP_Model sp, int SL) {
+        return repo.undateSL(sp, SL);
+    }
     
     
 }

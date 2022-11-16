@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import model.ChiTietDH_model;
 import model.DonHang_Model;
+import model.ThuocTinhSP_Model;
 import service.impl.DonHang_service;
 import service.impl.ChiTietDH_Service;
 import viewmodel.ChiTietDH_View;
@@ -515,6 +516,8 @@ public class QLDonHang extends javax.swing.JPanel {
                 sp.setDonGia(sl * sp.getThuocTinh().getSanPham().getGiaBan());
                 ChiTietDH.updateSL(sp);
         }
+        TTS.updateSL(sp.getThuocTinh(),-1);
+        FillSP();
         filltableChiTietDH(DH_SV.getAllDonHang().get(indextbl).getMaHD());
     }//GEN-LAST:event_tblChiTietDHMouseClicked
 
@@ -568,7 +571,7 @@ public class QLDonHang extends javax.swing.JPanel {
     }
     public DonHang_Model getDonHang(){
         int count = Integer.parseInt(DH_SV.getAllDonHang().get(0).getMaHD().substring(2, DH_SV.getAllDonHang().get(0).getMaHD().length())) + 1;
-        String ma = "HD" + count;
+        String ma = "DH" + count;
         System.out.println(ma);
         return new DonHang_Model(ma, NV_SV.getByMa("NV01"), KH_SV.getBySĐT(txtSĐT.getText()),getDateNow(),0);
     }
@@ -611,9 +614,10 @@ public class QLDonHang extends javax.swing.JPanel {
     public void addDHChitiet(int index){
         boolean chk = true;
         int indextbl = tblDonHang.getSelectedRow();
+        ThuocTinhSP_Model sp = TTS.getById(lstSP.get(index).getId());
         listGH = ChiTietDH.getChiTietDHMolByMaDH(DH_SV.getAllDonHang().get(indextbl).getMaHD());
         for (ChiTietDH_model c : listGH) {
-            if(lstSP.get(index).getId().equals(c.getThuocTinh().getId())){
+            if(sp.getId().equals(c.getThuocTinh().getId())){
                 int sl = c.getSl() + 1;
                 c.setSl(sl);
                 c.setDonGia(sl * c.getThuocTinh().getSanPham().getGiaBan());
@@ -622,9 +626,11 @@ public class QLDonHang extends javax.swing.JPanel {
             }
         }
         if(chk == true){
-            ChiTietDH_model dh = new ChiTietDH_model(DH_SV.getDHByMa(DH_SV.getAllDonHang().get(indextbl).getMaHD()),TTS.getById(lstSP.get(index).getId()), 1,lstSP.get(index).getDonGia() );
+            ChiTietDH_model dh = new ChiTietDH_model(DH_SV.getDHByMa(DH_SV.getAllDonHang().get(indextbl).getMaHD()),sp, 1,lstSP.get(index).getDonGia() );
             ChiTietDH.add(dh);
         }
+        TTS.updateSL(sp, 1);
+        FillSP();
         filltableChiTietDH(DH_SV.getAllDonHang().get(indextbl).getMaHD());
     }
 }

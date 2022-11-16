@@ -28,7 +28,8 @@ public class DonHang_Repos implements IDonHang_Repos {
                 + "donhang.MaDonHang, donhang.NgayTao, donhang.TrangThai \n"
                 + " FROM donhang\n"
                 + " Join NhanVien on NhanVien.MaNV = donhang.MaNhanVien\n"
-                + " Join KhachHang on KhachHang.SĐT = donhang.SĐT";
+                + " Join KhachHang on KhachHang.SĐT = donhang.SĐT"
+                + " ORDER BY donhang.MaDonHang DESC";
         ResultSet rs = JDBC_Helper.Query(sql);
         try {
             while (rs.next()) {

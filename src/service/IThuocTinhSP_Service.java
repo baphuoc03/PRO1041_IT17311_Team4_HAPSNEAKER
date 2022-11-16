@@ -15,4 +15,5 @@ import viewmodel.ThuocTinhSP_ViewModel;
 public interface IThuocTinhSP_Service {
     List<ThuocTinhSP_ViewModel> GetAllThuocTinhSP();
     ThuocTinhSP_Model getById(String id);
+    int updateSL(ThuocTinhSP_Model sp,int SL);
 }
