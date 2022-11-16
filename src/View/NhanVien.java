@@ -4,17 +4,26 @@
  */
 package view;
 
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import service.INhanVien_Service;
+import service.impl.NhanVien_Service;
+import viewmodel.NhanVien_View;
+
 /**
  *
  * @author admin
  */
 public class NhanVien extends javax.swing.JPanel {
-
+    INhanVien_Service NV_SV = new NhanVien_Service();
+    DefaultTableModel mol;
+    List<NhanVien_View> listNV;
     /**
      * Creates new form NV
      */
     public NhanVien() {
         initComponents();
+        fillTableNhanVien();
     }
 
     /**
@@ -29,7 +38,7 @@ public class NhanVien extends javax.swing.JPanel {
         ChucVu = new javax.swing.ButtonGroup();
         GioiTinh = new javax.swing.ButtonGroup();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblNV = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
@@ -56,7 +65,7 @@ public class NhanVien extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(255, 255, 255));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblNV.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null},
@@ -75,8 +84,8 @@ public class NhanVien extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.setPreferredSize(new java.awt.Dimension(450, 80));
-        jScrollPane1.setViewportView(jTable1);
+        tblNV.setPreferredSize(new java.awt.Dimension(450, 80));
+        jScrollPane1.setViewportView(tblNV);
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel7.setText("Ngày Sinh");
@@ -253,12 +262,20 @@ public class NhanVien extends javax.swing.JPanel {
     private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JRadioButton jRadioButton4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
+    private javax.swing.JTable tblNV;
     // End of variables declaration//GEN-END:variables
+    public void fillTableNhanVien(){
+        listNV = NV_SV.getAllNhanVien();
+        mol = (DefaultTableModel) tblNV.getModel();
+        mol.setRowCount(0);
+        for(NhanVien_View nv : listNV){
+            mol.addRow(new Object[]{nv.getMa(), nv.getHoTen(), nv.getGioiTinh(), nv.getNgaySinh(), nv.getSđt(), nv.getDiaChi(), nv.getPassWord(), nv.getChucVu()});
+        }
+    }
 }

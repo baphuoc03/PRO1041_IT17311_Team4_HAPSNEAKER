@@ -26,9 +26,15 @@ public class ThuocTinhSP_service implements IThuocTinhSP_Service{
         list = repo.GetAllThuocTinhSP();
         int stt = 1;
         for(ThuocTinhSP_Model t : list){
-            lst_view.add(new ThuocTinhSP_ViewModel(stt, t.getId(), t.getSanPham().getMa(), String.valueOf(t.getKichThuoc().getMa()), t.getSl()));
+            lst_view.add(new ThuocTinhSP_ViewModel(stt, t.getId(), t.getSanPham().getMa(), t.getSanPham().getTen(), t.getSanPham().getThuongHieu().getTen(), t.getSanPham().getMauSac().getTen(), t.getKichThuoc().getMa()+"",t.getSl(), t.getSanPham().getGiaBan()));
+            stt++;
         }
         return lst_view;
+    }
+
+    @Override
+    public ThuocTinhSP_Model getById(String id) {
+        return repo.getById(id);
     }
     
     

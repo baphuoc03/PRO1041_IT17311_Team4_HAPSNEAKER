@@ -14,4 +14,8 @@ import viewmodel.DonHang_view;
  */
 public interface IDonHang_service {
     List<DonHang_view> getAllDonHang();
+    DonHang_Model getDHByMa(String ma);
+    List<DonHang_view> FindDonHang(String keyWord);
+    int add(DonHang_Model dh);
+    int update(DonHang_Model dh);
 }

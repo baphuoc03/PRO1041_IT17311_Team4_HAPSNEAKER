@@ -56,4 +56,23 @@ public class ChiTietDH_repos implements IChiTietDH_repos {
             System.out.println(chiTietDH_model.toString());
         }
     }
+
+    @Override
+    public int add(ChiTietDH_model dh) {
+        String sql = "INSERT INTO ctdonhang(MaDonHang,IdThuocTinh,SL,DonGia) VALUES (?,?,?,?)";
+        return JDBC_Helper.Update(sql, dh.getDonHang().getMa(),dh.getThuocTinh().getId(),dh.getSl(),dh.getDonGia());
+    }
+
+    @Override
+    public int updateSL(ChiTietDH_model dh) {
+        float dongia = dh.getThuocTinh().getSanPham().getGiaBan() * dh.getSl();
+        String sql = "UPDATE ctdonhang set SL = ?, DonGia = ? WHERE MaDonHang = ? AND IdThuocTinh = ?";
+        return JDBC_Helper.Update(sql, dh.getSl(),dongia,dh.getDonHang().getMa(),dh.getThuocTinh().getId());
+    }
+
+    @Override
+    public int delete(ChiTietDH_model dh) {
+        String sql = "DELETE from ctdonhang WHERE MaDonHang = ? AND IdThuocTinh = ? ";
+        return JDBC_Helper.Update(sql,dh.getDonHang().getMa(),dh.getThuocTinh().getId());
+    }
 }

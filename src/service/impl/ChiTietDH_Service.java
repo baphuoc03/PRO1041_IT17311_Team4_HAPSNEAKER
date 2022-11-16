@@ -31,5 +31,25 @@ public class ChiTietDH_Service implements IChiTietDH_Service{
         }
         return list_view;
     }
+
+    @Override
+    public int add(ChiTietDH_model dh) {
+        return ctDH_repos.add(dh);
+    }
+
+    @Override
+    public int updateSL(ChiTietDH_model dh) {
+        return ctDH_repos.updateSL(dh);
+    }
+
+    @Override
+    public List<ChiTietDH_model> getChiTietDHMolByMaDH(String maHD) {
+        return ctDH_repos.getChiTietDHByMaDH(maHD);
+    }
+
+    @Override
+    public int delete(ChiTietDH_model dh) {
+        return ctDH_repos.delete(dh);
+    }
     
 }

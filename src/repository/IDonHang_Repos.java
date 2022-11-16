@@ -13,5 +13,8 @@ import model.DonHang_Model;
  */
 public interface IDonHang_Repos {
     List<DonHang_Model> getAllDonHang();
+    DonHang_Model getDHByMa(String ma);
     List<DonHang_Model> FindDonHang(String keyWord);
+    int add(DonHang_Model dh);
+    int update(DonHang_Model dh);
 }

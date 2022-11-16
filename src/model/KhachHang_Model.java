@@ -34,6 +34,11 @@ public class KhachHang_Model {
         return sđt;
     }
 
+    @Override
+    public String toString() {
+        return "KhachHang_Model{" + "s\u0111t=" + sđt + ", hoTen=" + hoTen + ", gioiTinh=" + gioiTinh + ", ngaySinh=" + ngaySinh + ", email=" + email + ", diaChi=" + diaChi + '}';
+    }
+
     public void setSđt(String sđt) {
         this.sđt = sđt;
     }

@@ -4,17 +4,40 @@
  */
 package view;
 
+import java.text.NumberFormat;
+import java.util.List;
+import java.util.Locale;
+import javax.swing.table.DefaultTableModel;
+import service.IChiTietDH_Service;
+import service.IDonHang_service;
+import service.IKhachHang_Service;
+import service.impl.ChiTietDH_Service;
+import service.impl.DonHang_service;
+import service.impl.KhachHang_Service;
+import viewmodel.ChiTietDH_View;
+import viewmodel.DonHang_view;
+import viewmodel.KhachHang_View;
+
 /**
  *
  * @author admin
  */
 public class KhachHang extends javax.swing.JPanel {
-
+    IKhachHang_Service KH_SV = new KhachHang_Service();
+    IDonHang_service DH_SV = new DonHang_service();
+    IChiTietDH_Service ChiTietDH = new ChiTietDH_Service();
+    DefaultTableModel mol;
+    List<KhachHang_View> listKH;
+    List<DonHang_view> listDH;
+    List<ChiTietDH_View> listChiTietDH;
+    NumberFormat numberFM = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
     /**
      * Creates new form KhachHang
      */
     public KhachHang() {
         initComponents();
+        fillTableKhachHang();
+        fillTableDonHang();
     }
 
     /**
@@ -29,7 +52,7 @@ public class KhachHang extends javax.swing.JPanel {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblKH = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -48,12 +71,12 @@ public class KhachHang extends javax.swing.JPanel {
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jPanel3 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tblChiTietDH = new javax.swing.JTable();
         jPanel7 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable4 = new javax.swing.JTable();
-        jTextField6 = new javax.swing.JTextField();
+        tblDonHang = new javax.swing.JTable();
+        txtKeyWord = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -61,7 +84,7 @@ public class KhachHang extends javax.swing.JPanel {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblKH.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -80,7 +103,7 @@ public class KhachHang extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblKH);
 
         jLabel1.setText("Họ Tên");
 
@@ -189,63 +212,69 @@ public class KhachHang extends javax.swing.JPanel {
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Đơn Hàng Chi Tiết", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14))); // NOI18N
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tblChiTietDH.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
+
             },
             new String [] {
-                "STT", "Mã Sản Phẩm", "Tên Sản Phẩm ", "Size", "Màu Sắc", "Đơn Giá", "Số Lượng", "Thành Tiền ", "Trạng Thái"
+                "STT", "Mã SP", "Tên SP", "Size", "Số Lượng", "Đơn Giá", "Thành Tiền", "Khuyến Mãi", "Tiền Sau Giảm"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
+                false, false, false, true, false, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane3.setViewportView(tblChiTietDH);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1131, Short.MAX_VALUE)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 1131, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE))
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
         );
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Đơn Hàng", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14))); // NOI18N
 
-        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+        tblDonHang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "STT", "Mã Đơn Hàng", "Mã Nhân Viên", "SĐT ", "Ngày Tạo", "Trạng Thái"
+                "STT", "Mã Đơn Hàng", "Mã Nhân Viên", "SĐT ", "Tên KH", "Ngày Tạo", "Trạng Thái"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, true, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane4.setViewportView(jTable4);
+        tblDonHang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblDonHangMouseClicked(evt);
+            }
+        });
+        jScrollPane4.setViewportView(tblDonHang);
+
+        txtKeyWord.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtKeyWordKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -253,14 +282,14 @@ public class KhachHang extends javax.swing.JPanel {
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane4)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtKeyWord, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
                 .addGap(0, 11, Short.MAX_VALUE)
-                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtKeyWord, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -302,6 +331,17 @@ public class KhachHang extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField4ActionPerformed
 
+    private void txtKeyWordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtKeyWordKeyReleased
+        // TODO add your handling code here:
+        fillTableDonHang(txtKeyWord.getText());
+    }//GEN-LAST:event_txtKeyWordKeyReleased
+
+    private void tblDonHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDonHangMouseClicked
+        // TODO add your handling code here:
+        int index = tblDonHang.getSelectedRow();
+        filltableChiTietDH(listDH.get(index).getMaHD());
+    }//GEN-LAST:event_tblDonHangMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -321,16 +361,54 @@ public class KhachHang extends javax.swing.JPanel {
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable4;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField6;
+    private javax.swing.JTable tblChiTietDH;
+    private javax.swing.JTable tblDonHang;
+    private javax.swing.JTable tblKH;
+    private javax.swing.JTextField txtKeyWord;
     // End of variables declaration//GEN-END:variables
+    public void fillTableKhachHang(){
+        listKH = KH_SV.getAllKhachHang();
+        mol = (DefaultTableModel) tblKH.getModel();
+        mol.setRowCount(0);
+        for(KhachHang_View kh : listKH){
+            mol.addRow(new Object[]{kh.getHoTen(), kh.getSdt(), kh.getGioiTinh(), kh.getNgaySinh(), kh.getEmail(), kh.getDiaChi()});
+        }
+    }
+    public void fillTableDonHang() {
+        listDH = DH_SV.getAllDonHang();
+        mol = (DefaultTableModel) tblDonHang.getModel();
+        mol.setRowCount(0);
+        for (DonHang_view d : listDH) {
+            mol.addRow(new Object[]{d.getStt(), d.getMaHD(), d.getTenNV(),d.getSđt(), d.getTenKH(), d.getNgayTao(), d.getTrangThai()});
+        }
+    }
+    public void fillTableDonHang(String keyWord) {
+        listDH = DH_SV.FindDonHang(keyWord);
+        mol = (DefaultTableModel) tblDonHang.getModel();
+        mol.setRowCount(0);
+        for (DonHang_view d : listDH) {
+            mol.addRow(new Object[]{d.getStt(), d.getMaHD(), d.getTenNV(),d.getSđt(), d.getTenKH(), d.getNgayTao(), d.getTrangThai()});
+        }
+    }
+    public void showDonHang(DonHang_view dh) {
+        filltableChiTietDH(dh.getMaHD());
+    }
+
+    public void filltableChiTietDH(String maHD) {
+        listChiTietDH = ChiTietDH.getChiTietDHByMaDH(maHD);
+        mol = (DefaultTableModel) tblChiTietDH.getModel();
+        mol.setRowCount(0);
+        for (ChiTietDH_View c : listChiTietDH) {
+            mol.addRow(new Object[]{
+                c.getStt(), c.getMaSP(), c.getTenSP(), c.getSize(), c.getSL(), c.getDonGia(), c.getThanhTien(), c.getKhuyenMai(), c.getTienSauGiam()
+            });
+        }
+    }
 }

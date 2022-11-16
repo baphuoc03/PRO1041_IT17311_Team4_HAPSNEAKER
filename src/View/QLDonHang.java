@@ -11,12 +11,21 @@ import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
+import model.ChiTietDH_model;
+import model.DonHang_Model;
 import service.impl.DonHang_service;
 import service.impl.ChiTietDH_Service;
 import viewmodel.ChiTietDH_View;
 import viewmodel.DonHang_view;
 import service.IDonHang_service;
 import service.IChiTietDH_Service;
+import service.IKhachHang_Service;
+import service.INhanVien_Service;
+import service.IThuocTinhSP_Service;
+import service.impl.KhachHang_Service;
+import service.impl.NhanVien_Service;
+import service.impl.ThuocTinhSP_service;
+import viewmodel.ThuocTinhSP_ViewModel;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -27,12 +36,16 @@ import service.IChiTietDH_Service;
  * @author phamtuananh
  */
 public class QLDonHang extends javax.swing.JPanel {
-
+    IKhachHang_Service KH_SV = new KhachHang_Service();
+    IThuocTinhSP_Service TTS = new ThuocTinhSP_service();
     IDonHang_service DH_SV = new DonHang_service();
     IChiTietDH_Service ChiTietDH = new ChiTietDH_Service();
+    INhanVien_Service NV_SV = new NhanVien_Service();
     DefaultTableModel mol;
     List<DonHang_view> listDH;
     List<ChiTietDH_View> listChiTietDH;
+    List<ChiTietDH_model> listGH;
+    List<ThuocTinhSP_ViewModel> lstSP;
     NumberFormat numberFM = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
 
     /**
@@ -41,6 +54,7 @@ public class QLDonHang extends javax.swing.JPanel {
     public QLDonHang() {
         initComponents();
         fillTableDonHang();
+        FillSP();
     }
 
     /**
@@ -59,7 +73,7 @@ public class QLDonHang extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tblSP = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -80,7 +94,7 @@ public class QLDonHang extends javax.swing.JPanel {
         jPanel6 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnTaoDH = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -92,15 +106,20 @@ public class QLDonHang extends javax.swing.JPanel {
 
             },
             new String [] {
-                "STT", "Mã Hóa Đơn", "Tên NV", "Tên KH", "Ngày Tạo", "Trạng Thái "
+                "STT", "Mã Hóa Đơn", "Tên NV", "SĐT", "Tên KH", "Ngày Tạo", "Trạng Thái "
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, true, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        tblDonHang.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                tblDonHangMouseDragged(evt);
             }
         });
         tblDonHang.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -139,7 +158,7 @@ public class QLDonHang extends javax.swing.JPanel {
 
         jLabel2.setText("Danh Sách Sản Phẩm");
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tblSP.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -155,7 +174,12 @@ public class QLDonHang extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable2);
+        tblSP.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblSPMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tblSP);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -198,6 +222,11 @@ public class QLDonHang extends javax.swing.JPanel {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        tblChiTietDH.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblChiTietDHMouseClicked(evt);
             }
         });
         jScrollPane3.setViewportView(tblChiTietDH);
@@ -319,13 +348,18 @@ public class QLDonHang extends javax.swing.JPanel {
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
         jButton1.setText("Thanh Toán");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Hủy");
 
-        jButton3.setText("Tạo Hóa Đơn");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnTaoDH.setText("Tạo Hóa Đơn");
+        btnTaoDH.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnTaoDHActionPerformed(evt);
             }
         });
 
@@ -338,7 +372,7 @@ public class QLDonHang extends javax.swing.JPanel {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnTaoDH, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -350,7 +384,7 @@ public class QLDonHang extends javax.swing.JPanel {
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnTaoDH, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
@@ -418,6 +452,8 @@ public class QLDonHang extends javax.swing.JPanel {
         // TODO add your handling code here:
         int index = tblDonHang.getSelectedRow();
         showDonHang(DH_SV.getAllDonHang().get(index));
+        txtTenDH.setText(KH_SV.getBySĐT(DH_SV.getAllDonHang().get(index).getSđt()).getHoTen());
+        txtSĐT.setText(KH_SV.getBySĐT(DH_SV.getAllDonHang().get(index).getSđt()).getSđt());
         lblTienThua.setText(numberFM.format(0));
     }//GEN-LAST:event_tblDonHangMouseClicked
 
@@ -439,17 +475,54 @@ public class QLDonHang extends javax.swing.JPanel {
 
     }//GEN-LAST:event_txtTienKhachKeyReleased
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnTaoDHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaoDHActionPerformed
         // TODO add your handling code here:
-        txtTenDH.setText(getDateNow());
+        DH_SV.add(getDonHang());
+        System.out.println("a");
+        fillTableDonHang();
+    }//GEN-LAST:event_btnTaoDHActionPerformed
 
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void tblDonHangMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDonHangMouseDragged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tblDonHangMouseDragged
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        int index = tblDonHang.getSelectedRow();
+        DonHang_Model dh = DH_SV.getDHByMa(DH_SV.getAllDonHang().get(index).getMaHD());
+        dh.setTrangThai(1);
+        DH_SV.update(dh);
+        fillTableDonHang();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void tblSPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSPMouseClicked
+        // TODO add your handling code here:
+        int index = tblSP.getSelectedRow();
+        addDHChitiet(index);
+    }//GEN-LAST:event_tblSPMouseClicked
+
+    private void tblChiTietDHMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblChiTietDHMouseClicked
+        // TODO add your handling code here:
+        int index = tblChiTietDH.getSelectedRow();
+        int indextbl = tblDonHang.getSelectedRow();
+        listGH =  ChiTietDH.getChiTietDHMolByMaDH(DH_SV.getAllDonHang().get(indextbl).getMaHD());
+        ChiTietDH_model sp = listGH.get(index);
+        if(sp.getSl()==1){
+            ChiTietDH.delete(sp);
+        }else{
+            int sl = sp.getSl() - 1;
+                sp.setSl(sl);
+                sp.setDonGia(sl * sp.getThuocTinh().getSanPham().getGiaBan());
+                ChiTietDH.updateSL(sp);
+        }
+        filltableChiTietDH(DH_SV.getAllDonHang().get(indextbl).getMaHD());
+    }//GEN-LAST:event_tblChiTietDHMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnTaoDH;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -468,11 +541,11 @@ public class QLDonHang extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable2;
     private javax.swing.JLabel lblThanhTien;
     private javax.swing.JLabel lblTienThua;
     private javax.swing.JTable tblChiTietDH;
     private javax.swing.JTable tblDonHang;
+    private javax.swing.JTable tblSP;
     private javax.swing.JTextField txtSĐT;
     private javax.swing.JTextField txtTenDH;
     private javax.swing.JTextField txtTienKhach;
@@ -482,10 +555,23 @@ public class QLDonHang extends javax.swing.JPanel {
         mol = (DefaultTableModel) tblDonHang.getModel();
         mol.setRowCount(0);
         for (DonHang_view d : listDH) {
-            mol.addRow(new Object[]{d.getStt(), d.getMaHD(), d.getTenNV(), d.getTenKH(), d.getNgayTao(), d.getTrangThai()});
+            mol.addRow(new Object[]{d.getStt(), d.getMaHD(), d.getTenNV(),d.getSđt(), d.getTenKH(), d.getNgayTao(), d.getTrangThai()});
         }
     }
-
+    public void FillSP(){
+        lstSP = TTS.GetAllThuocTinhSP();
+        mol = (DefaultTableModel) tblSP.getModel();
+        mol.setRowCount(0);
+        for(ThuocTinhSP_ViewModel t : lstSP){
+            mol.addRow(new Object[]{t.getStt(),t.getMaSP(),t.getTenSP(),t.getThuongHieu(),t.getMauSac(),t.getsL(),t.getMaKT(),numberFM.format(t.getDonGia())});
+        }
+    }
+    public DonHang_Model getDonHang(){
+        int count = Integer.parseInt(DH_SV.getAllDonHang().get(0).getMaHD().substring(2, DH_SV.getAllDonHang().get(0).getMaHD().length())) + 1;
+        String ma = "HD" + count;
+        System.out.println(ma);
+        return new DonHang_Model(ma, NV_SV.getByMa("NV01"), KH_SV.getBySĐT(txtSĐT.getText()),getDateNow(),0);
+    }
     public void showDonHang(DonHang_view dh) {
         filltableChiTietDH(dh.getMaHD());
     }
@@ -510,9 +596,35 @@ public class QLDonHang extends javax.swing.JPanel {
         return tt;
     }
 
-    public String getDateNow() {
+    public Date getDateNow() {
         SimpleDateFormat DateFM = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();
-        return DateFM.format(date);
+        String d = DateFM.format(date);
+        try {
+            return DateFM.parse(d);
+        } catch (ParseException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+    
+    public void addDHChitiet(int index){
+        boolean chk = true;
+        int indextbl = tblDonHang.getSelectedRow();
+        listGH = ChiTietDH.getChiTietDHMolByMaDH(DH_SV.getAllDonHang().get(indextbl).getMaHD());
+        for (ChiTietDH_model c : listGH) {
+            if(lstSP.get(index).getId().equals(c.getThuocTinh().getId())){
+                int sl = c.getSl() + 1;
+                c.setSl(sl);
+                c.setDonGia(sl * c.getThuocTinh().getSanPham().getGiaBan());
+                ChiTietDH.updateSL(c);
+                chk = false;
+            }
+        }
+        if(chk == true){
+            ChiTietDH_model dh = new ChiTietDH_model(DH_SV.getDHByMa(DH_SV.getAllDonHang().get(indextbl).getMaHD()),TTS.getById(lstSP.get(index).getId()), 1,lstSP.get(index).getDonGia() );
+            ChiTietDH.add(dh);
+        }
+        filltableChiTietDH(DH_SV.getAllDonHang().get(indextbl).getMaHD());
     }
 }

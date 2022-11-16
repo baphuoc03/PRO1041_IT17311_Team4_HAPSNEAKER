@@ -13,4 +13,5 @@ import model.ThuocTinhSP_Model;
  */
 public interface IThuocTinhSP_Repos {
     List<ThuocTinhSP_Model> GetAllThuocTinhSP();
+    ThuocTinhSP_Model getById(String id);
 }

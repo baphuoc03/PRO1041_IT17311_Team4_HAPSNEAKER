@@ -14,6 +14,7 @@ public class DonHang_view {
     private int stt;
     private String maHD;
     private String tenNV;
+    private String sđt;
     private String tenKH;
     private Date ngayTao;
     private String trangThai;
@@ -21,14 +22,25 @@ public class DonHang_view {
     public DonHang_view() {
     }
 
-    public DonHang_view(int stt, String maHD, String tenNV, String tenKH, Date ngayTao, String trangThai) {
+    public DonHang_view(int stt, String maHD, String tenNV, String sđt, String tenKH, Date ngayTao, String trangThai) {
         this.stt = stt;
         this.maHD = maHD;
         this.tenNV = tenNV;
+        this.sđt = sđt;
         this.tenKH = tenKH;
         this.ngayTao = ngayTao;
         this.trangThai = trangThai;
     }
+
+    public String getSđt() {
+        return sđt;
+    }
+
+    public void setSđt(String sđt) {
+        this.sđt = sđt;
+    }
+
+    
 
     public int getStt() {
         return stt;

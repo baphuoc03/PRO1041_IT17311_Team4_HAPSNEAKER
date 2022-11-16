@@ -5,6 +5,7 @@
 package service;
 
 import java.util.List;
+import model.ThuocTinhSP_Model;
 import viewmodel.ThuocTinhSP_ViewModel;
 
 /**
@@ -13,4 +14,5 @@ import viewmodel.ThuocTinhSP_ViewModel;
  */
 public interface IThuocTinhSP_Service {
     List<ThuocTinhSP_ViewModel> GetAllThuocTinhSP();
+    ThuocTinhSP_Model getById(String id);
 }
