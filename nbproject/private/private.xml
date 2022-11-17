@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="2">
+        <file>
+            <url>src/view/QLMauSac.java</url>
+            <bookmark id="2">
+                <name/>
+                <line>251</line>
+                <key/>
+            </bookmark>
+        </file>
         <file>
             <url>src/repository/ThuongHieu_repos.java</url>
             <bookmark id="1">
@@ -13,11 +21,9 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/Users/baphuoc/Documents/DuAn1/DuAn1/src/view/QLDonHang.java</file>
-            <file>file:/Users/baphuoc/Documents/DuAn1/DuAn1/src/repository/IThuocTinhSP_Repos.java</file>
-            <file>file:/Users/baphuoc/Documents/DuAn1/DuAn1/src/service/IThuocTinhSP_Service.java</file>
-            <file>file:/Users/baphuoc/Documents/DuAn1/DuAn1/src/service/impl/ThuocTinhSP_service.java</file>
-            <file>file:/Users/baphuoc/Documents/DuAn1/DuAn1/src/repository/ThuocTinhSP_repos.java</file>
-            <file>file:/Users/baphuoc/Documents/DuAn1/DuAn1/src/repository/DonHang_Repos.java</file>
+            <file>file:/Users/baphuoc/Documents/DuAn1/DuAn1/src/service/impl/DonHang_service.java</file>
+            <file>file:/Users/baphuoc/Documents/DuAn1/DuAn1/src/view/Main.java</file>
+            <file>file:/Users/baphuoc/Documents/DuAn1/DuAn1/src/view/Doi_MK.java</file>
         </group>
     </open-files>
 </project-private>

@@ -37,6 +37,7 @@ import viewmodel.ThuocTinhSP_ViewModel;
  * @author phamtuananh
  */
 public class QLDonHang extends javax.swing.JPanel {
+
     IKhachHang_Service KH_SV = new KhachHang_Service();
     IThuocTinhSP_Service TTS = new ThuocTinhSP_service();
     IDonHang_service DH_SV = new DonHang_service();
@@ -56,6 +57,7 @@ public class QLDonHang extends javax.swing.JPanel {
         initComponents();
         fillTableDonHang();
         FillSP();
+        tblSP.setEnabled(false);
     }
 
     /**
@@ -456,6 +458,13 @@ public class QLDonHang extends javax.swing.JPanel {
         txtTenDH.setText(KH_SV.getBySĐT(DH_SV.getAllDonHang().get(index).getSđt()).getHoTen());
         txtSĐT.setText(KH_SV.getBySĐT(DH_SV.getAllDonHang().get(index).getSđt()).getSđt());
         lblTienThua.setText(numberFM.format(0));
+        if (DH_SV.getAllDonHang().get(index).getTrangThai().equals("Chưa thanh toán")) {
+            tblSP.setEnabled(true);
+            tblChiTietDH.setEnabled(true);
+        } else {
+            tblSP.setEnabled(false);
+            tblChiTietDH.setEnabled(false);
+        }
     }//GEN-LAST:event_tblDonHangMouseClicked
 
     private void txtTienKhachKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTienKhachKeyReleased
@@ -478,9 +487,12 @@ public class QLDonHang extends javax.swing.JPanel {
 
     private void btnTaoDHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaoDHActionPerformed
         // TODO add your handling code here:
+        tblSP.setEnabled(true);
+        tblChiTietDH.setEnabled(true);
         DH_SV.add(getDonHang());
         System.out.println("a");
         fillTableDonHang();
+
     }//GEN-LAST:event_btnTaoDHActionPerformed
 
     private void tblDonHangMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDonHangMouseDragged
@@ -494,31 +506,40 @@ public class QLDonHang extends javax.swing.JPanel {
         dh.setTrangThai(1);
         DH_SV.update(dh);
         fillTableDonHang();
+        tblSP.setEnabled(false);
+        tblChiTietDH.setEnabled(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void tblSPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSPMouseClicked
         // TODO add your handling code here:
-        int index = tblSP.getSelectedRow();
-        addDHChitiet(index);
+        try {
+            int index = tblSP.getSelectedRow();
+            addDHChitiet(index);
+        } catch (Exception e) {
+        }
+
     }//GEN-LAST:event_tblSPMouseClicked
 
     private void tblChiTietDHMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblChiTietDHMouseClicked
         // TODO add your handling code here:
-        int index = tblChiTietDH.getSelectedRow();
-        int indextbl = tblDonHang.getSelectedRow();
-        listGH =  ChiTietDH.getChiTietDHMolByMaDH(DH_SV.getAllDonHang().get(indextbl).getMaHD());
-        ChiTietDH_model sp = listGH.get(index);
-        if(sp.getSl()==1){
-            ChiTietDH.delete(sp);
-        }else{
-            int sl = sp.getSl() - 1;
+        try {
+            int index = tblChiTietDH.getSelectedRow();
+            int indextbl = tblDonHang.getSelectedRow();
+            listGH = ChiTietDH.getChiTietDHMolByMaDH(DH_SV.getAllDonHang().get(indextbl).getMaHD());
+            ChiTietDH_model sp = listGH.get(index);
+            if (sp.getSl() == 1) {
+                ChiTietDH.delete(sp);
+            } else {
+                int sl = sp.getSl() - 1;
                 sp.setSl(sl);
                 sp.setDonGia(sl * sp.getThuocTinh().getSanPham().getGiaBan());
                 ChiTietDH.updateSL(sp);
+            }
+            TTS.updateSL(sp.getThuocTinh(), -1);
+            FillSP();
+            filltableChiTietDH(DH_SV.getAllDonHang().get(indextbl).getMaHD());
+        } catch (Exception e) {
         }
-        TTS.updateSL(sp.getThuocTinh(),-1);
-        FillSP();
-        filltableChiTietDH(DH_SV.getAllDonHang().get(indextbl).getMaHD());
     }//GEN-LAST:event_tblChiTietDHMouseClicked
 
 
@@ -558,23 +579,26 @@ public class QLDonHang extends javax.swing.JPanel {
         mol = (DefaultTableModel) tblDonHang.getModel();
         mol.setRowCount(0);
         for (DonHang_view d : listDH) {
-            mol.addRow(new Object[]{d.getStt(), d.getMaHD(), d.getTenNV(),d.getSđt(), d.getTenKH(), d.getNgayTao(), d.getTrangThai()});
+            mol.addRow(new Object[]{d.getStt(), d.getMaHD(), d.getTenNV(), d.getSđt(), d.getTenKH(), d.getNgayTao(), d.getTrangThai()});
         }
     }
-    public void FillSP(){
+
+    public void FillSP() {
         lstSP = TTS.GetAllThuocTinhSP();
         mol = (DefaultTableModel) tblSP.getModel();
         mol.setRowCount(0);
-        for(ThuocTinhSP_ViewModel t : lstSP){
-            mol.addRow(new Object[]{t.getStt(),t.getMaSP(),t.getTenSP(),t.getThuongHieu(),t.getMauSac(),t.getsL(),t.getMaKT(),numberFM.format(t.getDonGia())});
+        for (ThuocTinhSP_ViewModel t : lstSP) {
+            mol.addRow(new Object[]{t.getStt(), t.getMaSP(), t.getTenSP(), t.getThuongHieu(), t.getMauSac(), t.getsL(), t.getMaKT(), numberFM.format(t.getDonGia())});
         }
     }
-    public DonHang_Model getDonHang(){
+
+    public DonHang_Model getDonHang() {
         int count = Integer.parseInt(DH_SV.getAllDonHang().get(0).getMaHD().substring(2, DH_SV.getAllDonHang().get(0).getMaHD().length())) + 1;
         String ma = "DH" + count;
         System.out.println(ma);
-        return new DonHang_Model(ma, NV_SV.getByMa("NV01"), KH_SV.getBySĐT(txtSĐT.getText()),getDateNow(),0);
+        return new DonHang_Model(ma, NV_SV.getByMa("NV01"), KH_SV.getBySĐT(txtSĐT.getText()), getDateNow(), 0);
     }
+
     public void showDonHang(DonHang_view dh) {
         filltableChiTietDH(dh.getMaHD());
     }
@@ -610,14 +634,14 @@ public class QLDonHang extends javax.swing.JPanel {
             return null;
         }
     }
-    
-    public void addDHChitiet(int index){
+
+    public void addDHChitiet(int index) {
         boolean chk = true;
         int indextbl = tblDonHang.getSelectedRow();
         ThuocTinhSP_Model sp = TTS.getById(lstSP.get(index).getId());
         listGH = ChiTietDH.getChiTietDHMolByMaDH(DH_SV.getAllDonHang().get(indextbl).getMaHD());
         for (ChiTietDH_model c : listGH) {
-            if(sp.getId().equals(c.getThuocTinh().getId())){
+            if (sp.getId().equals(c.getThuocTinh().getId())) {
                 int sl = c.getSl() + 1;
                 c.setSl(sl);
                 c.setDonGia(sl * c.getThuocTinh().getSanPham().getGiaBan());
@@ -625,8 +649,8 @@ public class QLDonHang extends javax.swing.JPanel {
                 chk = false;
             }
         }
-        if(chk == true){
-            ChiTietDH_model dh = new ChiTietDH_model(DH_SV.getDHByMa(DH_SV.getAllDonHang().get(indextbl).getMaHD()),sp, 1,lstSP.get(index).getDonGia() );
+        if (chk == true) {
+            ChiTietDH_model dh = new ChiTietDH_model(DH_SV.getDHByMa(DH_SV.getAllDonHang().get(indextbl).getMaHD()), sp, 1, lstSP.get(index).getDonGia());
             ChiTietDH.add(dh);
         }
         TTS.updateSL(sp, 1);
