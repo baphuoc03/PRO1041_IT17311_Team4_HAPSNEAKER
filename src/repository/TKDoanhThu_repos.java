@@ -21,16 +21,45 @@ public class TKDoanhThu_repos implements ITKDoanhThu_repos {
     @Override
     public List<TKDoanhThu_Model> getTKDoanhThu() {
         List<TKDoanhThu_Model> list = new ArrayList<>();
-        String sql = "SELECT  ? AS \"Thang\",SUM(ctdonhang.SL), Sum(ctdonhang.DonGia) FROM hap_sneaker.donhang\n"
-                + "join ctdonhang on donhang.MaDonHang = ctdonhang.MaDonHang\n"
-                + "WHERE  Month(donhang.NgayTao) = ?";
+        String sql = "SELECT  ? AS \"Tháng\", SUM(ctdonhang.SL), Sum(ctdonhang.DonGia),SUM(ctdonhang.DonGia * (khuyenmai.GiamGia/100)) AS GiamGia,\n"
+                + "Sum(ctdonhang.DonGia) - SUM(ctdonhang.DonGia * (khuyenmai.GiamGia/100)) AS GiaSauGiam\n"
+                + "  FROM sanpham  \n"
+                + "   join thuoctinhsanpham on thuoctinhsanpham.MaSP = sanpham.MaSP\n"
+                + "   join ctdonhang on thuoctinhsanpham.id = ctdonhang.idThuocTinh\n"
+                + "   join donhang on ctdonhang.MaDonHang = donhang.MaDonHang  \n"
+                + "   join kichthuoc on kichthuoc.MaSize = thuoctinhsanpham.MaSize \n"
+                + "   left join km_sp  on sanpham.MaSP = km_sp.MaSP\n"
+                + "	join khuyenmai on khuyenmai.MaKM = km_sp.MaKM\n"
+                + "   WHERE  Month(donhang.NgayTao) = ? AND donhang.NgayTao between NgayBatDau and NgayKetThuc \n"
+                + "Union\n"
+                + "SELECT ? AS \"Tháng\", SUM(ctdonhang.SL) , Sum(ctdonhang.DonGia) ,Sum(ctdonhang.DonGia*(0/100)),Sum(ctdonhang.DonGia)\n"
+                + "	FROM sanpham  \n"
+                + "	join thuoctinhsanpham on thuoctinhsanpham.MaSP = sanpham.MaSP \n"
+                + "    join ctdonhang on thuoctinhsanpham.id = ctdonhang.idThuocTinh\n"
+                + "    join donhang on ctdonhang.MaDonHang = donhang.MaDonHang\n"
+                + "	join kichthuoc on kichthuoc.MaSize = thuoctinhsanpham.MaSize \n"
+                + "	WHERE  Month(donhang.NgayTao) = ? AND sanpham.MaSP NOT IN (SELECT sanpham.MaSP\n"
+                + "                   FROM ctdonhang  \n"
+                + "                   join donhang on ctdonhang.MaDonHang = donhang.MaDonHang  \n"
+                + "                   join thuoctinhsanpham on thuoctinhsanpham.id = ctdonhang.idThuocTinh  \n"
+                + "                   left join sanpham on sanpham.MaSP = thuoctinhsanpham.MaSP  \n"
+                + "                   left join km_sp  on sanpham.MaSP = km_sp.MaSP\n"
+                + "					join khuyenmai on khuyenmai.MaKM = km_sp.MaKM\n"
+                + "                   WHERE  Month(donhang.NgayTao) = ? AND donhang.NgayTao between NgayBatDau and NgayKetThuc) ";
 
         for (int i = 1; i <= 12; i++) {
             try {
-                ResultSet rs = JDBC_Helper.Query(sql, i, i);
+                ResultSet rs = JDBC_Helper.Query(sql, i, i, i, i, i);
+                int thang = 0;
+                float SL = 0, doanhThu = 0, giamGia = 0, giaSauGiam = 0;
                 while (rs.next()) {
-                    list.add(new TKDoanhThu_Model(rs.getInt(1), rs.getInt(2), rs.getFloat(3), 0, rs.getFloat(3)));
+                    thang = rs.getInt(1);
+                    SL += rs.getInt(2);
+                    doanhThu += rs.getFloat(3);
+                    giamGia +=rs.getFloat(4);
+                    giaSauGiam += rs.getFloat(5);
                 }
+                list.add(new TKDoanhThu_Model(thang, (int) SL,doanhThu, giamGia, giaSauGiam));
             } catch (SQLException ex) {
                 Logger.getLogger(TKDoanhThu_repos.class.getName()).log(Level.SEVERE, null, ex);
                 ex.printStackTrace();

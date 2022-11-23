@@ -15,4 +15,5 @@ public interface IThuocTinhSP_Repos {
     List<ThuocTinhSP_Model> GetAllThuocTinhSP();
     ThuocTinhSP_Model getById(String id);
     int undateSL(ThuocTinhSP_Model sp,int SL);
+    List<ThuocTinhSP_Model> FilterThuocTinhSP(String keyWord, String maSize, String MaTH,String MaMau, String MaPL);
 }

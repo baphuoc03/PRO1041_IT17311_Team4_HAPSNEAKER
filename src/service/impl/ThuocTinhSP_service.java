@@ -41,6 +41,18 @@ public class ThuocTinhSP_service implements IThuocTinhSP_Service{
     public int updateSL(ThuocTinhSP_Model sp, int SL) {
         return repo.undateSL(sp, SL);
     }
+
+    @Override
+    public List<ThuocTinhSP_ViewModel> FilterThuocTinhSP(String keyWord, String maSize, String MaTH, String MaMau, String MaPL) {
+        List<ThuocTinhSP_ViewModel> lst_view = new ArrayList<>();
+        list = repo.FilterThuocTinhSP(keyWord, maSize, MaTH, MaMau, MaPL);
+        int stt = 1;
+        for(ThuocTinhSP_Model t : list){
+            lst_view.add(new ThuocTinhSP_ViewModel(stt, t.getId(), t.getSanPham().getMa(), t.getSanPham().getTen(), t.getSanPham().getThuongHieu().getTen(), t.getSanPham().getMauSac().getTen(), t.getKichThuoc().getMa()+"",t.getSl(), t.getSanPham().getGiaBan()));
+            stt++;
+        }
+        return lst_view;
+    }
     
     
 }

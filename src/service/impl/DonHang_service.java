@@ -72,4 +72,9 @@ public class DonHang_service implements IDonHang_service {
         return DH_repos.getDHByMa(ma);
     }
 
+    @Override
+    public int updateKH(DonHang_Model dh) {
+        return DH_repos.updateKH(dh);
+    }
+
 }

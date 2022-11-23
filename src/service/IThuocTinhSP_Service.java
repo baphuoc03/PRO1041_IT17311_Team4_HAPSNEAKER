@@ -16,4 +16,5 @@ public interface IThuocTinhSP_Service {
     List<ThuocTinhSP_ViewModel> GetAllThuocTinhSP();
     ThuocTinhSP_Model getById(String id);
     int updateSL(ThuocTinhSP_Model sp,int SL);
+    List<ThuocTinhSP_ViewModel> FilterThuocTinhSP(String keyWord, String maSize, String MaTH, String MaMau, String MaPL);
 }
