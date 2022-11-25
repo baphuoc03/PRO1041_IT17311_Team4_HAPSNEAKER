@@ -15,4 +15,7 @@ import viewmodel.KhachHang_View;
 public interface IKhachHang_Service {
     List<KhachHang_View> getAllKhachHang();
     KhachHang_Model getBySĐT(String SĐT);
+    int addKH(KhachHang_Model kh);
+    int delKH(String sdt);
+    int updateKH(KhachHang_Model kh);
 }

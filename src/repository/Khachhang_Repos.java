@@ -56,4 +56,20 @@ public class Khachhang_Repos implements IKhachHang_repos{
         System.out.println(kh.getBySĐT("0938475839").toString());
     }
     
+    @Override
+    public int addKH(KhachHang_Model kh) {
+        String sql = "INSERT INTO KHACHHANG(HOTEN, SĐT, GIOITINH, NGAYSINH,EMAIL, DIACHI) VALUES (?,?,?,?,?,?)";
+        return JDBC_Helper.Update(sql, kh.getHoTen(), kh.getSđt(), kh.getGioiTinh(), kh.getNgaySinh(), kh.getEmail(), kh.getDiaChi());
+    }
+
+    @Override
+    public int delKH(String sdt) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public int updateKH(KhachHang_Model kh) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
 }

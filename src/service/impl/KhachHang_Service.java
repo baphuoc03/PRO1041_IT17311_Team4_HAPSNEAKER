@@ -34,6 +34,21 @@ public class KhachHang_Service implements IKhachHang_Service{
     public KhachHang_Model getBySĐT(String SĐT) {
         return kh.getBySĐT(SĐT);
     }
+
+    @Override
+    public int addKH(KhachHang_Model kh) {
+        return this.kh.addKH(kh);
+    }
+
+    @Override
+    public int delKH(String sdt) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public int updateKH(KhachHang_Model kh) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
 
 }
