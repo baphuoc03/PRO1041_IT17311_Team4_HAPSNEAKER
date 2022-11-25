@@ -81,4 +81,6 @@ public class ThuocTinhSP_repos implements IThuocTinhSP_Repos {
         String sql = "Update thuoctinhsanpham set SoLuong = ? WHERE Id = ?";
         return JDBC_Helper.Update(sql,sp.getSl()-SL,sp.getId());
     }
+    
+    
 }

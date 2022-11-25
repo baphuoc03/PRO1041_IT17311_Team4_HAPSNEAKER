@@ -14,7 +14,7 @@ import java.sql.*;
  */
 public class JDBC_Helper {
     private static String user = "root";
-    private static String pass = "Baphuoc03";
+    private static String pass = "19062003";
     private static String url = "jdbc:mysql://localhost:3306/hap_sneaker?zeroDateTimeBehavior=CONVERT_TO_NULL";
     static{
         try { 

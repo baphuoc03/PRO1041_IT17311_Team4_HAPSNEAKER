@@ -13,4 +13,8 @@ import model.SanPham_Model;
  */
 public interface ISanPham_repos {
     List<SanPham_Model> GetAllSanPham();
+    SanPham_Model GetSanPhamByMa(String ma);
+    int add(SanPham_Model s);
+    int delete(String s);
+    int update(SanPham_Model s);
 }

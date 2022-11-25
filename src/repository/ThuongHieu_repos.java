@@ -38,7 +38,7 @@ public class ThuongHieu_repos implements IThuongHieu_Repos{
     public ThuongHieu_Model getThuongHieuByMa(String ma) {
         ThuongHieu_Model TH = null;
         String sql = "SELECT * FROM hap_sneaker.thuonghieu WHERE MaThuongHieu = ?";
-        ResultSet rs= JDBC_Helper.Query(sql);
+        ResultSet rs= JDBC_Helper.Query(sql,ma);
         try {
             while(rs.next()){
                 TH = new ThuongHieu_Model(rs.getString(1),rs.getString(2));

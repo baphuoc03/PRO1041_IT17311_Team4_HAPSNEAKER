@@ -38,7 +38,7 @@ public class MauSac_repos implements IMauSac_repos {
     public MauSac_Model getByMa(String ma) {
        MauSac_Model MS = null;
         String sql = "SELECT * FROM hap_sneaker.mausac WHERE MaMau = ?";
-        ResultSet rs = JDBC_Helper.Query(sql);
+        ResultSet rs = JDBC_Helper.Query(sql,ma);
         try {
             while (rs.next()) {
                 MS = new MauSac_Model(rs.getString(1), rs.getString(2));
