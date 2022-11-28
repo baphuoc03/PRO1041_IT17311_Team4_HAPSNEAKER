@@ -22,7 +22,7 @@ public class NhanVien_Repos implements INhanVien_Repos{
     @Override
     public List<NhanVien_Model> getAllNhanVien() {
         List<NhanVien_Model> list = new ArrayList<>();
-        String sql = "select MANV,  HOTEN, GIOITINH, NGAYSINH, SĐT, DIACHI, PASSWORD, CHUCVU.MACHUCVU,CHUCVU.Ten \n" +
+        String sql = "select MANV,  HOTEN, GIOITINH, NGAYSINH, SĐT, GIACHI, PASSWORD, CHUCVU.MACHUCVU,CHUCVU.Ten \n" +
         "from nhanvien JOIN chucvu ON NHANVIEN.MACHUCVU = CHUCVU.MACHUCVU";
         
         ResultSet rs = JDBC_Helper.Query(sql);
@@ -50,7 +50,7 @@ public class NhanVien_Repos implements INhanVien_Repos{
     @Override
     public NhanVien_Model getByMa(String ma) {
        NhanVien_Model NV = null;
-        String sql = "select MANV,  HOTEN, GIOITINH, NGAYSINH, SĐT, DIACHI, PASSWORD, CHUCVU.MACHUCVU,CHUCVU.Ten \n" +
+        String sql = "select MANV,  HOTEN, GIOITINH, NGAYSINH, SĐT, GIACHI, PASSWORD, CHUCVU.MACHUCVU,CHUCVU.Ten \n" +
         "from nhanvien JOIN chucvu ON NHANVIEN.MACHUCVU = CHUCVU.MACHUCVU "
                 + "WHERE MaNV = ?";
         
