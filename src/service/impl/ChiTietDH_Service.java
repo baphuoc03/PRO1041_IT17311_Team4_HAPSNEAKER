@@ -8,25 +8,25 @@ import java.util.ArrayList;
 import java.util.List;
 import model.ChiTietDH_model;
 import repository.ChiTietDH_repos;
-import repository.IChiTietDH_repos;
 import viewmodel.ChiTietDH_View;
 import service.IChiTietDH_Service;
+import repository.IChiTietDH_repo;
 
 /**
  *
  * @author baphuoc
  */
 public class ChiTietDH_Service implements IChiTietDH_Service{
-    IChiTietDH_repos ctDH_repos = new ChiTietDH_repos();
+    IChiTietDH_repo ctDH_repos = new ChiTietDH_repos();
     @Override
     public List<ChiTietDH_View> getChiTietDHByMaDH(String maHD) {
         List<ChiTietDH_model> list = ctDH_repos.getChiTietDHByMaDH(maHD);
         List<ChiTietDH_View> list_view = new ArrayList<>();
         int stt=1;
         for (ChiTietDH_model c : list) {
-            float donGia =  c.getSl()*c.getDonGia();
+            float donGia =  c.getSl()*c.getThuocTinh().getSanPham().getGiaBan();
             float tienSauGiam = donGia - donGia*0;
-            list_view.add(new ChiTietDH_View(stt,c.getThuocTinh().getSanPham().getMa(), c.getThuocTinh().getSanPham().getTen(),c.getThuocTinh().getKichThuoc().getMa(), c.getSl(), c.getDonGia(),donGia, 0, tienSauGiam));
+            list_view.add(new ChiTietDH_View(stt,c.getThuocTinh().getSanPham().getMa(), c.getThuocTinh().getSanPham().getTen(),c.getThuocTinh().getKichThuoc().getMa(), c.getSl(), c.getThuocTinh().getSanPham().getGiaBan(),donGia, 0, tienSauGiam));
             stt++;
         }
         return list_view;

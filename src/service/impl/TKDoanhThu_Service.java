@@ -7,10 +7,10 @@ package service.impl;
 import java.util.ArrayList;
 import java.util.List;
 import model.TKDoanhThu_Model;
-import repository.ITKDoanhThu_repos;
 import repository.TKDoanhThu_repos;
-import service.ITKDoanhThu_service;
 import viewmodel.TKDoanhThu_View;
+import service.ITKDoanhThu_service;
+import repository.ITKDoanhThu_repo;
 
 /**
  *
@@ -18,7 +18,7 @@ import viewmodel.TKDoanhThu_View;
  */
 public class TKDoanhThu_Service implements ITKDoanhThu_service {
 
-    ITKDoanhThu_repos TK_repos = new TKDoanhThu_repos();
+    ITKDoanhThu_repo TK_repos = new TKDoanhThu_repos();
     List<TKDoanhThu_Model> list;
 
     @Override

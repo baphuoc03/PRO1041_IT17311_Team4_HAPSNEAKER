@@ -7,17 +7,17 @@ package service.impl;
 import java.util.ArrayList;
 import java.util.List;
 import model.PhanLoai_Model;
-import repository.IPhanLoai_repos;
 import repository.PhanLoai_repos;
 import viewmodel.PhanLoai_View;
 import service.IPhanLoai_Service;
+import repository.IPhanLoai_repo;
 
 /**
  *
  * @author baphuoc
  */
 public class PhanLoai_Service implements IPhanLoai_Service{
-    IPhanLoai_repos PL_repos = new PhanLoai_repos();
+    IPhanLoai_repo PL_repos = new PhanLoai_repos();
     List<PhanLoai_Model> List;
 
     @Override

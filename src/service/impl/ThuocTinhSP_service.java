@@ -6,11 +6,11 @@ package service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-import repository.IThuocTinhSP_Repos;
 import model.ThuocTinhSP_Model;
 import viewmodel.ThuocTinhSP_ViewModel;
 import repository.ThuocTinhSP_repos;
 import service.IThuocTinhSP_Service;
+import repository.IThuocTinhSP_Repo;
 
 /**
  *
@@ -18,7 +18,7 @@ import service.IThuocTinhSP_Service;
  */
 
 public class ThuocTinhSP_service implements IThuocTinhSP_Service{
-    IThuocTinhSP_Repos repo = new ThuocTinhSP_repos();
+    IThuocTinhSP_Repo repo = new ThuocTinhSP_repos();
     List<ThuocTinhSP_Model> list;
     
     public List<ThuocTinhSP_ViewModel> GetAllThuocTinhSP(){
@@ -40,6 +40,18 @@ public class ThuocTinhSP_service implements IThuocTinhSP_Service{
     @Override
     public int updateSL(ThuocTinhSP_Model sp, int SL) {
         return repo.undateSL(sp, SL);
+    }
+
+    @Override
+    public List<ThuocTinhSP_ViewModel> FilterThuocTinhSP(String keyWord, String maSize, String MaTH, String MaMau, String MaPL) {
+        List<ThuocTinhSP_ViewModel> lst_view = new ArrayList<>();
+        list = repo.FilterThuocTinhSP(keyWord, maSize, MaTH, MaMau, MaPL);
+        int stt = 1;
+        for(ThuocTinhSP_Model t : list){
+            lst_view.add(new ThuocTinhSP_ViewModel(stt, t.getId(), t.getSanPham().getMa(), t.getSanPham().getTen(), t.getSanPham().getThuongHieu().getTen(), t.getSanPham().getMauSac().getTen(), t.getKichThuoc().getMa()+"",t.getSl(), t.getSanPham().getGiaBan()));
+            stt++;
+        }
+        return lst_view;
     }
     
     

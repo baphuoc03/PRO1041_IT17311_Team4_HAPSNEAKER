@@ -7,17 +7,18 @@ package service.impl;
 import java.util.ArrayList;
 import java.util.List;
 import model.ThuongHieu_Model;
-import repository.IThuongHieu_Repos;
 import repository.ThuongHieu_repos;
-import service.IThuongHieu_Service;
 import viewmodel.ThuongHieu_View;
+import service.IThuongHieu_Service;
+import repository.IThuongHieu_Repo;
 
 /**
  *
  * @author baphuoc
  */
 public class ThuongHieu_Service implements IThuongHieu_Service{
-    IThuongHieu_Repos TH_repos = new ThuongHieu_repos();
+    IThuongHieu_Repo TH_repos = new ThuongHieu_repos();
+     List<ThuongHieu_Model> lstTHM;
     @Override
     public List<ThuongHieu_View> getAllThuongHieu() {
         List<ThuongHieu_Model> list = TH_repos.getAllThuongHieu();
@@ -31,8 +32,33 @@ public class ThuongHieu_Service implements IThuongHieu_Service{
     }
 
     @Override
-    public ThuongHieu_Model getThuongHieuByMa(String ma) {
-        return TH_repos.getThuongHieuByMa(ma);
+    public ThuongHieu_Model GetThuongHieuByMa(String ma) {
+        for(ThuongHieu_Model t : lstTHM){
+            if(t.getMa().equalsIgnoreCase(ma)){
+               return t; 
+            }
+        }
+        return null;
     }
+    
+    @Override
+    public int Add(ThuongHieu_Model th){
+        return TH_repos.Add(th);
+    }
+    
+    @Override
+    public int Update(ThuongHieu_Model th){
+        return TH_repos.update(th);
+    }
+    
+    @Override
+    public int Delete(String ma){
+        return TH_repos.delete(ma);
+    }
+    @Override
+    public ThuongHieu_Model getByMa(String ma) {
+        return TH_repos.getThuongHieuByMa1(ma);
+    }
+
     
 }

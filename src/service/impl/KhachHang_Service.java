@@ -7,17 +7,17 @@ package service.impl;
 import java.util.ArrayList;
 import java.util.List;
 import model.KhachHang_Model;
-import repository.IKhachHang_repos;
 import repository.Khachhang_Repos;
-import service.IKhachHang_Service;
 import viewmodel.KhachHang_View;
+import service.IKhachHang_Service;
+import repository.IKhachHang_repo;
 
 /**
  *
  * @author admin
  */
 public class KhachHang_Service implements IKhachHang_Service{
-    IKhachHang_repos kh = new Khachhang_Repos();
+    IKhachHang_repo kh = new Khachhang_Repos();
     List<KhachHang_Model> list;
 
     @Override

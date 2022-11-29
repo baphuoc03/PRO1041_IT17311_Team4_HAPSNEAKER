@@ -15,7 +15,7 @@ import ultinities.JDBC_Helper;
  *
  * @author admin
  */
-public class Khachhang_Repos implements IKhachHang_repos{
+public class Khachhang_Repos implements IKhachHang_repo{
 
     @Override
     public List<KhachHang_Model> getAllKhachHang() {
@@ -52,7 +52,7 @@ public class Khachhang_Repos implements IKhachHang_repos{
         }
     }
     public static void main(String[] args) {
-        IKhachHang_repos kh = new Khachhang_Repos();
+        IKhachHang_repo kh = new Khachhang_Repos();
         System.out.println(kh.getBySĐT("0938475839").toString());
     }
     

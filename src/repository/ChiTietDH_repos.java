@@ -20,7 +20,7 @@ import ultinities.JDBC_Helper;
  *
  * @author baphuoc
  */
-public class ChiTietDH_repos implements IChiTietDH_repos {
+public class ChiTietDH_repos implements IChiTietDH_repo {
 
     @Override
     public List<ChiTietDH_model> getChiTietDHByMaDH(String maHD) {
@@ -51,7 +51,7 @@ public class ChiTietDH_repos implements IChiTietDH_repos {
         }
     }
     public static void main(String[] args) {
-        IChiTietDH_repos DH = new ChiTietDH_repos();
+        IChiTietDH_repo DH = new ChiTietDH_repos();
         for (ChiTietDH_model chiTietDH_model : DH.getChiTietDHByMaDH("DH1")) {
             System.out.println(chiTietDH_model.toString());
         }

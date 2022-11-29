@@ -17,7 +17,7 @@ import model.ChucVu_Model;
  *
  * @author admin
  */
-public class NhanVien_Repos implements INhanVien_Repos{
+public class NhanVien_Repos implements INhanVien_Repo{
 
     @Override
     public List<NhanVien_Model> getAllNhanVien() {

@@ -7,17 +7,17 @@ package service.impl;
 import java.util.ArrayList;
 import java.util.List;
 import model.NhanVien_Model;
-import repository.INhanVien_Repos;
 import repository.NhanVien_Repos;
-import service.INhanVien_Service;
 import viewmodel.NhanVien_View;
+import service.INhanVien_Service;
+import repository.INhanVien_Repo;
 
 /**
  *
  * @author admin
  */
 public class NhanVien_Service implements INhanVien_Service{
-    INhanVien_Repos nv = new NhanVien_Repos();
+    INhanVien_Repo nv = new NhanVien_Repos();
     List<NhanVien_Model> list;
 
     @Override

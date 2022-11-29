@@ -8,14 +8,14 @@ package model;
  *
  * @author baphuoc
  */
-public class KmSp_MoDel {
+public class KmSp_Model {
     private KhuyenMai_Model khuyenMai;
     private SanPham_Model sanPham;
 
-    public KmSp_MoDel() {
+    public KmSp_Model() {
     }
 
-    public KmSp_MoDel(KhuyenMai_Model khuyenMai, SanPham_Model sanPham) {
+    public KmSp_Model(KhuyenMai_Model khuyenMai, SanPham_Model sanPham) {
         this.khuyenMai = khuyenMai;
         this.sanPham = sanPham;
     }
