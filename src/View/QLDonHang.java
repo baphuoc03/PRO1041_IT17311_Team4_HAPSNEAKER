@@ -148,6 +148,16 @@ public class QLDonHang extends javax.swing.JPanel {
         jScrollPane5 = new javax.swing.JScrollPane();
         tblChiTietDH1 = new javax.swing.JTable();
 
+        MouseRightTblGioHang.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                MouseRightTblGioHangAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+
         UpdateSL.setText("Sửa Số Lượng");
         UpdateSL.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1004,7 +1014,7 @@ public class QLDonHang extends javax.swing.JPanel {
                         return;
                     }
                 }
-                ChiTietDH_model dh = new ChiTietDH_model(DH_SV.getDHByMa(txtDonHang.getText()), sp, sl, lstSP.get(index).getDonGia());
+                ChiTietDH_model dh = new ChiTietDH_model(DH_SV.getDHByMa(txtDonHang.getText()), sp, sl, lstSP.get(index).getDonGia()*sl);
                 ChiTietDH.add(dh);
                 TTS.updateSL(sp, sl);
                 FillSP();
@@ -1059,6 +1069,10 @@ public class QLDonHang extends javax.swing.JPanel {
 //        lstSP = TTS.FilterThuocTinhSP(keyWord, maSize, maTH, maMau, maPL);
 //        FillSP(lstSP);
     }//GEN-LAST:event_cboThuongHieuItemStateChanged
+
+    private void MouseRightTblGioHangAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_MouseRightTblGioHangAncestorAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MouseRightTblGioHangAncestorAdded
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPopupMenu MouseRightTblGioHang;

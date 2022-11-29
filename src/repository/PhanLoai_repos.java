@@ -22,7 +22,7 @@ public class PhanLoai_repos implements IPhanLoai_repos {
     @Override
     public List<PhanLoai_Model> getAllThuongHieu() {
         List<PhanLoai_Model> list = new ArrayList<>();
-        String sql = "SELECT * FROM hap_sneaker.phanloai;";
+        String sql = "SELECT * FROM phanloai;";
         ResultSet rs = JDBC_Helper.Query(sql);
         try {
             while (rs.next()) {
@@ -38,7 +38,7 @@ public class PhanLoai_repos implements IPhanLoai_repos {
     @Override
     public PhanLoai_Model getByMa(String ma) {
     PhanLoai_Model PL = null;
-        String sql = "SELECT * FROM hap_sneaker.phanloai WHERE MaPhanLoai = ?";
+        String sql = "SELECT * FROM Sneaker_hap.phanloai WHERE MaPhanLoai = ?";
         ResultSet rs = JDBC_Helper.Query(sql,ma);
         try {
             while (rs.next()) {

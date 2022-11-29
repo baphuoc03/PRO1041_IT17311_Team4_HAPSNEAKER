@@ -9,7 +9,7 @@ package viewmodel;
  * @author 84353
  */
 public class ThuocTinhSP_ViewModel {
-    private int stt;
+   private int stt;
     private String id;
     private String maSP;
     private String tenSP;
@@ -108,7 +108,4 @@ public class ThuocTinhSP_ViewModel {
         this.sL = sL;
     }
 
-    
-    
-    
 }

@@ -24,9 +24,9 @@ public class ChiTietDH_Service implements IChiTietDH_Service{
         List<ChiTietDH_View> list_view = new ArrayList<>();
         int stt=1;
         for (ChiTietDH_model c : list) {
-            float donGia =  c.getSl()*c.getDonGia();
+            float donGia =  c.getSl()*c.getThuocTinh().getSanPham().getGiaBan();
             float tienSauGiam = donGia - donGia*0;
-            list_view.add(new ChiTietDH_View(stt,c.getThuocTinh().getSanPham().getMa(), c.getThuocTinh().getSanPham().getTen(),c.getThuocTinh().getKichThuoc().getMa(), c.getSl(), c.getDonGia(),donGia, 0, tienSauGiam));
+            list_view.add(new ChiTietDH_View(stt,c.getThuocTinh().getSanPham().getMa(), c.getThuocTinh().getSanPham().getTen(),c.getThuocTinh().getKichThuoc().getMa(), c.getSl(), c.getThuocTinh().getSanPham().getGiaBan(),donGia, 0, tienSauGiam));
             stt++;
         }
         return list_view;

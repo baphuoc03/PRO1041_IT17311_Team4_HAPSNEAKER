@@ -1,11 +1,13 @@
-package view;
+package View;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import service.IThuongHieu_Service;
 import service.impl.ThuongHieu_Service;
 import viewmodel.ThuongHieu_View;
+import model.ThuongHieu_Model;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -17,9 +19,11 @@ import viewmodel.ThuongHieu_View;
  * @author 84353
  */
 public class QLThuongHieu extends javax.swing.JPanel {
-    IThuongHieu_Service TH_service = new ThuongHieu_Service();
+    IThuongHieu_Service th = new ThuongHieu_Service();
     List<ThuongHieu_View> list;
+    List<ThuongHieu_Model> lstTH = new ArrayList<>();
     DefaultTableModel mol;
+    String idWhenClick;
     /**
      * Creates new form QLThuongHieu
      */
@@ -28,6 +32,14 @@ public class QLThuongHieu extends javax.swing.JPanel {
         fillTableThuongHieu();
     }
 
+    public void ShowThuongHieu(){
+        int i = tblThuongHieu.getSelectedRow();
+        if(i == -1) return;
+        idWhenClick = tblThuongHieu.getModel().getValueAt(i, 1).toString();
+        var t = th.GetThuongHieuByMa(idWhenClick);
+        txtMaTH.setText(t.getMa());
+        txtTenTH.setText(t.getTen());
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -45,11 +57,11 @@ public class QLThuongHieu extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        txtTenTH = new javax.swing.JTextField();
+        txtMaTH = new javax.swing.JTextField();
+        btnThem = new javax.swing.JButton();
+        btnSua = new javax.swing.JButton();
+        btnXoa = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -69,6 +81,11 @@ public class QLThuongHieu extends javax.swing.JPanel {
                 "STT", "Mã", "Tên"
             }
         ));
+        tblThuongHieu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblThuongHieuMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblThuongHieu);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -103,11 +120,26 @@ public class QLThuongHieu extends javax.swing.JPanel {
 
         jLabel3.setText("Tên thương hiệu:");
 
-        jButton2.setText("Thêm");
+        btnThem.setText("Thêm");
+        btnThem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Sửa");
+        btnSua.setText("Sửa");
+        btnSua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSuaActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText("Xóa");
+        btnXoa.setText("Xóa");
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("Clear");
 
@@ -121,21 +153,21 @@ public class QLThuongHieu extends javax.swing.JPanel {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField3))
+                        .addComponent(txtMaTH))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtTenTH, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(14, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(60, 60, 60)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton4)
-                    .addComponent(jButton2))
+                    .addComponent(btnXoa)
+                    .addComponent(btnThem))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton5)
-                    .addComponent(jButton3))
+                    .addComponent(btnSua))
                 .addGap(117, 117, 117))
         );
         jPanel2Layout.setVerticalGroup(
@@ -144,18 +176,18 @@ public class QLThuongHieu extends javax.swing.JPanel {
                 .addGap(26, 26, 26)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtMaTH, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTenTH, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(55, 55, 55)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(btnThem)
+                    .addComponent(btnSua))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton4)
+                    .addComponent(btnXoa)
                     .addComponent(jButton5))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -210,12 +242,36 @@ public class QLThuongHieu extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
+        // TODO add your handling code here:
+        
+        JOptionPane.showMessageDialog(this, th.Add(GetThuongHieu()));
+        fillTableThuongHieu();
+    }//GEN-LAST:event_btnThemActionPerformed
+
+    private void tblThuongHieuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblThuongHieuMouseClicked
+        // TODO add your handling code here:
+        ShowThuongHieu();
+    }//GEN-LAST:event_tblThuongHieuMouseClicked
+
+    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
+        // TODO add your handling code here:
+        th.Update(GetThuongHieu());
+        fillTableThuongHieu();
+    }//GEN-LAST:event_btnSuaActionPerformed
+
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        // TODO add your handling code here:
+        th.Delete(GetThuongHieu().getMa());
+        fillTableThuongHieu();
+    }//GEN-LAST:event_btnXoaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnSua;
+    private javax.swing.JButton btnThem;
+    private javax.swing.JButton btnXoa;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -225,16 +281,22 @@ public class QLThuongHieu extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JTable tblThuongHieu;
+    private javax.swing.JTextField txtMaTH;
+    private javax.swing.JTextField txtTenTH;
     // End of variables declaration//GEN-END:variables
     public void fillTableThuongHieu(){
-        list = TH_service.getAllThuongHieu();
+        list = th.getAllThuongHieu();
         mol = (DefaultTableModel) tblThuongHieu.getModel();
         mol.setRowCount(0);
         for (ThuongHieu_View t : list) {
             mol.addRow(new Object[]{t.getStt(),t.getMa(),t.getTen()});
         }
     }
+    
+    public ThuongHieu_Model GetThuongHieu(){
+        return new ThuongHieu_Model(txtMaTH.getText(), txtTenTH.getText());
+    }
+    
+    
 }

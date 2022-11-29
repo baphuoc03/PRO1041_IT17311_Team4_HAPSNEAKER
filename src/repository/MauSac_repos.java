@@ -21,7 +21,7 @@ public class MauSac_repos implements IMauSac_repos {
     @Override
     public List<MauSac_Model> getAllMauSac() {
         List<MauSac_Model> list = new ArrayList<>();
-        String sql = "SELECT * FROM hap_sneaker.mausac;";
+        String sql = "SELECT * FROM mausac;";
         ResultSet rs = JDBC_Helper.Query(sql);
         try {
             while (rs.next()) {
@@ -36,8 +36,8 @@ public class MauSac_repos implements IMauSac_repos {
 
     @Override
     public MauSac_Model getByMa(String ma) {
-       MauSac_Model MS = null;
-        String sql = "SELECT * FROM hap_sneaker.mausac WHERE MaMau = ?";
+        MauSac_Model MS = null;
+        String sql = "SELECT * FROM Sneaker_hap.mausac WHERE MaMau = ?";
         ResultSet rs = JDBC_Helper.Query(sql);
         try {
             while (rs.next()) {
@@ -48,5 +48,23 @@ public class MauSac_repos implements IMauSac_repos {
             ex.printStackTrace();
             return null;
         }
+    }
+
+  
+    public int add(MauSac_Model m) {
+        String sql = "insert into Sneaker_hap.mausac(MaMau,Ten) Values(?,?)";
+        return JDBC_Helper.Update(sql, m.getMa(), m.getTen());
+    }
+
+   
+    public int delete(String ma) {
+        String sql = "delete from Sneaker_hap.mausac where MaMau = ?";
+        return JDBC_Helper.Update(sql, ma);
+    }
+
+  
+    public int update(MauSac_Model m) {
+        String sql = "Update Sneaker_hap.mausac Set MaMau = ?, Ten = ? where MaMau = ?";
+        return JDBC_Helper.Update(sql, m.getMa(), m.getTen(), m.getMa());
     }
 }

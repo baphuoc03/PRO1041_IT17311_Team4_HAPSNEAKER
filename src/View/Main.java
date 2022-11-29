@@ -1,5 +1,6 @@
 package view;
 
+import View.QLSanPham;
 import java.awt.Panel;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
