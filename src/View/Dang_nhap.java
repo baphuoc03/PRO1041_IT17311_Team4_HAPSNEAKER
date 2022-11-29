@@ -5,12 +5,18 @@
 package View;
 
 import View.Main;
+import javax.swing.JOptionPane;
+import model.NhanVien_Model;
+import service.INhanVien_Service;
+import service.impl.NhanVien_Service;
 
 /**
  *
  * @author Tuan Anh
  */
 public class Dang_nhap extends javax.swing.JFrame {
+
+    INhanVien_Service nv_sv = new NhanVien_Service();
 
     /**
      * Creates new form Dang_nhap
@@ -38,7 +44,7 @@ public class Dang_nhap extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         chkShow = new javax.swing.JCheckBox();
         jButton1 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        txtUser = new javax.swing.JTextField();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
         jLabel6 = new javax.swing.JLabel();
@@ -85,7 +91,7 @@ public class Dang_nhap extends javax.swing.JFrame {
             }
         });
 
-        jTextField1.setForeground(new java.awt.Color(2, 120, 217));
+        txtUser.setForeground(new java.awt.Color(2, 120, 217));
 
         buttonGroup1.add(jRadioButton1);
         jRadioButton1.setForeground(new java.awt.Color(2, 120, 217));
@@ -126,7 +132,7 @@ public class Dang_nhap extends javax.swing.JFrame {
                                     .addComponent(jLabel4))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(chkShow)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -145,7 +151,7 @@ public class Dang_nhap extends javax.swing.JFrame {
                 .addContainerGap(44, Short.MAX_VALUE))
         );
 
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jTextField1, txtPass});
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txtPass, txtUser});
 
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -155,7 +161,7 @@ public class Dang_nhap extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(23, 23, 23)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -192,9 +198,16 @@ public class Dang_nhap extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        Main main = new Main();
-        main.setVisible(true);
-        this.dispose();
+        NhanVien_Model user = getNVByForm();
+        if (user != null) {
+            Main main = new Main();
+            main.lblTenNV.setText(user.getMa()+" - "+user.getHoTen());
+            main.lblChucVu.setText(user.getChucVu().getTen());
+            main.setVisible(true);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Thông Tin Đăng Nhập Khôgn Chính Xác", "Lỗi Đăng Nhập", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
@@ -206,9 +219,9 @@ public class Dang_nhap extends javax.swing.JFrame {
 
     private void chkShowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkShowActionPerformed
         // TODO add your handling code here:
-        if(chkShow.isSelected() == true){
-            txtPass.setEchoChar((char)0);
-        }else{
+        if (chkShow.isSelected() == true) {
+            txtPass.setEchoChar((char) 0);
+        } else {
             txtPass.setEchoChar('*');
         }
     }//GEN-LAST:event_chkShowActionPerformed
@@ -262,7 +275,13 @@ public class Dang_nhap extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JPasswordField txtPass;
+    private javax.swing.JTextField txtUser;
     // End of variables declaration//GEN-END:variables
+    public NhanVien_Model getNVByForm() {
+        String user = txtUser.getText();
+        String pass = txtPass.getText();
+        NhanVien_Model nv = nv_sv.LoginNhanVien(user, pass);
+        return nv;
+    }
 }

@@ -31,6 +31,7 @@ import service.IMauSac_Service;
 import service.ISanPham_Service;
 import service.IThuocTinhSP_Service;
 import service.IThuongHieu_Service;
+import viewmodel.KichThuoc_View;
 
 /**
  *
@@ -75,12 +76,12 @@ public class QLSanPham extends javax.swing.JPanel {
         for(ThuocTinhSP_ViewModel t : lstTT){
             dtm.addRow(new Object[]{t.getStt(),t.getId(),t.getMaSP(),t.getMaKT(),t.getsL()});
         }
-        lstKT = TTS.GetAllKT();
+        List<KichThuoc_View> lstKT = KTS.getAllKichThuoc();
         for(var x : lstKT){
-            KTCBB.addElement(x.getMa());
+            KTCBB.addElement(x.getMaSize());
         }
         
-        lstSPM = TTS.GetAllSP();
+        lstSP = SPS.GetAllSanPham();
         for(var x : lstSP){
             SPCBB.addElement(x.getMa());
         }
@@ -108,7 +109,7 @@ public class QLSanPham extends javax.swing.JPanel {
         int i = tblBangSP.getSelectedRow();
         if(i == -1) return;
         idWhenclick = tblBangSP.getModel().getValueAt(i, 1).toString();
-        var s = SPS.GetSanPhamByMa(idWhenclick);
+        var s = SPS.getSPByMa(idWhenclick);
         txtMaSP.setText(s.getMa());
         txtTenSP.setText(s.getTen());
         txtMoTa.setText(s.getMoTa());
@@ -122,7 +123,7 @@ public class QLSanPham extends javax.swing.JPanel {
         int i = tblPhanLoai.getSelectedRow();
         if(i == -1)return;
         idWhenclick = tblPhanLoai.getModel().getValueAt(i, 1).toString();
-        var t = TTS.GetThuongHieuSPByMa(idWhenclick);
+        var t = TTS.getById(idWhenclick);
         txtSoLuong.setText(String.valueOf(t.getSl()));
         cbbSP.setSelectedItem(lstTT.get(i).getMaSP().toString());
         cbbMaSize.setSelectedItem(lstTT.get(i).getMaKT().toString());
@@ -132,9 +133,9 @@ public class QLSanPham extends javax.swing.JPanel {
         String Ma = txtMaSP.getText();
         String Ten = txtTenSP.getText();
         String TH = cbbThuongHieu.getSelectedItem().toString();
-        ThuongHieu_Mode t = THS.getByMa(TH);
+        ThuongHieu_Model t = THS.getByMa(TH);
         String MS = cbbMaMau.getSelectedItem().toString();
-        MauSac_Mode m = MSS.getByMa(MS);
+        MauSac_Model m = MSS.getByMa(MS);
         String moTa = txtMoTa.getText();
         String giaNhap = txtGiaNhap.getText();
         String giaBan = txtGiaBan.getText();
@@ -151,9 +152,9 @@ public class QLSanPham extends javax.swing.JPanel {
         public ThuocTinhSP_Model GetDataThuocTinhSP(){
             String id = null;
             String maSP = cbbSP.getSelectedItem().toString();
-            SanPham_Model s = SPS.GetByMa(maSP);
+            SanPham_Model s = SPS.getSPByMa(maSP);
             String maKT = cbbMaSize.getSelectedItem().toString();
-            KichThuoc_Mode k = KTS.getByMa(maKT);
+            KichThuoc_Model k = KTS.getByMa(maKT);
             String SL = txtSoLuong.getText();
             
             return new ThuocTinhSP_Model(id, s, k, Integer.valueOf(SL));
@@ -253,7 +254,7 @@ public class QLSanPham extends javax.swing.JPanel {
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Bảng thông tin sản phẩm"));
 
         tblBangSP.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -297,7 +298,7 @@ public class QLSanPham extends javax.swing.JPanel {
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Thông Tin Sản Phẩm"));
 
         jLabel2.setText("Mã sản phẩm:");
 
@@ -557,7 +558,7 @@ public class QLSanPham extends javax.swing.JPanel {
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null));
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Thuộc Tính Sản Phẩm"));
 
         tblPhanLoai.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -601,7 +602,7 @@ public class QLSanPham extends javax.swing.JPanel {
         );
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(null));
+        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Thông Tin Thuộc Tính"));
 
         jLabel11.setText("Sản phẩm:");
 

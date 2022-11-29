@@ -15,4 +15,5 @@ import viewmodel.NhanVien_View;
 public interface INhanVien_Service {
      List<NhanVien_View> getAllNhanVien();
      NhanVien_Model getByMa(String ma);
+     NhanVien_Model LoginNhanVien(String ma, String pass);
 }

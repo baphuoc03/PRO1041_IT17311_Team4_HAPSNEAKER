@@ -14,4 +14,5 @@ import model.NhanVien_Model;
 public interface INhanVien_Repo {
     List<NhanVien_Model> getAllNhanVien();
     NhanVien_Model getByMa(String ma);
+    NhanVien_Model LoginNhanVien(String ma,String pass);
 }
