@@ -42,12 +42,12 @@ public class KhachHang_Service implements IKhachHang_Service{
 
     @Override
     public int delKH(String sdt) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return this.kh.delKH(sdt);
     }
 
     @Override
     public int updateKH(KhachHang_Model kh) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return this.kh.updateKH(kh);
     }
     
 

@@ -13,5 +13,9 @@ import model.NhanVien_Model;
  */
 public interface INhanVien_Repos {
     List<NhanVien_Model> getAllNhanVien();
+    List<NhanVien_Model> getNVbyCV(String maCV);
     NhanVien_Model getByMa(String ma);
+    int addNV(NhanVien_Model nv);
+    int delNV(String manv);
+    int updateNV(NhanVien_Model nv);
 }

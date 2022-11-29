@@ -12,9 +12,13 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/admin/DUAN1/PRO1041_IT17311_Team4_HAPSNEAKER/src/repository/INhanVien_Repos.java</file>
             <file>file:/C:/Users/admin/DUAN1/PRO1041_IT17311_Team4_HAPSNEAKER/src/repository/NhanVien_Repos.java</file>
+            <file>file:/C:/Users/admin/DUAN1/PRO1041_IT17311_Team4_HAPSNEAKER/src/View/NhanVien.java</file>
+            <file>file:/C:/Users/admin/DUAN1/PRO1041_IT17311_Team4_HAPSNEAKER/src/service/INhanVien_Service.java</file>
+            <file>file:/C:/Users/admin/DUAN1/PRO1041_IT17311_Team4_HAPSNEAKER/src/service/impl/NhanVien_Service.java</file>
             <file>file:/C:/Users/admin/DUAN1/PRO1041_IT17311_Team4_HAPSNEAKER/src/View/Main.java</file>
-            <file>file:/C:/Users/admin/DUAN1/PRO1041_IT17311_Team4_HAPSNEAKER/src/View/KhachHang.java</file>
+            <file>file:/C:/Users/admin/DUAN1/PRO1041_IT17311_Team4_HAPSNEAKER/src/repository/ChucVu_repos.java</file>
         </group>
     </open-files>
 </project-private>

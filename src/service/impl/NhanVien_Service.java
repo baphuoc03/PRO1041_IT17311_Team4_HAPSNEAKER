@@ -22,8 +22,18 @@ public class NhanVien_Service implements INhanVien_Service{
 
     @Override
     public List<NhanVien_View> getAllNhanVien() {
-       List<NhanVien_View> list_view = new ArrayList<>();
+        List<NhanVien_View> list_view = new ArrayList<>();
        list = nv.getAllNhanVien();
+       for(NhanVien_Model n : list){
+           list_view.add(new NhanVien_View(n.getMa(), n.getHoTen(), n.getGioiTinh(), n.getNgaySinh(), n.getSđt(), n.getDiaChi(), n.getPassWord(), n.getChucVu()));
+       }
+       return list_view;
+    }
+
+    @Override
+    public List<NhanVien_View> getNVbyCV(String maCV) {
+       List<NhanVien_View> list_view = new ArrayList<>();
+       list = nv.getNVbyCV(maCV);
        for(NhanVien_Model n : list){
            list_view.add(new NhanVien_View(n.getMa(), n.getHoTen(), n.getGioiTinh(), n.getNgaySinh(), n.getSđt(), n.getDiaChi(), n.getPassWord(), n.getChucVu()));
        }
@@ -33,6 +43,21 @@ public class NhanVien_Service implements INhanVien_Service{
     @Override
     public NhanVien_Model getByMa(String ma) {
         return nv.getByMa(ma);
+    }
+
+    @Override
+    public int addNV(NhanVien_Model nv) {
+         return this.nv.addNV(nv);
+    }
+
+    @Override
+    public int delNV(String manv) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public int updateNV(NhanVien_Model nv) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
     

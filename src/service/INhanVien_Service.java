@@ -14,5 +14,9 @@ import viewmodel.NhanVien_View;
  */
 public interface INhanVien_Service {
      List<NhanVien_View> getAllNhanVien();
+     List<NhanVien_View> getNVbyCV(String maCV);
      NhanVien_Model getByMa(String ma);
+     int addNV(NhanVien_Model nv);
+     int delNV(String manv);
+     int updateNV(NhanVien_Model nv);
 }

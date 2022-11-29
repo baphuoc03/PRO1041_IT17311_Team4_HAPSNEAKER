@@ -64,12 +64,14 @@ public class Khachhang_Repos implements IKhachHang_repos{
 
     @Override
     public int delKH(String sdt) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+         String sql = "DELETE FROM KHACHHANG WHERE SĐT = ?;";
+        return JDBC_Helper.Update(sql, sdt);
     }
 
     @Override
     public int updateKH(KhachHang_Model kh) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sql = "UPDATE KHACHHANG SET HOTEN = ?, SĐT = ?, GIOITINH = ?, NGAYSINH = ?, EMAIL = ?, DIACHI = ? WHERE SĐT = ?";
+        return JDBC_Helper.Update(sql, kh.getHoTen(), kh.getSđt(), kh.getGioiTinh(), kh.getNgaySinh(), kh.getEmail(), kh.getDiaChi(), kh.getSđt());
     }
     
 }

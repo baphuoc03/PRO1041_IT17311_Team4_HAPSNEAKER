@@ -35,6 +35,11 @@ public class ChucVu_View {
     public void setTen(String ten) {
         this.ten = ten;
     }
+
+    @Override
+    public String toString() {
+        return "ChucVu_View{" + "ma=" + ma + ", ten=" + ten + '}';
+    }
     
     
 }
