@@ -3,6 +3,14 @@ package View;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.KhuyenMai_Model;
@@ -35,6 +43,7 @@ public class QLKhuyenMai extends javax.swing.JPanel {
     List<KhuyenMai_View> listKM;
     List<SanPham_ViewModel> listSP;
     int index;
+    String spkm="";
 
     /**
      * Creates new form QLKhuyenMai
@@ -399,6 +408,7 @@ public class QLKhuyenMai extends javax.swing.JPanel {
             addKmSP();
             filltotableSP(txtmakm.getText());
             fillToTableKM();
+           
             JOptionPane.showMessageDialog(this, "Thêm Khuyến Mãi Thành Công" + txttenkm.getText());
         } else {
             JOptionPane.showMessageDialog(this, "Lỗi");
@@ -505,6 +515,7 @@ public class QLKhuyenMai extends javax.swing.JPanel {
         for (int i = 0; i < tblSP.getRowCount(); i++) {
             if (Boolean.parseBoolean(tblSP.getValueAt(i, 6).toString()) == true) {
                 listSP.add(SP_SV.getSPByMa(tblSP.getValueAt(i, 1) + ""));
+                spkm += tblSP.getValueAt(i, 2)+", "; 
             }
         }
         for (SanPham_Model s : listSP) {

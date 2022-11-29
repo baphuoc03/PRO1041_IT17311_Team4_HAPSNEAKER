@@ -5,18 +5,27 @@
 package View;
 
 import java.awt.Color;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JPasswordField;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author baphuoc
  */
 public class NewJFrame extends javax.swing.JFrame {
-
+    DefaultTableModel mol;
     /**
      * Creates new form NewJFrame
      */
     public NewJFrame() {
         initComponents();
+        JPasswordField pss = new JPasswordField();
+        pss.setEchoChar('*');
+        DefaultCellEditor editor = new DefaultCellEditor(pss);
+        tbl.getColumnModel().getColumn(3).setCellEditor(editor);
+        mol = (DefaultTableModel) tbl.getModel();
+        mol.addRow(new Object[]{"a","a","a","a"});
     }
 
     /**
