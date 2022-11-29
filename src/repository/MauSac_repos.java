@@ -49,4 +49,22 @@ public class MauSac_repos implements IMauSac_repos {
             return null;
         }
     }
+    
+    @Override
+    public int add(MauSac_Model m){
+        String sql = "insert into hap_sneaker.mausac(MaMau,Ten) Values(?,?)";
+        return JDBC_Helper.Update(sql, m.getMa(),m.getTen());
+    }
+    
+    @Override
+    public int delete(String ma){
+        String sql = "delete from hap_sneaker.mausac where MaMau = ?";
+        return JDBC_Helper.Update(sql, ma);
+    }
+    
+    @Override
+    public int update(MauSac_Model m){
+        String sql = "Update hap_sneaker.mausac Set MaMau = ?, Ten = ? where MaMau = ?";
+        return JDBC_Helper.Update(sql, m.getMa(),m.getTen(),m.getMa());
+    }
 }

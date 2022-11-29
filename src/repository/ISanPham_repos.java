@@ -17,4 +17,5 @@ public interface ISanPham_repos {
     int add(SanPham_Model s);
     int delete(String s);
     int update(SanPham_Model s);
+    List<SanPham_Model> serchSP(String key);
 }

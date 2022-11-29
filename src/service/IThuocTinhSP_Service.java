@@ -5,6 +5,8 @@
 package service;
 
 import java.util.List;
+import model.KichThuoc_Model;
+import model.SanPham_Model;
 import model.ThuocTinhSP_Model;
 import viewmodel.ThuocTinhSP_ViewModel;
 
@@ -14,6 +16,11 @@ import viewmodel.ThuocTinhSP_ViewModel;
  */
 public interface IThuocTinhSP_Service {
     List<ThuocTinhSP_ViewModel> GetAllThuocTinhSP();
-    ThuocTinhSP_Model getById(String id);
-    int updateSL(ThuocTinhSP_Model sp,int SL);
+    ThuocTinhSP_Model GetThuongHieuSPByMa(String id);
+    int ADD(ThuocTinhSP_Model t);
+    int DELETE(String id);
+    int UPDATE(ThuocTinhSP_Model t);
+    List<SanPham_Model> GetAllSP();
+    List<KichThuoc_Model> GetAllKT();
+    List<ThuocTinhSP_ViewModel> GetByMaTT(String maSP);
 }

@@ -14,5 +14,9 @@ import viewmodel.ThuongHieu_View;
  */
 public interface IThuongHieu_Service {
     List<ThuongHieu_View> getAllThuongHieu();
-    ThuongHieu_Model getThuongHieuByMa(String ma);
+    int Add(ThuongHieu_Model th);
+    ThuongHieu_Model GetThuongHieuByMa(String ma);
+    ThuongHieu_Model getByMa(String ma);
+    int Delete(String ma);
+    int Update(ThuongHieu_Model th);
 }

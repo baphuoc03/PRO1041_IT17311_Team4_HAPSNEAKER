@@ -50,4 +50,21 @@ public class ThuongHieu_repos implements IThuongHieu_Repos{
         }
     }
     
+    @Override
+        public int Add(ThuongHieu_Model th){
+            String sql = "insert into hap_sneaker.thuonghieu(MaThuongHieu,Ten) values(?,?)";
+            return JDBC_Helper.Update(sql, th.getMa(),th.getTen());
+        }
+        
+    @Override
+        public int update(ThuongHieu_Model th){
+            String sql = "Update hap_sneaker.thuonghieu Set MaThuongHieu = ?, Ten = ? Where MaThuongHieu = ?";
+            return JDBC_Helper.Update(sql, th.getMa(),th.getTen(),th.getMa());
+        }
+        
+    @Override
+        public int delete(String ma){
+            String sql = "Delete from hap_sneaker.thuonghieu Where MaThuongHieu = ?";
+            return JDBC_Helper.Update(sql, ma);
+        }
 }

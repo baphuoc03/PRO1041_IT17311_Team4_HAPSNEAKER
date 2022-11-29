@@ -80,4 +80,7 @@ public class SanPham_service implements ISanPham_Service{
         return MSrepo.getAllMauSac();
     }
     
+    public List<SanPham_Model> Search(String key){
+        return repo.serchSP(key);
+    }
 }

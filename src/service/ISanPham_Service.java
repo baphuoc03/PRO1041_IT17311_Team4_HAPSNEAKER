@@ -23,4 +23,5 @@ public interface ISanPham_Service {
     List<ThuongHieu_Model> GetAllTH();
     List<MauSac_Model> GetAllMS();
     SanPham_Model GetByMa(String ma);
+    List<SanPham_Model> Search(String key);
 }

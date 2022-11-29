@@ -14,4 +14,7 @@ import model.MauSac_Model;
 public interface IMauSac_repos {
     List<MauSac_Model> getAllMauSac();
     MauSac_Model getByMa(String ma);
+    int add(MauSac_Model m);
+    int delete(String ma);
+    int update(MauSac_Model m);
 }

@@ -7,18 +7,22 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import model.KichThuoc_Model;
 import model.MauSac_Model;
 import model.SanPham_Model;
+import model.ThuocTinhSP_Model;
 import model.ThuongHieu_Model;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
+import service.IKichThuoc_service;
 import service.IMauSac_Service;
 import service.ISanPham_Service;
 import service.IThuocTinhSP_Service;
 import service.IThuongHieu_Service;
+import service.impl.KichThuoc_Service;
 import service.impl.MauSac_Service;
 import service.impl.SanPham_service;
 import service.impl.ThuocTinhSP_service;
@@ -39,17 +43,21 @@ public class QLSanPham extends javax.swing.JPanel {
     IThuocTinhSP_Service TTS = new ThuocTinhSP_service();
     DefaultTableModel dtm ;
     List<ThuocTinhSP_ViewModel> lstTT;
+    List<ThuocTinhSP_Model> lstTTM = new ArrayList<>();
     List<SanPham_ViewModel> lstSP;
     ISanPham_Service SPS = new SanPham_service();
-    List<ThuongHieu_Model> lstTH = new ArrayList<>();
-    List<MauSac_Model> lstMS = new ArrayList<>();
-    IThuongHieu_Service THS = new ThuongHieu_Service();
-    IMauSac_Service MSS = new MauSac_Service();
+    List<SanPham_Model> lstSPM = new ArrayList<>();
+    String idWhenclick;
     DefaultComboBoxModel THCBB = new DefaultComboBoxModel();
     DefaultComboBoxModel MSCBB = new DefaultComboBoxModel();
     DefaultComboBoxModel SPCBB = new DefaultComboBoxModel();
     DefaultComboBoxModel KTCBB = new DefaultComboBoxModel();
-    String idWhenclick;
+    List<ThuongHieu_Model> lstTH = new ArrayList<>();
+    List<MauSac_Model> lstMS = new ArrayList<>();
+    List<KichThuoc_Model> lstKT = new ArrayList<>();
+    IThuongHieu_Service THS = new ThuongHieu_Service();
+    IMauSac_Service MSS = new MauSac_Service();
+    IKichThuoc_service KTS = new KichThuoc_Service();
     /**
      * Creates new form QLThuongHieu
      */
@@ -57,8 +65,10 @@ public class QLSanPham extends javax.swing.JPanel {
         initComponents();
         this.cbbThuongHieu.setModel(THCBB);
         this.cbbMauSac.setModel(MSCBB);
+        this.cbbSP.setModel(SPCBB);
+        this.cbbMaSize.setModel(KTCBB);
         FillSanPham();
-        FillThuocTinh();
+        FillFL();
     }
 
     public void FillSanPham(){
@@ -79,11 +89,30 @@ public class QLSanPham extends javax.swing.JPanel {
         }
     }
     
+    public void FillThuocTinh(String ma){
+        lstTT = TTS.GetByMaTT(ma);
+        dtm = (DefaultTableModel) tblPhanLoai.getModel();
+        dtm.setRowCount(0);
+        for(ThuocTinhSP_ViewModel t : lstTT){
+            dtm.addRow(new Object[]{t.getStt(),t.getId(),t.getMaSP(),t.getMaKT(),t.getsL()});
+        }
+        lstKT = TTS.GetAllKT();
+        for(var x : lstKT){
+            KTCBB.addElement(x.getMa());
+        }
+        
+        lstSPM = TTS.GetAllSP();
+        for(var x : lstSP){
+            SPCBB.addElement(x.getMa());
+        }
+        
+    }
+    
     public SanPham_Model GetDataSanPham(){
         String Ma = txtSanPham.getText();
         String Ten = txtTenSP.getText();
         String TH = cbbThuongHieu.getSelectedItem().toString();
-        ThuongHieu_Model t = THS.getThuongHieuByMa(TH);
+        ThuongHieu_Model t = THS.getByMa(TH);
         String MS = cbbMauSac.getSelectedItem().toString();
         MauSac_Model m = MSS.getByMa(MS);
         String moTa = txtMoTa.getText();
@@ -99,6 +128,18 @@ public class QLSanPham extends javax.swing.JPanel {
         return new SanPham_Model(Ma, Ten, t, m, moTa, Float.valueOf(giaNhap), Float.valueOf(giaBan), trangThai);
     }
     
+    public ThuocTinhSP_Model GetDataThuocTinhSP(){
+            //String id = null;
+           
+            String maSP = cbbSP.getSelectedItem().toString();
+            SanPham_Model s = SPS.GetByMa(maSP);
+            String maKT = cbbMaSize.getSelectedItem().toString();
+            KichThuoc_Model k = KTS.getByMa(maKT);
+            String SL = txtSoLuong.getText();
+            
+            return new ThuocTinhSP_Model(null, s, k, Integer.valueOf(SL));
+        }
+    
     public void ShowSanPham(){
         int i = tblBangSP.getSelectedRow();
         if(i == -1) return;
@@ -111,9 +152,33 @@ public class QLSanPham extends javax.swing.JPanel {
         txtGiaBan.setText(String.valueOf(s.getGiaBan()));
         cbbThuongHieu.setSelectedItem(lstSP.get(i).getThuongHieu().toString());
         cbbMauSac.setSelectedItem(lstSP.get(i).getMauSac().toString());
+        txtTenSP2.setText(s.getTen());
+        cbbSP.setSelectedItem(lstSP.get(i).getMa());
+        
     }
     
-   
+    public void ShowThuocTinhSP(){
+        int i = tblPhanLoai.getSelectedRow();
+        if(i == -1)return;
+        idWhenclick = tblPhanLoai.getModel().getValueAt(i, 1).toString();
+        var t = TTS.GetThuongHieuSPByMa(idWhenclick);
+        txtSoLuong.setText(String.valueOf(t.getSl()));
+        cbbSP.setSelectedItem(lstTT.get(i).getMaSP());
+        cbbMaSize.setSelectedItem(lstTT.get(i).getMaKT());
+        //txtTenSP2.setText(lstSP.get(i).getTen());
+       
+        
+      
+    }
+    
+   public void FillFL(){
+        lstTT = TTS.GetAllThuocTinhSP();
+        dtm = (DefaultTableModel) tblPL.getModel();
+        dtm.setRowCount(0);
+        for(ThuocTinhSP_ViewModel t : lstTT){
+            dtm.addRow(new Object[]{t.getStt(),t.getId(),t.getMaSP()});
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -128,7 +193,7 @@ public class QLSanPham extends javax.swing.JPanel {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel4 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
-        txtTk = new javax.swing.JTextField();
+        txtSearchSP = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblBangSP = new javax.swing.JTable();
@@ -156,7 +221,7 @@ public class QLSanPham extends javax.swing.JPanel {
         txtMoTa = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tblPL = new javax.swing.JTable();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
@@ -169,15 +234,17 @@ public class QLSanPham extends javax.swing.JPanel {
         jPanel7 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jTextField8 = new javax.swing.JTextField();
-        jButton10 = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
-        jButton12 = new javax.swing.JButton();
-        jButton13 = new javax.swing.JButton();
+        txtSoLuong = new javax.swing.JTextField();
+        btnThemPL = new javax.swing.JButton();
+        btnSuaPL = new javax.swing.JButton();
+        btnXoaPL = new javax.swing.JButton();
+        btnClearPL = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox<>();
-        jComboBox4 = new javax.swing.JComboBox<>();
+        cbbSP = new javax.swing.JComboBox<>();
+        cbbMaSize = new javax.swing.JComboBox<>();
         jButton14 = new javax.swing.JButton();
+        jLabel14 = new javax.swing.JLabel();
+        txtTenSP2 = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -213,6 +280,15 @@ public class QLSanPham extends javax.swing.JPanel {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Bảng thông tin sản phẩm"));
 
+        txtSearchSP.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtSearchSPKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtSearchSPKeyReleased(evt);
+            }
+        });
+
         jButton1.setText("Tìm Kiếm");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -247,7 +323,7 @@ public class QLSanPham extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtTk, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtSearchSP, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jButton1)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -258,7 +334,7 @@ public class QLSanPham extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtTk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSearchSP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 405, Short.MAX_VALUE)
@@ -328,7 +404,7 @@ public class QLSanPham extends javax.swing.JPanel {
 
         jLabel6.setText("Phân loại:");
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tblPL.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -347,7 +423,7 @@ public class QLSanPham extends javax.swing.JPanel {
                 return types [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(tblPL);
 
         jButton6.setText("+");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -537,6 +613,11 @@ public class QLSanPham extends javax.swing.JPanel {
                 "STT", "ID", "Mã SP", "Mã Size", "Số lượng"
             }
         ));
+        tblPhanLoai.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblPhanLoaiMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(tblPhanLoai);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
@@ -573,19 +654,39 @@ public class QLSanPham extends javax.swing.JPanel {
 
         jLabel12.setText("Size");
 
-        jButton10.setText("Thêm");
+        btnThemPL.setText("Thêm");
+        btnThemPL.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemPLActionPerformed(evt);
+            }
+        });
 
-        jButton11.setText("Sửa");
+        btnSuaPL.setText("Sửa");
+        btnSuaPL.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSuaPLActionPerformed(evt);
+            }
+        });
 
-        jButton12.setText("Xóa");
+        btnXoaPL.setText("Xóa");
+        btnXoaPL.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaPLActionPerformed(evt);
+            }
+        });
 
-        jButton13.setText("Clear");
+        btnClearPL.setText("Clear");
+        btnClearPL.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearPLActionPerformed(evt);
+            }
+        });
 
         jLabel13.setText("Số lượng:");
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbbSP.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbbMaSize.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jButton14.setText("+");
         jButton14.addActionListener(new java.awt.event.ActionListener() {
@@ -594,33 +695,39 @@ public class QLSanPham extends javax.swing.JPanel {
             }
         });
 
+        jLabel14.setText("Tên SP:");
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
                 .addGap(60, 60, 60)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton12)
-                    .addComponent(jButton10))
+                    .addComponent(btnXoaPL)
+                    .addComponent(btnThemPL))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 140, Short.MAX_VALUE)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton13)
-                    .addComponent(jButton11))
+                    .addComponent(btnClearPL)
+                    .addComponent(btnSuaPL))
                 .addGap(117, 117, 117))
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel11)
                     .addComponent(jLabel13)
-                    .addComponent(jLabel12)
-                    .addComponent(jLabel11))
+                    .addComponent(jLabel14)
+                    .addComponent(jLabel12))
                 .addGap(36, 36, 36)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jComboBox3, 0, 239, Short.MAX_VALUE)
-                    .addComponent(jTextField8)
-                    .addComponent(jComboBox4, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton14)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(cbbMaSize, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton14))
+                    .addComponent(txtSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(txtTenSP2, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(cbbSP, javax.swing.GroupLayout.Alignment.LEADING, 0, 239, Short.MAX_VALUE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
@@ -629,25 +736,29 @@ public class QLSanPham extends javax.swing.JPanel {
                 .addGap(26, 26, 26)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbbSP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel14)
+                    .addComponent(txtTenSP2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
-                    .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbbMaSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton14))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(66, 66, 66)
+                    .addComponent(txtSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(74, 74, 74)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton10)
-                    .addComponent(jButton11))
+                    .addComponent(btnSuaPL)
+                    .addComponent(btnThemPL))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton12)
-                    .addComponent(jButton13))
-                .addContainerGap(172, Short.MAX_VALUE))
+                    .addComponent(btnXoaPL)
+                    .addComponent(btnClearPL))
+                .addContainerGap(147, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -705,6 +816,7 @@ public class QLSanPham extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        //SPS.Search(txtSearchSP.getText());
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnXoaSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaSPActionPerformed
@@ -752,6 +864,7 @@ public class QLSanPham extends javax.swing.JPanel {
     private void tblBangSPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBangSPMouseClicked
         // TODO add your handling code here:
         ShowSanPham();
+        FillThuocTinh(txtSanPham.getText());
         
     }//GEN-LAST:event_tblBangSPMouseClicked
 
@@ -767,31 +880,66 @@ public class QLSanPham extends javax.swing.JPanel {
         FillSanPham();
     }//GEN-LAST:event_btnSuaSPActionPerformed
 
+    private void btnThemPLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemPLActionPerformed
+        // TODO add your handling code here:
+        TTS.ADD(GetDataThuocTinhSP());
+    }//GEN-LAST:event_btnThemPLActionPerformed
+
+    private void btnSuaPLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaPLActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSuaPLActionPerformed
+
+    private void btnXoaPLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaPLActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnXoaPLActionPerformed
+
+    private void btnClearPLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearPLActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnClearPLActionPerformed
+
+    private void tblPhanLoaiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPhanLoaiMouseClicked
+        // TODO add your handling code here:
+        ShowThuocTinhSP();
+    }//GEN-LAST:event_tblPhanLoaiMouseClicked
+
+    private void txtSearchSPKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchSPKeyPressed
+        // TODO add your handling code here:
+//        SPS.Search(txtSearchSP.getText());
+//        FillSanPham();
+    }//GEN-LAST:event_txtSearchSPKeyPressed
+
+    private void txtSearchSPKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchSPKeyReleased
+        // TODO add your handling code here:
+        SPS.Search(txtSearchSP.getText());
+        FillSanPham();
+    }//GEN-LAST:event_txtSearchSPKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnClearPL;
     private javax.swing.JButton btnClearSP;
+    private javax.swing.JButton btnSuaPL;
     private javax.swing.JButton btnSuaSP;
+    private javax.swing.JButton btnThemPL;
     private javax.swing.JButton btnThemSP;
+    private javax.swing.JButton btnXoaPL;
     private javax.swing.JButton btnXoaSP;
+    private javax.swing.JComboBox<String> cbbMaSize;
     private javax.swing.JComboBox<String> cbbMauSac;
+    private javax.swing.JComboBox<String> cbbSP;
     private javax.swing.JComboBox<String> cbbThuongHieu;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton12;
-    private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
-    private javax.swing.JComboBox<String> jComboBox3;
-    private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -811,19 +959,20 @@ public class QLSanPham extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField8;
     private javax.swing.JRadioButton radioAn;
     private javax.swing.JRadioButton radioHienThi;
     private javax.swing.JTable tblBangSP;
+    private javax.swing.JTable tblPL;
     private javax.swing.JTable tblPhanLoai;
     private javax.swing.JTextField txtGiaBan;
     private javax.swing.JTextField txtGiaNhap;
     private javax.swing.JTextField txtMoTa;
     private javax.swing.JTextField txtSanPham;
+    private javax.swing.JTextField txtSearchSP;
+    private javax.swing.JTextField txtSoLuong;
     private javax.swing.JTextField txtTenSP;
-    private javax.swing.JTextField txtTk;
+    private javax.swing.JTextField txtTenSP2;
     // End of variables declaration//GEN-END:variables
     public void FillThuocTinh(){
         lstTT = TTS.GetAllThuocTinhSP();

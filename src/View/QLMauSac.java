@@ -20,6 +20,7 @@ public class QLMauSac extends javax.swing.JPanel {
     IMauSac_Service MS_Service = new MauSac_Service();
     List<MauSac_View> list;
     DefaultTableModel mol;
+    String idWhenClick;
     /**
      * Creates new form QLThuongHieu
      */
@@ -28,6 +29,27 @@ public class QLMauSac extends javax.swing.JPanel {
         filltable();
     }
 
+    public void filltable(){
+        list = MS_Service.getAllMauSac();
+        mol = (DefaultTableModel) tblMauSac.getModel();
+        mol.setRowCount(0);
+        for (MauSac_View m : list) {
+            mol.addRow(new Object[]{m.getStt(),m.getMa(),m.getTen()});
+        }
+    }
+    
+    public MauSac_Model GetMauSac(){
+        return new MauSac_Model(txtMa.getText(), txtTen.getText());
+    }
+    
+    public void showMauSac(){
+        int i = tblMauSac.getSelectedRow();
+        if(i == -1) return;
+        idWhenClick = tblMauSac.getModel().getValueAt(i, 1).toString();
+        var s = MS_Service.GetMauSacByMa(idWhenClick);
+        txtMa.setText(s.getMa());
+        txtTen.setText(s.getTen());
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -47,10 +69,10 @@ public class QLMauSac extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         txtTen = new javax.swing.JTextField();
         txtMa = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        btnThem = new javax.swing.JButton();
+        btnSua = new javax.swing.JButton();
+        btnXoa = new javax.swing.JButton();
+        btnClear = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -109,13 +131,28 @@ public class QLMauSac extends javax.swing.JPanel {
 
         jLabel3.setText("Tên màu sắc:");
 
-        jButton2.setText("Thêm");
+        btnThem.setText("Thêm");
+        btnThem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Sửa");
+        btnSua.setText("Sửa");
+        btnSua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSuaActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText("Xóa");
+        btnXoa.setText("Xóa");
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaActionPerformed(evt);
+            }
+        });
 
-        jButton5.setText("Clear");
+        btnClear.setText("Clear");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -136,12 +173,12 @@ public class QLMauSac extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(60, 60, 60)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton4)
-                    .addComponent(jButton2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnXoa)
+                    .addComponent(btnThem))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton5)
-                    .addComponent(jButton3))
+                    .addComponent(btnClear)
+                    .addComponent(btnSua))
                 .addGap(117, 117, 117))
         );
         jPanel2Layout.setVerticalGroup(
@@ -157,12 +194,12 @@ public class QLMauSac extends javax.swing.JPanel {
                     .addComponent(txtTen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(55, 55, 55)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(btnThem)
+                    .addComponent(btnSua))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton4)
-                    .addComponent(jButton5))
+                    .addComponent(btnXoa)
+                    .addComponent(btnClear))
                 .addContainerGap(119, Short.MAX_VALUE))
         );
 
@@ -200,7 +237,7 @@ public class QLMauSac extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -217,17 +254,34 @@ public class QLMauSac extends javax.swing.JPanel {
 
     private void tblMauSacMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMauSacMouseClicked
         // TODO add your handling code here:
-        int index = tblMauSac.getSelectedRow();
-        show(index);
+        showMauSac();
     }//GEN-LAST:event_tblMauSacMouseClicked
+
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
+        // TODO add your handling code here:
+        MS_Service.ADD(GetMauSac());
+        filltable();
+    }//GEN-LAST:event_btnThemActionPerformed
+
+    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
+        // TODO add your handling code here:
+        MS_Service.UPDATE(GetMauSac());
+        filltable();
+    }//GEN-LAST:event_btnSuaActionPerformed
+
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        // TODO add your handling code here:
+        MS_Service.DELETE(GetMauSac().getMa());
+        filltable();
+    }//GEN-LAST:event_btnXoaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnClear;
+    private javax.swing.JButton btnSua;
+    private javax.swing.JButton btnThem;
+    private javax.swing.JButton btnXoa;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -240,16 +294,5 @@ public class QLMauSac extends javax.swing.JPanel {
     private javax.swing.JTextField txtMa;
     private javax.swing.JTextField txtTen;
     // End of variables declaration//GEN-END:variables
-    public void filltable(){
-        list = MS_Service.getAllMauSac();
-        mol = (DefaultTableModel) tblMauSac.getModel();
-        mol.setRowCount(0);
-        for (MauSac_View m : list) {
-            mol.addRow(new Object[]{m.getStt(),m.getMa(),m.getTen()});
-        }
-    }
-    public void show(int index){
-        txtMa.setText(list.get(index).getMa());
-        txtTen.setText(list.get(index).getTen());
-    }
+    
 }

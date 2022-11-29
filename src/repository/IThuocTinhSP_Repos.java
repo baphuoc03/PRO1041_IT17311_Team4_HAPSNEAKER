@@ -13,6 +13,8 @@ import model.ThuocTinhSP_Model;
  */
 public interface IThuocTinhSP_Repos {
     List<ThuocTinhSP_Model> GetAllThuocTinhSP();
-    ThuocTinhSP_Model getById(String id);
-    int undateSL(ThuocTinhSP_Model sp,int SL);
+    int add(ThuocTinhSP_Model t);
+    int delete(String id);
+    int undate(ThuocTinhSP_Model t);
+    List<ThuocTinhSP_Model> GetByMaTT(String maSP);
 }

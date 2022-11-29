@@ -36,4 +36,26 @@ public class MauSac_Service implements IMauSac_Service{
         return MS_repos.getByMa(ma);
     }
     
+    public int ADD(MauSac_Model m){
+        return MS_repos.add(m);
+    }
+    
+    public int DELETE(String ma){
+        return MS_repos.delete(ma);
+    }
+    
+    public int UPDATE(MauSac_Model m){
+        return MS_repos.update(m);
+    }
+    
+    public MauSac_Model GetMauSacByMa(String ma){
+        for(MauSac_Model m : list){
+            if(m.getMa().equals(ma)){
+            return m;
+            }
+        }
+        return null;
+    }
+    
+    
 }
