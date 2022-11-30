@@ -60,4 +60,15 @@ public class ThuongHieu_Service implements IThuongHieu_Service{
         return TH_repos.getThuongHieuByMa(ma);
     }
     
+    public List<ThuongHieu_View> Search(String key){
+        List<ThuongHieu_Model> list = TH_repos.Search(key);
+        List<ThuongHieu_View> list_view = new ArrayList<>();
+        int stt = 1;
+        for (ThuongHieu_Model t : list) {
+            list_view.add(new ThuongHieu_View(stt, t.getMa(), t.getTen()));
+            stt++;
+        }
+        return list_view;
+    }
+    
 }

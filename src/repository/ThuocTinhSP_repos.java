@@ -79,4 +79,5 @@ public class ThuocTinhSP_repos implements IThuocTinhSP_Repos {
         return JDBC_Helper.Update(sql, t.getSanPham().getMa(),t.getKichThuoc().getMa(),t.getSl(),t.getId());
     }
     
+    
 }

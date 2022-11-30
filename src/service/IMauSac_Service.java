@@ -19,4 +19,5 @@ public interface IMauSac_Service {
     int DELETE(String ma);
     int UPDATE(MauSac_Model m);
     MauSac_Model GetMauSacByMa(String ma);
+    List<MauSac_View> Search(String key);
 }

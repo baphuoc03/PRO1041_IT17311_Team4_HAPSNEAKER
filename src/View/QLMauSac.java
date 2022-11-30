@@ -38,6 +38,15 @@ public class QLMauSac extends javax.swing.JPanel {
         }
     }
     
+    public void filltable(String key){
+        list = MS_Service.Search(key);
+        mol = (DefaultTableModel) tblMauSac.getModel();
+        mol.setRowCount(0);
+        for (MauSac_View m : list) {
+            mol.addRow(new Object[]{m.getStt(),m.getMa(),m.getTen()});
+        }
+    }
+    
     public MauSac_Model GetMauSac(){
         return new MauSac_Model(txtMa.getText(), txtTen.getText());
     }
@@ -60,7 +69,7 @@ public class QLMauSac extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
+        txtTK = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblMauSac = new javax.swing.JTable();
@@ -77,6 +86,15 @@ public class QLMauSac extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Màu Sắc Sản Phẩm"));
+
+        txtTK.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtTKKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTKKeyReleased(evt);
+            }
+        });
 
         jButton1.setText("Tìm Kiếm");
 
@@ -107,7 +125,7 @@ public class QLMauSac extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtTK, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jButton1)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -118,7 +136,7 @@ public class QLMauSac extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTK, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
@@ -275,6 +293,16 @@ public class QLMauSac extends javax.swing.JPanel {
         filltable();
     }//GEN-LAST:event_btnXoaActionPerformed
 
+    private void txtTKKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTKKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTKKeyPressed
+
+    private void txtTKKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTKKeyReleased
+        // TODO add your handling code here:
+        MS_Service.Search(txtTK.getText());
+        filltable(txtTK.getText());
+    }//GEN-LAST:event_txtTKKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClear;
@@ -289,9 +317,9 @@ public class QLMauSac extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTable tblMauSac;
     private javax.swing.JTextField txtMa;
+    private javax.swing.JTextField txtTK;
     private javax.swing.JTextField txtTen;
     // End of variables declaration//GEN-END:variables
     

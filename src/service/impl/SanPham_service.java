@@ -80,7 +80,13 @@ public class SanPham_service implements ISanPham_Service{
         return MSrepo.getAllMauSac();
     }
     
-    public List<SanPham_Model> Search(String key){
-        return repo.serchSP(key);
+    public List<SanPham_ViewModel> Search(String key){
+        List<SanPham_ViewModel> lst_view = new ArrayList<>();
+        list = repo.serchSP(key);
+        int stt = 1;
+        for(SanPham_Model s : list){
+            lst_view.add(new SanPham_ViewModel(stt++, s.getMa(), s.getTen(), s.getThuongHieu().getMa(), s.getMauSac().getMa(), s.getMoTa(), s.getGiaNhap(), s.getGiaBan(), s.getTrangThai()));
+        }
+        return lst_view;
     }
 }

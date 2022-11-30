@@ -67,4 +67,20 @@ public class MauSac_repos implements IMauSac_repos {
         String sql = "Update hap_sneaker.mausac Set MaMau = ?, Ten = ? where MaMau = ?";
         return JDBC_Helper.Update(sql, m.getMa(),m.getTen(),m.getMa());
     }
+    
+    public List<MauSac_Model> Search(String key){
+        List<MauSac_Model> lst = new ArrayList<>();
+        String sql = "SELECT * FROM hap_sneaker.mausac WHERE MaMau like concat('%',?,'%')\n" +
+"or Ten like concat('%',?,'%')";
+        ResultSet rs = JDBC_Helper.Query(sql, key,key);
+        try {
+            while(rs.next()){
+                lst.add(new MauSac_Model(rs.getString(1), rs.getString(2)));
+            }
+            return lst;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

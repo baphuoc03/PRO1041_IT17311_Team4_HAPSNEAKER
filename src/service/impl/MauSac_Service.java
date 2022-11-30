@@ -57,5 +57,15 @@ public class MauSac_Service implements IMauSac_Service{
         return null;
     }
     
+    public List<MauSac_View> Search(String key){
+        list = MS_repos.Search(key);
+        List<MauSac_View> list_view = new ArrayList<>();
+        int stt = 1;
+        for (MauSac_Model m : list) {
+            list_view.add(new MauSac_View(stt,m.getMa(), m.getTen()));
+            stt++;
+        }
+        return list_view;
     
+    }
 }

@@ -80,7 +80,7 @@ public class SanPham_repos implements ISanPham_repos{
 "        join hap_sneaker.thuonghieu t on s.MaThuongHieu = t.MaThuongHieu\n" +
 "        join hap_sneaker.mausac m on s.MaMau = m.MaMau where s.MaSP like concat('%',?,'%')	\n" +
 "        or s.Ten like concat('%',?,'%')";
-         ResultSet rs = JDBC_Helper.Query(sql, key, key);
+         ResultSet rs = JDBC_Helper.Query(sql, key,key);
          try {
             while(rs.next()){
                 ThuongHieu_Model th = new ThuongHieu_Model(rs.getString(1), rs.getString(2));

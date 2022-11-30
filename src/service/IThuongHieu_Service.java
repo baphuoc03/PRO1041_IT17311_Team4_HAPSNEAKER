@@ -19,4 +19,5 @@ public interface IThuongHieu_Service {
     ThuongHieu_Model getByMa(String ma);
     int Delete(String ma);
     int Update(ThuongHieu_Model th);
+    List<ThuongHieu_View> Search(String key);
 }

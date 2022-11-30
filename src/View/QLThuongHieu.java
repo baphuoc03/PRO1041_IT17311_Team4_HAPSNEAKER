@@ -51,6 +51,15 @@ public class QLThuongHieu extends javax.swing.JPanel {
         }
     }
     
+    public void fillTableThuongHieu(String key){
+        list = th.Search(key);
+        mol = (DefaultTableModel) tblThuongHieu.getModel();
+        mol.setRowCount(0);
+        for (ThuongHieu_View t : list) {
+            mol.addRow(new Object[]{t.getStt(),t.getMa(),t.getTen()});
+        }
+    }
+    
     public ThuongHieu_Model GetThuongHieu(){
         return new ThuongHieu_Model(txtMaTH.getText(), txtTenTH.getText());
     }
@@ -65,7 +74,7 @@ public class QLThuongHieu extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
+        txtTK = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblThuongHieu = new javax.swing.JTable();
@@ -82,6 +91,12 @@ public class QLThuongHieu extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Thương Hiệu Sản Phẩm"));
+
+        txtTK.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTKKeyReleased(evt);
+            }
+        });
 
         jButton1.setText("Tìm Kiếm");
 
@@ -112,7 +127,7 @@ public class QLThuongHieu extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtTK, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jButton1)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -123,7 +138,7 @@ public class QLThuongHieu extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTK, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -280,6 +295,12 @@ public class QLThuongHieu extends javax.swing.JPanel {
         ShowThuongHieu();
     }//GEN-LAST:event_tblThuongHieuMouseClicked
 
+    private void txtTKKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTKKeyReleased
+        // TODO add your handling code here:
+        th.Search(txtTK.getText());
+        fillTableThuongHieu(txtTK.getText());
+    }//GEN-LAST:event_txtTKKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClearTH;
@@ -294,9 +315,9 @@ public class QLThuongHieu extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTable tblThuongHieu;
     private javax.swing.JTextField txtMaTH;
+    private javax.swing.JTextField txtTK;
     private javax.swing.JTextField txtTenTH;
     // End of variables declaration//GEN-END:variables
    

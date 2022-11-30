@@ -17,4 +17,5 @@ public interface IMauSac_repos {
     int add(MauSac_Model m);
     int delete(String ma);
     int update(MauSac_Model m);
+    List<MauSac_Model> Search(String key);
 }

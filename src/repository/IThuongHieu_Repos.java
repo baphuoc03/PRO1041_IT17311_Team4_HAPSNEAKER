@@ -17,4 +17,5 @@ public interface IThuongHieu_Repos {
     int Add(ThuongHieu_Model th);
     int update(ThuongHieu_Model th);
     int delete(String ma);
+    List<ThuongHieu_Model> Search(String key);
 }

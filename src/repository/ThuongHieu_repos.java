@@ -67,4 +67,20 @@ public class ThuongHieu_repos implements IThuongHieu_Repos{
             String sql = "Delete from hap_sneaker.thuonghieu Where MaThuongHieu = ?";
             return JDBC_Helper.Update(sql, ma);
         }
+        
+        public List<ThuongHieu_Model> Search(String key){
+            List<ThuongHieu_Model> lst = new ArrayList<>();
+            String sql = "SELECT * FROM hap_sneaker.thuonghieu where MaThuongHieu like concat('%',?,'%')\n" +
+"or Ten like concat('%',?,'%')";
+            ResultSet rs= JDBC_Helper.Query(sql,key,key);
+        try {
+            while(rs.next()){
+                lst.add(new ThuongHieu_Model(rs.getString(1),rs.getString(2)));
+            }
+            return lst;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        }
 }

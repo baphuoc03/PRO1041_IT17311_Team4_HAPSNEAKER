@@ -88,6 +88,15 @@ public class QLSanPham extends javax.swing.JPanel {
             MSCBB.addElement(x.getMa());
         }
     }
+    public void FillSanPham(String ma){
+        lstSP = SPS.Search(ma);
+        dtm = (DefaultTableModel) tblBangSP.getModel();
+        dtm.setRowCount(0);
+        for(SanPham_ViewModel s : lstSP){
+            dtm.addRow(new Object[]{s.getStt(),s.getMa(),s.getTen(),s.getThuongHieu(),s.getMauSac(),s.getMoTa(),s.getGiaNhap(),s.getGiaBan(),s.getTrangThai()==1?"Hiển thị":"Ẩn"});
+        }
+        
+    }
     
     public void FillThuocTinh(String ma){
         lstTT = TTS.GetByMaTT(ma);
@@ -911,7 +920,7 @@ public class QLSanPham extends javax.swing.JPanel {
     private void txtSearchSPKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchSPKeyReleased
         // TODO add your handling code here:
         SPS.Search(txtSearchSP.getText());
-        FillSanPham();
+        FillSanPham(txtSearchSP.getText());
     }//GEN-LAST:event_txtSearchSPKeyReleased
 
 
