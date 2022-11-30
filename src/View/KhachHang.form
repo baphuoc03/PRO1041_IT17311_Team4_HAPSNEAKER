@@ -262,6 +262,10 @@
             <Component class="com.toedter.calendar.JDateChooser" name="txtngaySinh">
             </Component>
             <Component class="javax.swing.JTextField" name="txtTK">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtTKActionPerformed"/>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtTKKeyReleased"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

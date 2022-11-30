@@ -162,6 +162,17 @@ public class KhachHang extends javax.swing.JPanel {
             }
         });
 
+        txtTK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTKActionPerformed(evt);
+            }
+        });
+        txtTK.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTKKeyReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -422,6 +433,15 @@ public class KhachHang extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnXoaActionPerformed
 
+    private void txtTKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTKActionPerformed
+        
+    }//GEN-LAST:event_txtTKActionPerformed
+
+    private void txtTKKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTKKeyReleased
+        KH_SV.FindKhachHang(txtTK.getText());
+        fillTableKhachHang(txtTK.getText());
+    }//GEN-LAST:event_txtTKKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSua;
@@ -462,6 +482,17 @@ public class KhachHang extends javax.swing.JPanel {
             mol.addRow(new Object[]{kh.getHoTen(), kh.getSdt(), kh.getGioiTinh(), kh.getNgaySinh(), kh.getEmail(), kh.getDiaChi()});
         }
     }
+    
+    public void fillTableKhachHang(String sdt){
+        listKH = KH_SV.FindKhachHang(sdt);
+        mol = (DefaultTableModel) tblKH.getModel();
+        mol.setRowCount(0);
+        for(KhachHang_View kh : listKH){
+            mol.addRow(new Object[]{kh.getHoTen(), kh.getSdt(), kh.getGioiTinh(), kh.getNgaySinh(), kh.getEmail(), kh.getDiaChi()});
+        }
+    }
+    
+    
     public void fillTableDonHang() {
         listDH = DH_SV.getAllDonHang();
         mol = (DefaultTableModel) tblDonHang.getModel();

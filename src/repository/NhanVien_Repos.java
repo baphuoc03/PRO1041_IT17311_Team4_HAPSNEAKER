@@ -50,7 +50,7 @@ public class NhanVien_Repos implements INhanVien_Repos{
     @Override
     public NhanVien_Model getByMa(String ma) {
        NhanVien_Model NV = null;
-        String sql = "select MANV,  HOTEN, GIOITINH, NGAYSINH, SĐT, GIACHI, PASSWORD, CHUCVU.MACHUCVU,CHUCVU.Ten \n" +
+        String sql = "select MANV,  HOTEN, GIOITINH, NGAYSINH, SĐT, GIACHI, PASSWORD, CHUCVU.MACHUCVU, CHUCVU.Ten \n" +
         "from nhanvien JOIN chucvu ON NHANVIEN.MACHUCVU = CHUCVU.MACHUCVU "
                 + "WHERE MaNV = ?";
         
@@ -64,8 +64,9 @@ public class NhanVien_Repos implements INhanVien_Repos{
                 String sdt = rs.getString(5);
                 String dc = rs.getString(6);
                 String pw = rs.getString(7);
-                ChucVu_Model cv = new ChucVu_Model(rs.getString(8),rs.getString(9));
-                
+                String macv = rs.getString(8);
+                String tencv = rs.getString(9);
+                ChucVu_Model cv = new ChucVu_Model(macv, tencv);
                 NV = new NhanVien_Model(manv, pw, t, gt, ns, sdt, dc, cv);
             }
             return NV;
@@ -77,7 +78,7 @@ public class NhanVien_Repos implements INhanVien_Repos{
 
     @Override
     public int addNV(NhanVien_Model nv) {
-         String sql = "INSERT INTO NHANVIEN(MANV, HOTEN, GIOITINH, NGAYSINH, SĐT, GIACHI, PASSWORD, MACHUCVU) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+         String sql = "INSERT INTO NHANVIEN(MANV, HOTEN, GIOITINH, NGAYSINH, SĐT, GIACHI, PASSWORD, MACHUCVU) VALUES (?,?,?,?,?,?,?,?)";
         return JDBC_Helper.Update(sql, nv.getMa(), nv.getHoTen(), nv.getGioiTinh(), nv.getNgaySinh(), nv.getSđt(), nv.getDiaChi(), nv.getPassWord(), nv.getChucVu().getMa());
     }
 
@@ -119,6 +120,36 @@ public class NhanVien_Repos implements INhanVien_Repos{
             return listNV;
         } catch (SQLException e) {
             e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public List<NhanVien_Model> FindNhanVien(String keyWord){
+         List<NhanVien_Model> list = new ArrayList<>();
+        String sql = "select MANV,  HOTEN, GIOITINH, NGAYSINH, SĐT, GIACHI, PASSWORD, CHUCVU.MACHUCVU,CHUCVU.Ten \n"
+                + "from nhanvien JOIN chucvu ON NHANVIEN.MACHUCVU = CHUCVU.MACHUCVU \n"
+                + "WHERE SĐT LIKE CONCAT('%',?,'%')\n"
+                + "OR HOTEN LIKE CONCAT('%',?,'%')";
+        
+        ResultSet rs = JDBC_Helper.Query(sql, keyWord, keyWord);
+        try {
+            while (rs.next()) {                
+                String ma = rs.getString(1);
+                String t = rs.getString(2);
+                String gt = rs.getString(3);
+                Date ns = rs.getDate(4);
+                String sdt = rs.getString(5);
+                String dc = rs.getString(6);
+                String pw = rs.getString(7);
+                ChucVu_Model cv = new ChucVu_Model(rs.getString(8),rs.getString(9));
+                
+                NhanVien_Model nv = new NhanVien_Model(ma, pw, t, gt, ns, sdt, dc, cv);
+                list.add(nv);
+            }
+            return list;
+        }catch (SQLException ex) {
+            ex.printStackTrace();
             return null;
         }
     }

@@ -97,5 +97,10 @@ public class NhanVien_Model {
     public void setChucVu(ChucVu_Model chucVu) {
         this.chucVu = chucVu;
     }
+
+    @Override
+    public String toString() {
+        return "NhanVien_Model{" + "ma=" + ma + ", passWord=" + passWord + ", hoTen=" + hoTen + ", gioiTinh=" + gioiTinh + ", ngaySinh=" + ngaySinh + ", s\u0111t=" + sđt + ", diaChi=" + diaChi + ", chucVu=" + chucVu + '}';
+    }
     
 }

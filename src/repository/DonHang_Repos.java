@@ -47,7 +47,7 @@ public class DonHang_Repos implements IDonHang_Repos {
     @Override
     public List<DonHang_Model> FindDonHang(String keyWord) {
         List<DonHang_Model> list = new ArrayList<>();
-        String sql = "SELECT NhanVien.MaNV, NhanVien.PassWord, NhanVien.HoTen, NhanVien.GioiTinh, NhanVien.NgaySinh, NhanVien.SĐT, NhanVien.DiaChi,\n" +
+        String sql = "SELECT NhanVien.MaNV, NhanVien.PassWord, NhanVien.HoTen, NhanVien.GioiTinh, NhanVien.NgaySinh, NhanVien.SĐT, NhanVien.GiaChi,\n" +
 "                KhachHang.SĐT, KhachHang.HoTen, KhachHang.GioiTinh, KhachHang.NgaySInh, KhachHang.Email, KhachHang.DiaChi,\n" +
 "                donhang.MaDonHang, donhang.NgayTao, donhang.TrangThai\n" +
 "                 FROM donhang\n" +

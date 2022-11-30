@@ -49,6 +49,16 @@ public class KhachHang_Service implements IKhachHang_Service{
     public int updateKH(KhachHang_Model kh) {
         return this.kh.updateKH(kh);
     }
+
+    @Override
+    public List<KhachHang_View> FindKhachHang(String keyWord) {
+        List<KhachHang_View> list_view = new ArrayList<>();
+        list = kh.FindKhachHang(keyWord);
+        for(KhachHang_Model k : list){
+            list_view.add(new KhachHang_View(k.getSđt(),k.getHoTen(), k.getGioiTinh(), k.getNgaySinh(), k.getEmail(), k.getDiaChi()));
+        }
+        return list_view;
+    }
     
 
 }

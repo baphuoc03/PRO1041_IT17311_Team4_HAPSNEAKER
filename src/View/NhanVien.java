@@ -66,7 +66,7 @@ public class NhanVien extends javax.swing.JPanel {
         rdoNam = new javax.swing.JRadioButton();
         jLabel6 = new javax.swing.JLabel();
         rdoNu = new javax.swing.JRadioButton();
-        jTextField7 = new javax.swing.JTextField();
+        txtTK = new javax.swing.JTextField();
         rdoQL = new javax.swing.JRadioButton();
         rdoNV = new javax.swing.JRadioButton();
 
@@ -143,6 +143,12 @@ public class NhanVien extends javax.swing.JPanel {
         GioiTinh.add(rdoNu);
         rdoNu.setText("Nữ");
 
+        txtTK.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTKKeyReleased(evt);
+            }
+        });
+
         ChucVu.add(rdoQL);
         rdoQL.setText("Quản Lý");
 
@@ -206,7 +212,7 @@ public class NhanVien extends javax.swing.JPanel {
                                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(txtTK, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 263, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
@@ -252,7 +258,7 @@ public class NhanVien extends javax.swing.JPanel {
                             .addComponent(jButton4)))
                     .addComponent(txtNS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
-                .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtTK, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -276,6 +282,11 @@ public class NhanVien extends javax.swing.JPanel {
         show(nv);
     }//GEN-LAST:event_tblNVMouseClicked
 
+    private void txtTKKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTKKeyReleased
+        NV_SV.FindNhanVien(txtTK.getText());
+        FindNhanVien(txtTK.getText());
+    }//GEN-LAST:event_txtTKKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup ChucVu;
@@ -293,7 +304,6 @@ public class NhanVien extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField7;
     private javax.swing.JRadioButton rdoNV;
     private javax.swing.JRadioButton rdoNam;
     private javax.swing.JRadioButton rdoNu;
@@ -303,6 +313,7 @@ public class NhanVien extends javax.swing.JPanel {
     private com.toedter.calendar.JDateChooser txtNS;
     private javax.swing.JTextField txtPW;
     private javax.swing.JTextField txtSDT;
+    private javax.swing.JTextField txtTK;
     private javax.swing.JTextField txthoTen;
     private javax.swing.JTextField txtmaNV;
     // End of variables declaration//GEN-END:variables
@@ -317,6 +328,15 @@ public class NhanVien extends javax.swing.JPanel {
     
     public void fillTableNhanVien(String maCV){
         listNV = NV_SV.getNVbyCV(maCV);
+        mol = (DefaultTableModel) tblNV.getModel();
+        mol.setRowCount(0);
+        for(NhanVien_View nv : listNV){
+            mol.addRow(new Object[]{nv.getMa(), nv.getHoTen(), nv.getGioiTinh(), nv.getNgaySinh(), nv.getSđt(), nv.getDiaChi(), nv.getPassWord(), nv.getChucVu().getTen()});
+        }
+    }
+    
+    public void FindNhanVien(String sdt){
+        listNV = NV_SV.FindNhanVien(sdt);
         mol = (DefaultTableModel) tblNV.getModel();
         mol.setRowCount(0);
         for(NhanVien_View nv : listNV){

@@ -59,6 +59,16 @@ public class NhanVien_Service implements INhanVien_Service{
     public int updateNV(NhanVien_Model nv) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+    @Override
+    public List<NhanVien_View> FindNhanVien(String keyWord) {
+            List<NhanVien_View> list_view = new ArrayList<>();
+            list = nv.FindNhanVien(keyWord);
+            for(NhanVien_Model n : list){
+               list_view.add(new NhanVien_View(n.getMa(), n.getHoTen(), n.getGioiTinh(), n.getNgaySinh(), n.getSđt(), n.getDiaChi(), n.getPassWord(), n.getChucVu()));
+            }
+        return list_view;
+    }
     
-    
+
 }
