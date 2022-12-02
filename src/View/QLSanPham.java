@@ -379,6 +379,11 @@ public class QLSanPham extends javax.swing.JPanel {
         });
 
         btnClearSP.setText("Clear");
+        btnClearSP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearSPActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("Mã thương hiệu:");
 
@@ -904,6 +909,10 @@ public class QLSanPham extends javax.swing.JPanel {
 
     private void btnClearPLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearPLActionPerformed
         // TODO add your handling code here:
+        cbbSP.setSelectedIndex(0);
+        cbbMaSize.setSelectedIndex(0);
+        txtSoLuong.setText("");
+        txtTenSP2.setText("");
     }//GEN-LAST:event_btnClearPLActionPerformed
 
     private void tblPhanLoaiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPhanLoaiMouseClicked
@@ -922,6 +931,17 @@ public class QLSanPham extends javax.swing.JPanel {
         SPS.Search(txtSearchSP.getText());
         FillSanPham(txtSearchSP.getText());
     }//GEN-LAST:event_txtSearchSPKeyReleased
+
+    private void btnClearSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearSPActionPerformed
+        // TODO add your handling code here:
+        txtSanPham.setText("");
+        txtTenSP.setText("");
+        txtGiaNhap.setText("");
+        txtGiaBan.setText("");
+        txtMoTa.setText("");
+        cbbThuongHieu.setSelectedIndex(0);
+        cbbMauSac.setSelectedIndex(0);
+    }//GEN-LAST:event_btnClearSPActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -36,18 +36,22 @@ public class MauSac_Service implements IMauSac_Service{
         return MS_repos.getByMa(ma);
     }
     
+    @Override
     public int ADD(MauSac_Model m){
         return MS_repos.add(m);
     }
     
+    @Override
     public int DELETE(String ma){
         return MS_repos.delete(ma);
     }
     
+    @Override
     public int UPDATE(MauSac_Model m){
         return MS_repos.update(m);
     }
     
+    @Override
     public MauSac_Model GetMauSacByMa(String ma){
         for(MauSac_Model m : list){
             if(m.getMa().equals(ma)){
@@ -57,6 +61,7 @@ public class MauSac_Service implements IMauSac_Service{
         return null;
     }
     
+    @Override
     public List<MauSac_View> Search(String key){
         list = MS_repos.Search(key);
         List<MauSac_View> list_view = new ArrayList<>();

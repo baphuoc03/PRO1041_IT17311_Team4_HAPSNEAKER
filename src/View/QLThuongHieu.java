@@ -172,6 +172,11 @@ public class QLThuongHieu extends javax.swing.JPanel {
         });
 
         btnClearTH.setText("Clear");
+        btnClearTH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearTHActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -300,6 +305,12 @@ public class QLThuongHieu extends javax.swing.JPanel {
         th.Search(txtTK.getText());
         fillTableThuongHieu(txtTK.getText());
     }//GEN-LAST:event_txtTKKeyReleased
+
+    private void btnClearTHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearTHActionPerformed
+        // TODO add your handling code here:
+        txtTenTH.setText("");
+        txtMaTH.setText("");
+    }//GEN-LAST:event_btnClearTHActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

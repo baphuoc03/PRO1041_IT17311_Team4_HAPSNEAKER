@@ -15,4 +15,5 @@ import model.MauSac_Model;
 public interface IKichThuoc_repos {
     List<KichThuoc_Model> getAllKichThuoc();
     KichThuoc_Model getByMa(String ma);
+    List<KichThuoc_Model> Search(String key);
 }

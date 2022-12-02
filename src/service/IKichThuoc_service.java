@@ -17,4 +17,5 @@ import viewmodel.KichThuoc_View;
 public interface IKichThuoc_service {
     List<KichThuoc_View> getAllKichThuoc();
     KichThuoc_Model getByMa(String ma);
+    List<KichThuoc_View> Search(String key);
 }
