@@ -931,6 +931,19 @@ public class QLSanPham extends javax.swing.JPanel {
 
     private void btnThemSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemSPActionPerformed
         // TODO add your handling code here:
+        if(txtGiaNhap.getText().length() == 0){
+            JOptionPane.showMessageDialog(this, "Không được để trống giá nhập!!!");
+            return;
+        }else if(txtGiaBan.getText().length() == 0){
+            JOptionPane.showMessageDialog(this, "Không được để trống giá bán!!!");
+            return;
+        }else if(txtGiaBan.getText().matches("\\d+")){
+            JOptionPane.showMessageDialog(this, "Gía bán phải là số!!!");
+            return;
+        }else if(txtGiaNhap.getText().matches("\\d+")){
+            JOptionPane.showMessageDialog(this, "Gía nhập phải là số!!!");
+            return;
+        }
         JOptionPane.showMessageDialog(this, SPS.ADD(GetDataSanPham()));
         addPLSP();
         FillSanPham();
@@ -938,6 +951,19 @@ public class QLSanPham extends javax.swing.JPanel {
 
     private void btnSuaSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaSPActionPerformed
         // TODO add your handling code here:
+        if(txtGiaNhap.getText().length() == 0){
+            JOptionPane.showMessageDialog(this, "Không được để trống giá nhập!!!");
+            return;
+        }else if(txtGiaBan.getText().length() == 0){
+            JOptionPane.showMessageDialog(this, "Không được để trống giá bán!!!");
+            return;
+        }else if(txtGiaBan.getText().matches("\\d+")){
+            JOptionPane.showMessageDialog(this, "Gía bán phải là số!!!");
+            return;
+        }else if(txtGiaNhap.getText().matches("\\d+")){
+            JOptionPane.showMessageDialog(this, "Gía nhập phải là số!!!");
+            return;
+        }
         plS.delete(txtSanPham.getText());
         addPLSP();
         SPS.UPDATE(GetDataSanPham());

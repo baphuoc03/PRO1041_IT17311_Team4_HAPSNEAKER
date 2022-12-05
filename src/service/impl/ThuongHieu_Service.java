@@ -6,6 +6,7 @@ package service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import model.ThuongHieu_Model;
 import repository.IThuongHieu_Repos;
 import repository.ThuongHieu_repos;
@@ -43,11 +44,25 @@ public class ThuongHieu_Service implements IThuongHieu_Service{
     
     @Override
     public int Add(ThuongHieu_Model th){
+        if(th.getMa().length() == 0){
+            JOptionPane.showMessageDialog(null, "Không được để trống mã thương hiệu!!!");
+            return 0;
+        }else if(th.getTen().length() == 0){
+            JOptionPane.showMessageDialog(null, "Không được để trống tên thương hiệu!!!");
+            return 0;
+        }
         return TH_repos.Add(th);
     }
     
     @Override
     public int Update(ThuongHieu_Model th){
+        if(th.getMa().length() == 0){
+            JOptionPane.showMessageDialog(null, "Không được để trống mã thương hiệu!!!");
+            return 0;
+        }else if(th.getTen().length() == 0){
+            JOptionPane.showMessageDialog(null, "Không được để trống tên thương hiệu!!!");
+            return 0;
+        }
         return TH_repos.update(th);
     }
     

@@ -63,6 +63,7 @@ public class ThuocTinhSP_service implements IThuocTinhSP_Service{
     
     @Override
     public int ADD(ThuocTinhSP_Model t){
+       
         return repo.add(t);
     }
     

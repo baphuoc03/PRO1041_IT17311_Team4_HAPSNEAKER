@@ -6,6 +6,7 @@ package service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import model.PhanLoai_Model;
 import repository.IPhanLoai_repos;
 import repository.PhanLoai_repos;
@@ -39,11 +40,25 @@ public class PhanLoai_Service implements IPhanLoai_Service{
     
     @Override
     public int ADD(PhanLoai_Model p){
+        if(p.getMa().length() == 0){
+            JOptionPane.showMessageDialog(null, "Không được để trống mã phân loại!!!");
+            return 0;
+        }else if(p.getTen().length() == 0){
+            JOptionPane.showMessageDialog(null, "Không được để trống tên phân loại!!!");
+            return 0;
+        }
         return PL_repos.add(p);
     }
     
     @Override
     public int UPDATE(PhanLoai_Model p){
+        if(p.getMa().length() == 0){
+            JOptionPane.showMessageDialog(null, "Không được để trống mã phân loại!!!");
+            return 0;
+        }else if(p.getTen().length() == 0){
+            JOptionPane.showMessageDialog(null, "Không được để trống tên phân loại!!!");
+            return 0;
+        }
         return PL_repos.update(p);
     }
     

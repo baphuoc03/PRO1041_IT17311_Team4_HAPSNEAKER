@@ -6,6 +6,7 @@ package service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import model.MauSac_Model;
 import service.ISanPham_Service;
 import model.SanPham_Model;
@@ -57,6 +58,19 @@ public class SanPham_service implements ISanPham_Service{
     
     @Override
     public int ADD(SanPham_Model s){
+        if(s.getMa().length() == 0){
+            JOptionPane.showMessageDialog(null, "Không được để trống mã sản phẩm!!!!");
+            return 0;
+        }else if(s.getTen().length() == 0){
+            JOptionPane.showMessageDialog(null, "Không được để trống tên sản phẩm!!!!");
+            return 0;
+        }else if(s.getMauSac().getMa().length() == 0){
+            JOptionPane.showMessageDialog(null, "Không được để trống mã màu sắc!!!");
+            return 0;
+        }else if(s.getThuongHieu().getMa().length() == 0){
+            JOptionPane.showMessageDialog(null, "Không được để trống mã thương hiệu!!!");
+            return 0;
+        }
         return repo.add(s);
     }
     
@@ -67,6 +81,19 @@ public class SanPham_service implements ISanPham_Service{
     
     @Override
     public int UPDATE(SanPham_Model s){
+        if(s.getMa().length() == 0){
+            JOptionPane.showMessageDialog(null, "Không được để trống mã sản phẩm!!!!");
+            return 0;
+        }else if(s.getTen().length() == 0){
+            JOptionPane.showMessageDialog(null, "Không được để trống tên sản phẩm!!!!");
+            return 0;
+        }else if(s.getMauSac().getMa().length() == 0){
+            JOptionPane.showMessageDialog(null, "Không được để trống mã màu sắc!!!");
+            return 0;
+        }else if(s.getThuongHieu().getMa().length() == 0){
+            JOptionPane.showMessageDialog(null, "Không được để trống mã thương hiệu!!!");
+            return 0;
+        }
         return repo.update(s);
     }
     
