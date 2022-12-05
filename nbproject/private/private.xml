@@ -12,11 +12,11 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/84353/HAP_SNEAKER/PRO1041_IT17311_Team4_HAPSNEAKER/src/service/impl/PhanLoai_Service.java</file>
+            <file>file:/C:/Users/84353/HAP_SNEAKER/PRO1041_IT17311_Team4_HAPSNEAKER/src/repository/PLSanPham_Repo.java</file>
             <file>file:/C:/Users/84353/HAP_SNEAKER/PRO1041_IT17311_Team4_HAPSNEAKER/src/View/Main.java</file>
-            <file>file:/C:/Users/84353/HAP_SNEAKER/PRO1041_IT17311_Team4_HAPSNEAKER/src/View/QLMauSac.java</file>
-            <file>file:/C:/Users/84353/HAP_SNEAKER/PRO1041_IT17311_Team4_HAPSNEAKER/src/View/QLPhanLoai.java</file>
-            <file>file:/C:/Users/84353/HAP_SNEAKER/PRO1041_IT17311_Team4_HAPSNEAKER/src/service/IPhanLoai_Service.java</file>
+            <file>file:/C:/Users/84353/HAP_SNEAKER/PRO1041_IT17311_Team4_HAPSNEAKER/src/View/QLThuongHieu.java</file>
+            <file>file:/C:/Users/84353/HAP_SNEAKER/PRO1041_IT17311_Team4_HAPSNEAKER/src/View/QLKichThuoc.java</file>
+            <file>file:/C:/Users/84353/HAP_SNEAKER/PRO1041_IT17311_Team4_HAPSNEAKER/src/View/QLSanPham.java</file>
             <file>file:/C:/Users/84353/HAP_SNEAKER/PRO1041_IT17311_Team4_HAPSNEAKER/src/service/impl/MauSac_Service.java</file>
         </group>
     </open-files>

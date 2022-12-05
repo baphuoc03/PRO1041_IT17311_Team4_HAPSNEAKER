@@ -6,6 +6,7 @@ package service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import model.MauSac_Model;
 import repository.IMauSac_repos;
 import repository.MauSac_repos;
@@ -38,8 +39,18 @@ public class MauSac_Service implements IMauSac_Service{
     
     @Override
     public int ADD(MauSac_Model m){
+        if(m.getMa().length() == 0){
+            JOptionPane.showMessageDialog(null, "Không được để trống mã");
+            return 0;
+        }else if(m.getTen().length() == 0){
+            JOptionPane.showConfirmDialog(null, "Không được để trống tên");
+            return 0;
+        }
         return MS_repos.add(m);
+        
+        
     }
+        
     
     @Override
     public int DELETE(String ma){
@@ -48,6 +59,13 @@ public class MauSac_Service implements IMauSac_Service{
     
     @Override
     public int UPDATE(MauSac_Model m){
+        if(m.getMa().length() == 0){
+            JOptionPane.showMessageDialog(null, "Không được để trống mã");
+            return 0;
+        }else if(m.getTen().length() == 0){
+            JOptionPane.showConfirmDialog(null, "Không được để trống tên");
+            return 0;
+        }
         return MS_repos.update(m);
     }
     

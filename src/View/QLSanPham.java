@@ -29,7 +29,14 @@ import service.impl.ThuocTinhSP_service;
 import service.impl.ThuongHieu_Service;
 import viewmodel.SanPham_ViewModel;
 import viewmodel.ThuocTinhSP_ViewModel;
-
+import service.IPhanLoai_Service;
+import service.impl.PhanLoai_Service;
+import viewmodel.PhanLoai_View;
+import service.IPLSanPham_Service;
+import service.impl.PLSanPham_Service;
+import model.PlSp_Model;
+import viewmodel.PLSanPham_View;
+import model.PhanLoai_Model;
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
@@ -58,6 +65,12 @@ public class QLSanPham extends javax.swing.JPanel {
     IThuongHieu_Service THS = new ThuongHieu_Service();
     IMauSac_Service MSS = new MauSac_Service();
     IKichThuoc_service KTS = new KichThuoc_Service();
+    IPhanLoai_Service PLS = new PhanLoai_Service();
+    List<PhanLoai_View> lstPL = new ArrayList<>();
+    
+    List<PLSanPham_View> lstPLV;
+    IPLSanPham_Service plS = new PLSanPham_Service();
+    
     /**
      * Creates new form QLThuongHieu
      */
@@ -164,6 +177,7 @@ public class QLSanPham extends javax.swing.JPanel {
         txtTenSP2.setText(s.getTen());
         cbbSP.setSelectedItem(lstSP.get(i).getMa());
         
+        fillPLSP(s.getMa());
     }
     
     public void ShowThuocTinhSP(){
@@ -181,13 +195,44 @@ public class QLSanPham extends javax.swing.JPanel {
     }
     
    public void FillFL(){
-        lstTT = TTS.GetAllThuocTinhSP();
+        lstPL = PLS.getAllPhanLoai() ;
         dtm = (DefaultTableModel) tblPL.getModel();
         dtm.setRowCount(0);
-        for(ThuocTinhSP_ViewModel t : lstTT){
-            dtm.addRow(new Object[]{t.getStt(),t.getId(),t.getMaSP()});
+        for(PhanLoai_View p : lstPL){
+            dtm.addRow(new Object[]{p.getStt(),p.getMa(),p.getTen()});
         }
     }
+   
+   public void fillPLSP(String maPL){
+       for(int i = 0; i < tblPL.getRowCount() ;i++ ){
+           tblPL.setValueAt(false, i, 3);
+       
+       }
+       
+       List<PLSanPham_View> plSP = plS.GetByMa(maPL);
+       for(int i = 0; i < tblPL.getRowCount();i++){
+           for(PLSanPham_View p : plSP){
+               if(p.getMaPL().equalsIgnoreCase(tblPL.getValueAt(i, 1).toString())){
+                   tblPL.setValueAt(true, i, 3);
+                   System.out.println("333");
+               }
+           }
+           System.out.println("111");
+       }
+   }
+   
+   public void addPLSP(){
+       List<PhanLoai_Model> lstPLSP = new ArrayList<>();
+       for(int i = 0 ; i < tblPL.getRowCount(); i++){
+           if(Boolean.parseBoolean(tblPL.getValueAt(i, 3).toString()) == true){
+               lstPLSP.add(PLS.getByMa(tblPL.getValueAt(i, 1)+""));
+           }
+           System.out.println(lstPLSP.size());
+           for(PhanLoai_Model p : lstPLSP){
+               plS.add(new PlSp_Model(p, GetDataSanPham()));
+           }
+       }
+   }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -835,6 +880,8 @@ public class QLSanPham extends javax.swing.JPanel {
 
     private void btnXoaSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaSPActionPerformed
         // TODO add your handling code here:
+        plS.delete(txtSanPham.getText());
+        
         SPS.DELETE(GetDataSanPham().getMa());
         FillSanPham();
     }//GEN-LAST:event_btnXoaSPActionPerformed
@@ -885,11 +932,14 @@ public class QLSanPham extends javax.swing.JPanel {
     private void btnThemSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemSPActionPerformed
         // TODO add your handling code here:
         JOptionPane.showMessageDialog(this, SPS.ADD(GetDataSanPham()));
+        addPLSP();
         FillSanPham();
     }//GEN-LAST:event_btnThemSPActionPerformed
 
     private void btnSuaSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaSPActionPerformed
         // TODO add your handling code here:
+        plS.delete(txtSanPham.getText());
+        addPLSP();
         SPS.UPDATE(GetDataSanPham());
         FillSanPham();
     }//GEN-LAST:event_btnSuaSPActionPerformed
