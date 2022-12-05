@@ -9,15 +9,15 @@ import java.util.List;
 import model.KichThuoc_Model;
 import repository.KichThuoc_repos;
 import viewmodel.KichThuoc_View;
+import repository.IKichThuoc_repos;
 import service.IKichThuoc_service;
-import repository.IKichThuoc_repo;
 
 /**
  *
  * @author baphuoc
  */
 public class KichThuoc_Service implements IKichThuoc_service{
-    IKichThuoc_repo KT_repos = new KichThuoc_repos();
+    IKichThuoc_repos KT_repos = new KichThuoc_repos();
             List<KichThuoc_Model> list;
     @Override
     public List<KichThuoc_View> getAllKichThuoc() {

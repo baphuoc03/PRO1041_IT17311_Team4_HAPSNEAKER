@@ -14,4 +14,5 @@ import viewmodel.TKThuocTinhSP_View;
  */
 public interface ITKThuocTinh_Service {
     List<TKThuocTinhSP_View> tkByMa(String ma);
+    List<TKThuocTinhSP_View> tkByMaTheoNgay(String ma,String batDau,String ketThuc);
 }

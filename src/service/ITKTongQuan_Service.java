@@ -15,5 +15,5 @@ import viewmodel.TKTongQuan_View;
  */
 public interface ITKTongQuan_Service {
     TKTongQuan_View tkHomNay();
-    TKTongQuan_View tkTheoNgay(Date batDau, Date ketThuc);
+    TKTongQuan_View tkTheoNgay(String batDau, String ketThuc);
 }

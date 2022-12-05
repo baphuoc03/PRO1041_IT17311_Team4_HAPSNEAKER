@@ -13,10 +13,11 @@ import viewmodel.ThuongHieu_View;
  * @author baphuoc
  */
 public interface IThuongHieu_Service {
-     List<ThuongHieu_View> getAllThuongHieu();
+    List<ThuongHieu_View> getAllThuongHieu();
     int Add(ThuongHieu_Model th);
     ThuongHieu_Model GetThuongHieuByMa(String ma);
     ThuongHieu_Model getByMa(String ma);
     int Delete(String ma);
     int Update(ThuongHieu_Model th);
+    List<ThuongHieu_View> Search(String key);
 }

@@ -13,16 +13,20 @@ public class ChiTietDH_model {
     private ThuocTinhSP_Model thuocTinh;
     private int sl;
     private float donGia;
+    private float donGiaSauGiam;
 
     public ChiTietDH_model() {
     }
 
-    public ChiTietDH_model(DonHang_Model donHang, ThuocTinhSP_Model thuocTinh, int sl, float donGia) {
+    public ChiTietDH_model(DonHang_Model donHang, ThuocTinhSP_Model thuocTinh, int sl, float donGia, float donGiaSauGiam) {
         this.donHang = donHang;
         this.thuocTinh = thuocTinh;
         this.sl = sl;
         this.donGia = donGia;
+        this.donGiaSauGiam = donGiaSauGiam;
     }
+
+    
 
     public DonHang_Model getDonHang() {
         return donHang;
@@ -56,10 +60,20 @@ public class ChiTietDH_model {
         this.donGia = donGia;
     }
 
+    public float getDonGiaSauGiam() {
+        return donGiaSauGiam;
+    }
+
+    public void setDonGiaSauGiam(float donGiaSauGiam) {
+        this.donGiaSauGiam = donGiaSauGiam;
+    }
+
     @Override
     public String toString() {
-        return "ChiTietDH_model{" + "donHang=" + donHang + ", thuocTinh=" + thuocTinh + ", sl=" + sl + ", donGia=" + donGia + '}';
+        return "ChiTietDH_model{" + "donHang=" + donHang + ", thuocTinh=" + thuocTinh + ", sl=" + sl + ", donGia=" + donGia + ", donGiaSauGiam=" + donGiaSauGiam + '}';
     }
+    
+    
     
     
 }

@@ -17,7 +17,7 @@ import ultinities.JDBC_Helper;
  *
  * @author baphuoc
  */
-public class PhanLoai_repos implements IPhanLoai_repo {
+public class PhanLoai_repos implements IPhanLoai_repos {
 
     @Override
     public List<PhanLoai_Model> getAllThuongHieu() {

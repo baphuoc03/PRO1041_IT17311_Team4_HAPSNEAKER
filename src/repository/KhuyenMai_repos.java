@@ -16,7 +16,7 @@ import viewmodel.KhuyenMai_View;
  *
  * @author phamtuananh
  */
-public class KhuyenMai_repos implements IKhuyenMai_repo {
+public class KhuyenMai_repos implements IKhuyenMai_repos {
 
     @Override
     public List<KhuyenMai_Model> getAllKhuyenMai() {
@@ -32,8 +32,9 @@ public class KhuyenMai_repos implements IKhuyenMai_repo {
             return listKm;
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
+
         }
-        return null;
     }
 
     @Override
@@ -52,6 +53,24 @@ public class KhuyenMai_repos implements IKhuyenMai_repo {
     public int update(KhuyenMai_Model km) {
         String sql = "update khuyenmai set  ten = ?, giamgia = ?, ngaybatdau = ? , ngayketthuc = ? where makm =?";
         return JDBC_Helper.Update(sql, km.getTen(), km.getGiamGia(), km.getNgayBatDau(), km.getNgayKetThuc(), km.getMa());
+    }
+
+    @Override
+    public KhuyenMai_Model getKhuyenMaiByMa(String ma) {
+        KhuyenMai_Model Km = null;
+        String sql = "select khuyenmai.makm , khuyenmai.ten ,giamgia, NgayBatDau, NgayKetThuc from khuyenmai WHERE khuyenmai.makm = ? \n";
+        ResultSet rs = JDBC_Helper.Query(sql,ma);
+        try {
+            while (rs.next()) {
+                Km = new KhuyenMai_Model(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getDate(4), rs.getDate(5));
+
+            }
+            return Km;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+
+        }
     }
 
 }

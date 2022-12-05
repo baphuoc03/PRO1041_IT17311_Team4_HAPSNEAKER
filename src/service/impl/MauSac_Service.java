@@ -9,8 +9,8 @@ import java.util.List;
 import model.MauSac_Model;
 import repository.MauSac_repos;
 import viewmodel.MauSac_View;
+import repository.IMauSac_repos;
 import service.IMauSac_Service;
-import repository.IMauSac_repo;
 
 /**
  *
@@ -18,7 +18,7 @@ import repository.IMauSac_repo;
  */
 public class MauSac_Service implements IMauSac_Service {
 
-    IMauSac_repo MS_repos = new MauSac_repos();
+    IMauSac_repos MS_repos = new MauSac_repos();
     List<MauSac_Model> list;
 
     @Override
@@ -61,5 +61,17 @@ public class MauSac_Service implements IMauSac_Service {
             }
         }
         return null;
+    }
+    @Override
+     public List<MauSac_View> Search(String key){
+        list = MS_repos.Search(key);
+        List<MauSac_View> list_view = new ArrayList<>();
+        int stt = 1;
+        for (MauSac_Model m : list) {
+            list_view.add(new MauSac_View(stt,m.getMa(), m.getTen()));
+            stt++;
+        }
+        return list_view;
+
     }
 }

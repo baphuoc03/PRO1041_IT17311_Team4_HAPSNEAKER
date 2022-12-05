@@ -9,8 +9,8 @@ import java.util.List;
 import model.DonHang_Model;
 import repository.DonHang_Repos;
 import viewmodel.DonHang_view;
+import repository.IDonHang_Repos;
 import service.IDonHang_service;
-import repository.IDonHang_Repo;
 
 /**
  *
@@ -18,7 +18,7 @@ import repository.IDonHang_Repo;
  */
 public class DonHang_service implements IDonHang_service {
 
-    IDonHang_Repo DH_repos = new DonHang_Repos();
+    IDonHang_Repos DH_repos = new DonHang_Repos();
     List<DonHang_Model> list;
 
     @Override

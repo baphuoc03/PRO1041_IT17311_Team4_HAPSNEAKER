@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
+//import javax.mail.Message;
+//import javax.mail.MessagingException;
+//import javax.mail.PasswordAuthentication;
+//import javax.mail.Session;
+//import javax.mail.Transport;
+//import javax.mail.internet.InternetAddress;
+//import javax.mail.internet.MimeMessage;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.KhuyenMai_Model;
@@ -21,10 +21,11 @@ import service.impl.KhuyenMai_Service;
 import service.impl.SanPham_service;
 import viewmodel.KhuyenMaiSP_view;
 import viewmodel.KhuyenMai_View;
-import viewmodel.SanPham_ViewModel;
+import viewmodel.SanPham_View;
 import service.IKhuyenMaiSP_Service;
 import service.IKhuyenMai_Service;
 import service.ISanPham_Service;
+import ultinities.ValiDate;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -41,9 +42,9 @@ public class QLKhuyenMai extends javax.swing.JPanel {
     IKhuyenMaiSP_Service KmSP_SV = new KhuyenMaiSP_Service();
     DefaultTableModel model;
     List<KhuyenMai_View> listKM;
-    List<SanPham_ViewModel> listSP;
+    List<SanPham_View> listSP;
     int index;
-    String spkm="";
+    String spkm = "";
 
     /**
      * Creates new form QLKhuyenMai
@@ -404,12 +405,14 @@ public class QLKhuyenMai extends javax.swing.JPanel {
         // TODO add your handling code here:
         int xacnhan = JOptionPane.showConfirmDialog(this, "Thêm Khuyến Mãi" + txttenkm.getText() + "?");
         if (xacnhan == JOptionPane.YES_OPTION) {
-            KM_SV.add(getKH());
+            if(valiDate() == false) return;
+            if (KM_SV.add(getKH()) == 0) {
+                return;
+            }
             addKmSP();
             filltotableSP(txtmakm.getText());
             fillToTableKM();
-           
-            JOptionPane.showMessageDialog(this, "Thêm Khuyến Mãi Thành Công" + txttenkm.getText());
+
         } else {
             JOptionPane.showMessageDialog(this, "Lỗi");
         }
@@ -422,14 +425,12 @@ public class QLKhuyenMai extends javax.swing.JPanel {
     }//GEN-LAST:event_tblKMMouseClicked
 
     private void btnxoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnxoaActionPerformed
-        // TODO add your handling code here:
         int xacnhan = JOptionPane.showConfirmDialog(this, "Xóa Khuyến Mãi" + txttenkm.getText() + "?");
         if (xacnhan == JOptionPane.YES_OPTION) {
-            KmSP_SV.deleteByMaKM(txtmakm.getText());
+            if(KmSP_SV.deleteByMaKM(txtmakm.getText())==0)return;
             KM_SV.delete(getKH());
             clear();
             fillToTableKM();
-            JOptionPane.showMessageDialog(this, "Xóa Thành Công" + txttenkm.getText());
         } else {
             JOptionPane.showMessageDialog(this, "Lỗi");
         }
@@ -439,11 +440,13 @@ public class QLKhuyenMai extends javax.swing.JPanel {
         // TODO add your handling code here:
         int xacnhan = JOptionPane.showConfirmDialog(this, "Cập Nhật Khuyến Mãi" + txttenkm.getText() + "?");
         if (xacnhan == JOptionPane.YES_OPTION) {
-            KM_SV.update(getKH());
+            if(valiDate()==false) return;
+            if (KM_SV.update(getKH()) == 0) {
+                return;
+            }
             KmSP_SV.deleteByMaKM(txtmakm.getText());
             addKmSP();
             fillToTableKM();
-            JOptionPane.showMessageDialog(this, "Cập Nhật Thành Công" + txttenkm.getText());
         }
     }//GEN-LAST:event_btncapnhatActionPerformed
 
@@ -515,7 +518,7 @@ public class QLKhuyenMai extends javax.swing.JPanel {
         for (int i = 0; i < tblSP.getRowCount(); i++) {
             if (Boolean.parseBoolean(tblSP.getValueAt(i, 6).toString()) == true) {
                 listSP.add(SP_SV.getSPByMa(tblSP.getValueAt(i, 1) + ""));
-                spkm += tblSP.getValueAt(i, 2)+", "; 
+                spkm += tblSP.getValueAt(i, 2) + ", ";
             }
         }
         for (SanPham_Model s : listSP) {
@@ -528,7 +531,7 @@ public class QLKhuyenMai extends javax.swing.JPanel {
         listSP = SP_SV.GetAllSanPham();
         model = (DefaultTableModel) tblSP.getModel();
         model.setRowCount(0);
-        for (SanPham_ViewModel sp : listSP) {
+        for (SanPham_View sp : listSP) {
             model.addRow(new Object[]{sp.getStt(), sp.getMa(), sp.getTen(), sp.getThuongHieu(), sp.getMauSac(), sp.getGiaBan()});
 
         }
@@ -574,11 +577,17 @@ public class QLKhuyenMai extends javax.swing.JPanel {
         txtmakm.setText("");
         txttenkm.setText("");
         txtgiamgia.setText("");
-        Datebatdau.setDate(null);
-        Dateketthuc.setDate(null);
+        Datebatdau.setDate(new Date());
+        Dateketthuc.setDate(new Date());
         for (int i = 0; i < tblSP.getRowCount(); i++) {
             tblSP.setValueAt(false, i, 6);
         }
     }
-
+    public boolean valiDate(){
+        if(ValiDate.isInt(txtgiamgia, "Giảm Giá Phải là số")){
+            return false;
+        }else{
+            return true;
+        }
+    }
 }

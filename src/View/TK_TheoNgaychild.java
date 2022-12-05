@@ -94,10 +94,10 @@ public class TK_TheoNgaychild extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        TKTongQuan_View tkTQ = tkTQ_Service.tkTheoNgay(txtBatDau.getDate(), txtKetThuc.getDate());
-        tk.fillTKTongQuan(tkTQ.getDonHang(), tkTQ.getSanPham(), tkTQ.getDoanhthu());
+//        TKTongQuan_View tkTQ = tkTQ_Service.tkTheoNgay(txtBatDau.getDate(), txtKetThuc.getDate());
+//        tk.fillTKTongQuan(tkTQ.getDonHang(), tkTQ.getSanPham(), tkTQ.getDoanhthu());
         tk.lblDonHang.setText("sds s s");
-        System.out.println(tkTQ.getDoanhthu());
+//        System.out.println(tkTQ.getDoanhthu());
 
     }//GEN-LAST:event_jButton1ActionPerformed
 

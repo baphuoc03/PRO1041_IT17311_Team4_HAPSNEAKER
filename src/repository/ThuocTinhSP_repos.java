@@ -18,7 +18,7 @@ import model.ThuongHieu_Model;
  *
  * @author 84353
  */
-public class ThuocTinhSP_repos implements IThuocTinhSP_Repo {
+public class ThuocTinhSP_repos implements IThuocTinhSP_Repos {
 
     public List<ThuocTinhSP_Model> GetAllThuocTinhSP() {
         List<ThuocTinhSP_Model> list = new ArrayList<>();
@@ -28,7 +28,8 @@ public class ThuocTinhSP_repos implements IThuocTinhSP_Repo {
                 + "join hap_sneaker.sanpham s on t.MaSP = s.MaSP \n"
                 + "join hap_sneaker.kichthuoc k on t.MaSize = k.MaSize\n"
                 + "join thuonghieu on s.MaThuongHieu = thuonghieu.mathuonghieu\n"
-                + "join mausac on mausac.maMau = s.maMau";
+                + "join mausac on mausac.maMau = s.maMau "
+                + "ORDER BY s.MaSP ";
         ResultSet rs = JDBC_Helper.Query(sql);
 
         try {
@@ -40,6 +41,7 @@ public class ThuocTinhSP_repos implements IThuocTinhSP_Repo {
                 list.add(new ThuocTinhSP_Model(rs.getString(10), sp, kt, rs.getInt(11)));
             }
             return list;
+
         } catch (Exception e) {
             e.printStackTrace();
             //System.out.println("Lỗi tại GetAll");
@@ -69,6 +71,28 @@ public class ThuocTinhSP_repos implements IThuocTinhSP_Repo {
                 Sp = new ThuocTinhSP_Model(rs.getString(10), sp, kt, rs.getInt(11));
             }
             return Sp;
+        } catch (Exception e) {
+            e.printStackTrace();
+            //System.out.println("Lỗi tại GetAll");
+            return null;
+        }
+    }
+
+    public List<ThuocTinhSP_Model> GetByMaTT(String maSP) {
+        List<ThuocTinhSP_Model> list = new ArrayList<>();
+        String sql = "select s.MaSP,s.Ten,s.MoTa,s.GiaNhap,s.GiaBan,s.TrangThai,k.MaSize,k.Us,k.ChieuDai,t.Id,t.SoLuong from hap_sneaker.thuoctinhsanpham t \n"
+                + "join hap_sneaker.sanpham s on t.MaSP = s.MaSP \n"
+                + "join hap_sneaker.kichthuoc k on t.MaSize = k.MaSize where s.maSP = ?"
+                + " ORDER BY k.MaSize";
+        ResultSet rs = JDBC_Helper.Query(sql, maSP);
+
+        try {
+            while (rs.next()) {
+                SanPham_Model sp = new SanPham_Model(rs.getString(1), rs.getString(2), null, null, rs.getString(3), rs.getFloat(4), rs.getFloat(5), rs.getInt(6));
+                KichThuoc_Model kt = new KichThuoc_Model(rs.getFloat(7), rs.getFloat(8), rs.getInt(9));
+                list.add(new ThuocTinhSP_Model(rs.getString(10), sp, kt, rs.getInt(11)));
+            }
+            return list;
         } catch (Exception e) {
             e.printStackTrace();
             //System.out.println("Lỗi tại GetAll");
@@ -116,10 +140,29 @@ public class ThuocTinhSP_repos implements IThuocTinhSP_Repo {
             return null;
         }
     }
+
     public static void main(String[] args) {
         ThuocTinhSP_repos repo = new ThuocTinhSP_repos();
-        for (ThuocTinhSP_Model thuocTinhSP_Model : repo.FilterThuocTinhSP("", "38.0", "", "", "")) {
+        for (ThuocTinhSP_Model thuocTinhSP_Model : repo.GetByMaTT("SP1")) {
             System.out.println(thuocTinhSP_Model.toString());
         }
     }
+
+    public int add(ThuocTinhSP_Model t) {
+        String sql = "insert into hap_sneaker.thuoctinhsanpham(MaSP,MaSize,SoLuong) values(?,?,?)";
+        return JDBC_Helper.Update(sql, t.getSanPham().getMa(), t.getKichThuoc().getMa(), t.getSl());
+    }
+
+    @Override
+    public int delete(String id) {
+        String sql = "Delete from hap_sneaker.thuoctinhsanpham where id = ?";
+        return JDBC_Helper.Update(sql, id);
+    }
+
+    @Override
+    public int undate(ThuocTinhSP_Model t) {
+        String sql = "Update hap_sneaker.thuoctinhsanpham Set MaSP = ?,MaSize =?,SoLuong =? where id =?";
+        return JDBC_Helper.Update(sql, t.getSanPham().getMa(), t.getKichThuoc().getMa(), t.getSl(), t.getId());
+    }
+
 }

@@ -9,8 +9,10 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.category.DefaultCategoryDataset;
-import service.INhanVien_Service;
 import service.impl.NhanVien_Service;
+import View.QLSanPham;
+import javax.swing.JOptionPane;
+import service.INhanVien_Service;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -21,10 +23,12 @@ import service.impl.NhanVien_Service;
  * @author 84353
  */
 public class Main extends javax.swing.JFrame {
+
     INhanVien_Service nv_sv = new NhanVien_Service();
     private JPanel childPanel;
-    public static NhanVien_Model nv;
+    public static NhanVien_Model nv = null;
     Dang_nhap dn = new Dang_nhap();
+    public static boolean guiBC = false;
 
     /**
      * Creates new form KhungGiaoDien
@@ -36,6 +40,7 @@ public class Main extends javax.swing.JFrame {
 //        lblTenNV.setText(nv.getMa()+" - "+nv.getHoTen());
 //        lblChucVu.setText(nv.getChucVu().getTen());
         setLocationRelativeTo(null);
+        NhanVien_Model nv = nv_sv.getByMa(lblTenNV.getText().split(" ")[0]);
     }
 
     /**
@@ -62,6 +67,7 @@ public class Main extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         lblTenNV = new javax.swing.JLabel();
         lblChucVu = new javax.swing.JLabel();
+        lblDoiMK = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         PnlMain = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -234,6 +240,19 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(lblChucVu, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        lblDoiMK.setBackground(new java.awt.Color(255, 255, 255));
+        lblDoiMK.setFont(new java.awt.Font("Lucida Grande", 1, 20)); // NOI18N
+        lblDoiMK.setForeground(new java.awt.Color(2, 120, 217));
+        lblDoiMK.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblDoiMK.setText("Đổi Mật Khẩu");
+        lblDoiMK.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(2, 120, 217)));
+        lblDoiMK.setOpaque(true);
+        lblDoiMK.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblDoiMKMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -246,6 +265,7 @@ public class Main extends javax.swing.JFrame {
             .addComponent(lblThongKe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(lblDangXuat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lblDoiMK, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -256,6 +276,8 @@ public class Main extends javax.swing.JFrame {
                 .addGap(0, 0, 0)
                 .addComponent(lblNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
+                .addComponent(lblDoiMK, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
                 .addComponent(lblKH, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(lblSanPham, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -265,7 +287,7 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(lblThongKe, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(lblDangXuat, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(118, Short.MAX_VALUE))
+                .addContainerGap(58, Short.MAX_VALUE))
         );
 
         jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {lblBanHang, lblNhanVien});
@@ -330,73 +352,72 @@ public class Main extends javax.swing.JFrame {
 
     private void lblBanHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBanHangMouseClicked
         // TODO add your handling code here:
-        childPanel = new QLDonHang();
-        PnlMain.removeAll();
-        PnlMain.add(childPanel);
-        PnlMain.validate();
-        SetAlignCenter();
+        fillPanel(new QLDonHang());
         lblBanHang.setHorizontalAlignment(JLabel.RIGHT);
     }//GEN-LAST:event_lblBanHangMouseClicked
 
     private void lblNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNhanVienMouseClicked
         // TODO add your handling code here:
-        childPanel = new NhanVien();
-        PnlMain.removeAll();
-        PnlMain.add(childPanel);
-        PnlMain.validate();
-        SetAlignCenter();
+//        NhanVien_Model nv= nv_sv.getByMa(lblTenNV.getText().split(" ")[0]);
+//        if(nv.getChucVu().getTen().equalsIgnoreCase("quản lý")){
+        fillPanel(new NhanVien());
         lblNhanVien.setHorizontalAlignment(JLabel.RIGHT);
+//        }else{
+//            JOptionPane.showMessageDialog(this,"Chức năng chỉ dành cho quản lý","Lỗi", JOptionPane.ERROR_MESSAGE);
+//        }
     }//GEN-LAST:event_lblNhanVienMouseClicked
 
     private void lblKHMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblKHMouseClicked
         // TODO add your handling code here:
-        childPanel = new KhachHang();
-        PnlMain.removeAll();
-        PnlMain.add(childPanel);
-        PnlMain.validate();
-        SetAlignCenter();
+        fillPanel(new KhachHang());
         lblKH.setHorizontalAlignment(JLabel.RIGHT);
     }//GEN-LAST:event_lblKHMouseClicked
 
     private void lblSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSanPhamMouseClicked
         // TODO add your handling code here:
-        childPanel = new QLSanPham();
-        PnlMain.removeAll();
-        PnlMain.add(childPanel);
-        PnlMain.validate();
-        SetAlignCenter();
+        fillPanel(new QLSanPham());
         lblSanPham.setHorizontalAlignment(JLabel.RIGHT);
     }//GEN-LAST:event_lblSanPhamMouseClicked
 
     private void lblKhuyenMaiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblKhuyenMaiMouseClicked
         // TODO add your handling code here:
-        childPanel = new QLKhuyenMai();
-        PnlMain.removeAll();
-        PnlMain.add(childPanel);
-        PnlMain.validate();
-        SetAlignCenter();
+        fillPanel(new QLKhuyenMai());
         lblKhuyenMai.setHorizontalAlignment(JLabel.RIGHT);
     }//GEN-LAST:event_lblKhuyenMaiMouseClicked
 
     private void lblThongKeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThongKeMouseClicked
         // TODO add your handling code here:
-        childPanel = new TK();
-        PnlMain.removeAll();
-        PnlMain.add(childPanel);
-        PnlMain.validate();
-        SetAlignCenter();
+        NhanVien_Model nv = nv_sv.getByMa(lblTenNV.getText().split(" ")[0]);
+        TK tk = new TK();
+        fillPanel(new TK());
         lblThongKe.setHorizontalAlignment(JLabel.RIGHT);
+        if (nv.getChucVu().getTen().equalsIgnoreCase("nhân viên")) {
+            tk.tabTK.removeAll();
+            tk.pnlLoaiThoiGian.removeAll();
+            tk.cboLoaiTG.setEnabled(false);
+        }
+//        fillPanel(new TK());
+//        lblThongKe.setHorizontalAlignment(JLabel.RIGHT);
     }//GEN-LAST:event_lblThongKeMouseClicked
 
     private void lblDangXuatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDangXuatMouseClicked
         // TODO add your handling code here:
-        dn.setVisible(true);
-        this.dispose();
+        if (guiBC == false) {
+            int comfirm = JOptionPane.showConfirmDialog(this, "Hôm nay bạn chưa gửi báo cáo?\nBạn có muốn gửi", "Gửi Báo Cáo", JOptionPane.YES_NO_OPTION);
+            if (comfirm == JOptionPane.YES_OPTION) {
+                JOptionPane.showMessageDialog(this, "Gửi Báo Cáo Thành công");
+            }
+            dn.setVisible(true);
+            this.dispose();
+        } else {
+            dn.setVisible(true);
+            this.dispose();
+        }
     }//GEN-LAST:event_lblDangXuatMouseClicked
 
     private void lblTenNVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTenNVMouseClicked
         // TODO add your handling code here:
-        NhanVien_Model nv= nv_sv.getByMa(lblTenNV.getText().split(" ")[0]);
+        NhanVien_Model nv = nv_sv.getByMa(lblTenNV.getText().split(" ")[0]);
         ChiTietNV ctnv = new ChiTietNV();
         ctnv.lblChucVu.setText(nv.getChucVu().getTen());
         ctnv.lblMa.setText(nv.getMa());
@@ -404,18 +425,18 @@ public class Main extends javax.swing.JFrame {
         ctnv.lblGioiTinh.setText(nv.getGioiTinh());
         ctnv.lblNhanVien.setText(nv.getHoTen());
         ctnv.lblSDT.setText(nv.getSđt());
-        ctnv.lblNgaySinh.setText(nv.getNgaySinh()+"");
+        ctnv.lblNgaySinh.setText(nv.getNgaySinh() + "");
         JFrame frameChild = new JFrame();
         frameChild.setSize(320, 370);
         frameChild.setLocationRelativeTo(null);
         frameChild.add(ctnv);
         frameChild.setVisible(true);
-                
+
     }//GEN-LAST:event_lblTenNVMouseClicked
 
     private void lblChucVuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblChucVuMouseClicked
         // TODO add your handling code here:
-         NhanVien_Model nv= nv_sv.getByMa(lblTenNV.getText().split(" ")[0]);
+        NhanVien_Model nv = nv_sv.getByMa(lblTenNV.getText().split(" ")[0]);
         ChiTietNV ctnv = new ChiTietNV();
         ctnv.lblChucVu.setText(nv.getChucVu().getTen());
         ctnv.lblMa.setText(nv.getMa());
@@ -423,13 +444,19 @@ public class Main extends javax.swing.JFrame {
         ctnv.lblGioiTinh.setText(nv.getGioiTinh());
         ctnv.lblNhanVien.setText(nv.getHoTen());
         ctnv.lblSDT.setText(nv.getSđt());
-        ctnv.lblNgaySinh.setText(nv.getNgaySinh()+"");
+        ctnv.lblNgaySinh.setText(nv.getNgaySinh() + "");
         JFrame frameChild = new JFrame();
         frameChild.setSize(320, 370);
         frameChild.setLocationRelativeTo(null);
         frameChild.add(ctnv);
         frameChild.setVisible(true);
     }//GEN-LAST:event_lblChucVuMouseClicked
+
+    private void lblDoiMKMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDoiMKMouseClicked
+        // TODO add your handling code here:
+        fillPanel(new DoiMK_in_Main());
+        lblDoiMK.setHorizontalAlignment(JLabel.RIGHT);
+    }//GEN-LAST:event_lblDoiMKMouseClicked
 
     /**
      * @param args the command line arguments
@@ -458,6 +485,12 @@ public class Main extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -480,6 +513,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel lblBanHang;
     public javax.swing.JLabel lblChucVu;
     private javax.swing.JLabel lblDangXuat;
+    private javax.swing.JLabel lblDoiMK;
     private javax.swing.JLabel lblKH;
     private javax.swing.JLabel lblKhuyenMai;
     private javax.swing.JLabel lblNhanVien;
@@ -495,5 +529,17 @@ public class Main extends javax.swing.JFrame {
         lblKhuyenMai.setHorizontalAlignment(JLabel.CENTER);
         lblThongKe.setHorizontalAlignment(JLabel.CENTER);
         lblDangXuat.setHorizontalAlignment(JLabel.CENTER);
+        lblDoiMK.setHorizontalAlignment(JLabel.CENTER);
     }
+
+    public void fillPanel(JPanel pnl) {
+        childPanel = pnl;
+        PnlMain.removeAll();
+        PnlMain.add(childPanel);
+        PnlMain.validate();
+        SetAlignCenter();
+    }
+//    public boolean phanQuyen(){
+//        
+//    }
 }

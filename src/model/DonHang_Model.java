@@ -4,6 +4,7 @@
  */
 package model;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -14,13 +15,13 @@ public class DonHang_Model {
     private String ma;
     private NhanVien_Model nhanVien;
     private KhachHang_Model khachHang;
-    private Date ngayTao;
+    private String ngayTao;
     private int trangThai;
 
     public DonHang_Model() {
     }
 
-    public DonHang_Model(String ma, NhanVien_Model nhanVien, KhachHang_Model khachHang, Date ngayTao, int trangThai) {
+    public DonHang_Model(String ma, NhanVien_Model nhanVien, KhachHang_Model khachHang, String ngayTao, int trangThai) {
         this.ma = ma;
         this.nhanVien = nhanVien;
         this.khachHang = khachHang;
@@ -52,11 +53,11 @@ public class DonHang_Model {
         this.khachHang = khachHang;
     }
 
-    public Date getNgayTao() {
+    public String getNgayTao() {
         return ngayTao;
     }
 
-    public void setNgayTao(Date ngayTao) {
+    public void setNgayTao(String ngayTao) {
         this.ngayTao = ngayTao;
     }
 
