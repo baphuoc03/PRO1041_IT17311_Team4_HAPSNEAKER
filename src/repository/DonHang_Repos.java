@@ -7,6 +7,8 @@ package repository;
 import java.util.List;
 import model.DonHang_Model;
 import java.sql.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,7 +20,7 @@ import ultinities.JDBC_Helper;
  *
  * @author baphuoc
  */
-public class DonHang_Repos implements IDonHang_Repo {
+public class DonHang_Repos implements IDonHang_Repos {
 
     @Override
     public List<DonHang_Model> getAllDonHang() {
@@ -35,7 +37,7 @@ public class DonHang_Repos implements IDonHang_Repo {
             while (rs.next()) {
                 NhanVien_Model nv = new NhanVien_Model(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getDate(5), rs.getString(6), rs.getString(7), null);
                 KhachHang_Model kh = new KhachHang_Model(rs.getString(8), rs.getString(9), rs.getString(10), rs.getDate(11), rs.getString(12), rs.getString(13));
-                list.add(new DonHang_Model(rs.getString(14), nv, kh, rs.getDate(15), rs.getInt(16)));
+                list.add(new DonHang_Model(rs.getString(14), nv, kh, rs.getString(15), rs.getInt(16)));
             }
             return list;
         } catch (SQLException ex) {
@@ -61,7 +63,7 @@ public class DonHang_Repos implements IDonHang_Repo {
             while (rs.next()) {
                 NhanVien_Model nv = new NhanVien_Model(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getDate(5), rs.getString(6), rs.getString(7), null);
                 KhachHang_Model kh = new KhachHang_Model(rs.getString(8), rs.getString(9), rs.getString(10), rs.getDate(11), rs.getString(12), rs.getString(13));
-                list.add(new DonHang_Model(rs.getString(14), nv, kh, rs.getDate(15), rs.getInt(16)));
+                list.add(new DonHang_Model(rs.getString(14), nv, kh, rs.getString(15), rs.getInt(16)));
             }
             return list;
         } catch (SQLException ex) {
@@ -102,7 +104,7 @@ public class DonHang_Repos implements IDonHang_Repo {
             while (rs.next()) {
                 NhanVien_Model nv = new NhanVien_Model(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getDate(5), rs.getString(6), rs.getString(7), null);
                 KhachHang_Model kh = new KhachHang_Model(rs.getString(8), rs.getString(9), rs.getString(10), rs.getDate(11), rs.getString(12), rs.getString(13));
-                DH = new DonHang_Model(rs.getString(14), nv, kh, rs.getDate(15), rs.getInt(16));
+                DH = new DonHang_Model(rs.getString(14), nv, kh, rs.getString(15), rs.getInt(16));
             }
             return DH;
         } catch (SQLException ex) {

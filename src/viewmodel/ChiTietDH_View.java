@@ -109,5 +109,10 @@ public class ChiTietDH_View {
     public void setTienSauGiam(float tienSauGiam) {
         this.tienSauGiam = tienSauGiam;
     }
+
+    @Override
+    public String toString() {
+        return "ChiTietDH_View{" + "stt=" + stt + ", maSP=" + maSP + ", tenSP=" + tenSP + ", size=" + size + ", SL=" + SL + ", donGia=" + donGia + ", thanhTien=" + thanhTien + ", khuyenMai=" + khuyenMai + ", tienSauGiam=" + tienSauGiam + '}';
+    }
     
 }

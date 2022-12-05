@@ -13,12 +13,13 @@ import java.util.logging.Logger;
 import model.KhuyenMai_Model;
 import model.SanPham_Model;
 import ultinities.JDBC_Helper;
+import java.util.Date;
 
 /**
  *
  * @author phamtuananh
  */
-public class KhuyenmaiSP_repos implements IKhuyenmaiSP_repo {
+public class KhuyenmaiSP_repos implements IKhuyenmaiSP_repos {
 
     @Override
     public List<KmSp_Model> getSanPhamByKM(String maKM) {
@@ -40,13 +41,32 @@ public class KhuyenmaiSP_repos implements IKhuyenmaiSP_repo {
     @Override
     public int add(KmSp_Model kmsp) {
         String sql = "INSERT INTO km_sp(MaKM,MaSP) VALUES (?,?)";
-        return JDBC_Helper.Update(sql,kmsp.getKhuyenMai().getMa(),kmsp.getSanPham().getMa());
+        return JDBC_Helper.Update(sql, kmsp.getKhuyenMai().getMa(), kmsp.getSanPham().getMa());
     }
 
     @Override
     public int deleteByMaKM(String MaKM) {
         String sql = "DELETE FROM km_sp WHERE MaKM = ?";
-        return JDBC_Helper.Update(sql,MaKM);
+        return JDBC_Helper.Update(sql, MaKM);
+    }
+
+    @Override
+    public List<KmSp_Model> getSanPhamByGetDate(Date getDate) {
+        List<KmSp_Model> list = new ArrayList<>();
+        String sql = "SELECT MaSP,km_sp.MaKM,GiamGia FROM km_sp\n"
+                + "Join khuyenmai on km_sp.MaKM = khuyenmai.MaKM\n"
+                + "WHERE ?  between khuyenmai.NgayBatDau AND khuyenmai.NgayKetThuc";
+        ResultSet rs = JDBC_Helper.Query(sql, getDate);
+        try {
+            while (rs.next()) {
+                SanPham_Model sp = new SanPham_Model(rs.getString(1), null, null, null, null, 0, 0, 0);
+                list.add(new KmSp_Model(new KhuyenMai_Model(rs.getString(2), sql, rs.getInt(3), null, null), sp));
+            }
+            return list;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }
     }
 
 }

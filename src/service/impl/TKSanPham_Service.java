@@ -5,19 +5,20 @@
 package service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import model.TKSanPham_Model;
 import repository.TKSanPham_repos;
 import viewmodel.TKSanPham_View;
+import repository.ITKSanPham_repos;
 import service.ITKSanPham_Service;
-import repository.ITKSanPham_repo;
 
 /**
  *
  * @author baphuoc
  */
 public class TKSanPham_Service implements ITKSanPham_Service{
-    ITKSanPham_repo repo = new TKSanPham_repos();
+    ITKSanPham_repos repo = new TKSanPham_repos();
     List<TKSanPham_Model> list = new ArrayList<>();
     @Override
     public List<TKSanPham_View> getTKSanPham() {
@@ -29,6 +30,18 @@ public class TKSanPham_Service implements ITKSanPham_Service{
             stt++;
         }
         return list_view;
+    }
+
+    @Override
+    public List<TKSanPham_View> getTKSanPham(String batDau, String ketThuc) {
+       list =repo.getTKSanPhamTheoNgay(batDau, ketThuc);
+        List<TKSanPham_View> list_view = new ArrayList<>();
+        int stt = 1;
+        for (TKSanPham_Model t : list) {
+            list_view.add(new TKSanPham_View(stt, t.getMaSP(), t.getTen(),t.getMau(), t.getThuongHieu(),t.getSlBan()));
+            stt++;
+        }
+        return list_view; 
     }
     
 }

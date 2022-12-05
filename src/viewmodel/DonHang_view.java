@@ -4,6 +4,7 @@
  */
 package viewmodel;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -16,13 +17,13 @@ public class DonHang_view {
     private String tenNV;
     private String sđt;
     private String tenKH;
-    private Date ngayTao;
+    private String ngayTao;
     private String trangThai;
 
     public DonHang_view() {
     }
 
-    public DonHang_view(int stt, String maHD, String tenNV, String sđt, String tenKH, Date ngayTao, String trangThai) {
+    public DonHang_view(int stt, String maHD, String tenNV, String sđt, String tenKH, String ngayTao, String trangThai) {
         this.stt = stt;
         this.maHD = maHD;
         this.tenNV = tenNV;
@@ -74,11 +75,11 @@ public class DonHang_view {
         this.tenKH = tenKH;
     }
 
-    public Date getNgayTao() {
+    public String getNgayTao() {
         return ngayTao;
     }
 
-    public void setNgayTao(Date ngayTao) {
+    public void setNgayTao(String ngayTao) {
         this.ngayTao = ngayTao;
     }
 

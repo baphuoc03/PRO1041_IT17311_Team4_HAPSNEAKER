@@ -10,16 +10,16 @@ import model.TKTongQuan_Model;
 import repository.TKTongQuan_Repos;
 import viewmodel.TKDoanhThu_View;
 import viewmodel.TKTongQuan_View;
-import service.ITKDoanhThu_service;
 import service.ITKTongQuan_Service;
-import repository.ITKTongQuan_Repo;
+import repository.ITKTongQuan_Repos;
+import service.ITKDoanhThu_service;
 
 /**
  *
  * @author baphuoc
  */
 public class TKTongQuan_service implements ITKTongQuan_Service{
-    ITKTongQuan_Repo repo = new TKTongQuan_Repos();
+    ITKTongQuan_Repos repo = new TKTongQuan_Repos();
 
     @Override
     public TKTongQuan_View tkHomNay() {
@@ -31,7 +31,7 @@ public class TKTongQuan_service implements ITKTongQuan_Service{
     }
 
     @Override
-    public TKTongQuan_View tkTheoNgay(Date batDau, Date ketThuc) {
+    public TKTongQuan_View tkTheoNgay(String batDau, String ketThuc) {
         TKTongQuan_View tk = new TKTongQuan_View();
         tk.setDoanhthu(repo.tkTheoNgay(batDau, ketThuc).getDoanhThu());
         tk.setDonHang(repo.tkTheoNgay(batDau, ketThuc).getDonHang());

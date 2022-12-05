@@ -15,6 +15,7 @@ import viewmodel.KhuyenMai_View;
 public interface IKhuyenMai_Service {
 
     List<KhuyenMai_View> getAllKhuyenMai();
+    KhuyenMai_Model getKhuyenMaiByMa(String ma);
 
     int add(KhuyenMai_Model km);
 

@@ -6,16 +6,16 @@ package View;
 
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
-import service.ITKThuocTinh_Service;
-import service.impl.TKThuocTinh_Service;
 import viewmodel.TKThuocTinhSP_View;
+import service.ITKThuocTinh_Service;
+import service.impl.TKThuocTinh_Sevice;
 
 /**
  *
  * @author baphuoc
  */
 public class TKThuocTinhSP extends javax.swing.JPanel {
-    ITKThuocTinh_Service ttSP_sv = new TKThuocTinh_Service();
+    ITKThuocTinh_Service ttSP_sv = new TKThuocTinh_Sevice();
     List<TKThuocTinhSP_View> list;
     DefaultTableModel mol;
     /**

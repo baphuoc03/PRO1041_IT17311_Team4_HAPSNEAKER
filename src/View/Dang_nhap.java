@@ -5,12 +5,18 @@
 package View;
 
 import View.Main;
+import javax.swing.JOptionPane;
+import model.NhanVien_Model;
+import service.impl.NhanVien_Service;
+import service.INhanVien_Service;
 
 /**
  *
  * @author Tuan Anh
  */
 public class Dang_nhap extends javax.swing.JFrame {
+
+    INhanVien_Service nv_sv = new NhanVien_Service();
 
     /**
      * Creates new form Dang_nhap
@@ -35,12 +41,9 @@ public class Dang_nhap extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         chkShow = new javax.swing.JCheckBox();
         jButton1 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        txtUser = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         txtPass = new javax.swing.JPasswordField();
 
@@ -64,9 +67,6 @@ public class Dang_nhap extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(2, 120, 217));
         jLabel3.setText("Mật Khẩu:");
 
-        jLabel4.setForeground(new java.awt.Color(2, 120, 217));
-        jLabel4.setText("Vai Trò:");
-
         chkShow.setForeground(new java.awt.Color(2, 120, 217));
         chkShow.setText("Hiển Thị Mật Khẩu");
         chkShow.addActionListener(new java.awt.event.ActionListener() {
@@ -85,16 +85,7 @@ public class Dang_nhap extends javax.swing.JFrame {
             }
         });
 
-        jTextField1.setForeground(new java.awt.Color(2, 120, 217));
-
-        buttonGroup1.add(jRadioButton1);
-        jRadioButton1.setForeground(new java.awt.Color(2, 120, 217));
-        jRadioButton1.setSelected(true);
-        jRadioButton1.setText("Nhân Viên");
-
-        buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setForeground(new java.awt.Color(2, 120, 217));
-        jRadioButton2.setText("Quản Lý");
+        txtUser.setForeground(new java.awt.Color(2, 120, 217));
 
         jLabel6.setBackground(new java.awt.Color(255, 255, 255));
         jLabel6.setFont(new java.awt.Font("Lucida Grande", 2, 13)); // NOI18N
@@ -122,19 +113,13 @@ public class Dang_nhap extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4))
+                                    .addComponent(jLabel3))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(chkShow)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(txtPass, javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(jRadioButton2)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(jRadioButton1)))
+                                        .addComponent(txtPass)
                                         .addGap(2, 2, 2))))
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(jLabel6)
@@ -145,30 +130,24 @@ public class Dang_nhap extends javax.swing.JFrame {
                 .addContainerGap(44, Short.MAX_VALUE))
         );
 
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jTextField1, txtPass});
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txtPass, txtUser});
 
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addGap(48, 48, 48)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(23, 23, 23)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(chkShow)
-                .addGap(27, 27, 27)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jRadioButton1)
-                        .addComponent(jRadioButton2)))
-                .addGap(18, 18, 18)
+                .addGap(36, 36, 36)
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel6)
@@ -192,9 +171,16 @@ public class Dang_nhap extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        Main main = new Main();
-        main.setVisible(true);
-        this.dispose();
+        NhanVien_Model user = getNVByForm();
+        if (user != null) {
+            Main main = new Main();
+            main.lblTenNV.setText(user.getMa()+" - "+user.getHoTen());
+            main.lblChucVu.setText(user.getChucVu().getTen());
+            main.setVisible(true);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Thông Tin Đăng Nhập Khôgn Chính Xác", "Lỗi Đăng Nhập", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
@@ -206,9 +192,9 @@ public class Dang_nhap extends javax.swing.JFrame {
 
     private void chkShowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkShowActionPerformed
         // TODO add your handling code here:
-        if(chkShow.isSelected() == true){
-            txtPass.setEchoChar((char)0);
-        }else{
+        if (chkShow.isSelected() == true) {
+            txtPass.setEchoChar((char) 0);
+        } else {
             txtPass.setEchoChar('*');
         }
     }//GEN-LAST:event_chkShowActionPerformed
@@ -256,13 +242,16 @@ public class Dang_nhap extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JPasswordField txtPass;
+    private javax.swing.JTextField txtUser;
     // End of variables declaration//GEN-END:variables
+    public NhanVien_Model getNVByForm() {
+        String user = txtUser.getText();
+        String pass = txtPass.getText();
+        NhanVien_Model nv = nv_sv.LoginNhanVien(user, pass);
+        return nv;
+    }
 }

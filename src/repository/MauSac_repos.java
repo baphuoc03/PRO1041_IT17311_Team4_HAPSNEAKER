@@ -16,7 +16,7 @@ import ultinities.JDBC_Helper;
  *
  * @author baphuoc
  */
-public class MauSac_repos implements IMauSac_repo {
+public class MauSac_repos implements IMauSac_repos {
 
     @Override
     public List<MauSac_Model> getAllMauSac() {
@@ -37,8 +37,8 @@ public class MauSac_repos implements IMauSac_repo {
     @Override
     public MauSac_Model getByMa(String ma) {
         MauSac_Model MS = null;
-        String sql = "SELECT * FROM Sneaker_hap.mausac WHERE MaMau = ?";
-        ResultSet rs = JDBC_Helper.Query(sql);
+        String sql = "SELECT * FROM hap_sneaker.mausac WHERE MaMau = ?";
+        ResultSet rs = JDBC_Helper.Query(sql, ma);
         try {
             while (rs.next()) {
                 MS = new MauSac_Model(rs.getString(1), rs.getString(2));
@@ -50,21 +50,38 @@ public class MauSac_repos implements IMauSac_repo {
         }
     }
 
-  
+    @Override
     public int add(MauSac_Model m) {
-        String sql = "insert into Sneaker_hap.mausac(MaMau,Ten) Values(?,?)";
+        String sql = "insert into hap_sneaker.mausac(MaMau,Ten) Values(?,?)";
         return JDBC_Helper.Update(sql, m.getMa(), m.getTen());
     }
 
-   
+    @Override
     public int delete(String ma) {
-        String sql = "delete from Sneaker_hap.mausac where MaMau = ?";
+        String sql = "delete from hap_sneaker.mausac where MaMau = ?";
         return JDBC_Helper.Update(sql, ma);
     }
 
-  
+    @Override
     public int update(MauSac_Model m) {
-        String sql = "Update Sneaker_hap.mausac Set MaMau = ?, Ten = ? where MaMau = ?";
+        String sql = "Update hap_sneaker.mausac Set MaMau = ?, Ten = ? where MaMau = ?";
         return JDBC_Helper.Update(sql, m.getMa(), m.getTen(), m.getMa());
+    }
+
+    @Override
+    public List<MauSac_Model> Search(String key) {
+        List<MauSac_Model> lst = new ArrayList<>();
+        String sql = "SELECT * FROM hap_sneaker.mausac WHERE MaMau like concat('%',?,'%')\n"
+                + "or Ten like concat('%',?,'%')";
+        ResultSet rs = JDBC_Helper.Query(sql, key, key);
+        try {
+            while (rs.next()) {
+                lst.add(new MauSac_Model(rs.getString(1), rs.getString(2)));
+            }
+            return lst;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

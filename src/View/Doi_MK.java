@@ -5,13 +5,16 @@
 package View;
 
 import javax.swing.JOptionPane;
+import model.NhanVien_Model;
+import service.INhanVien_Service;
+import service.impl.NhanVien_Service;
 
 /**
  *
  * @author Tuan Anh
  */
 public class Doi_MK extends javax.swing.JFrame {
-
+    INhanVien_Service NV_SV = new NhanVien_Service();
     /**
      * Creates new form Dang_nhap
      */
@@ -37,7 +40,7 @@ public class Doi_MK extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         chkShow = new javax.swing.JCheckBox();
         jButton1 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        txtUser = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
@@ -83,7 +86,7 @@ public class Doi_MK extends javax.swing.JFrame {
             }
         });
 
-        jTextField1.setForeground(new java.awt.Color(2, 120, 217));
+        txtUser.setForeground(new java.awt.Color(2, 120, 217));
 
         jLabel6.setForeground(new java.awt.Color(2, 120, 217));
         jLabel6.setText("Mật Khẩu Mới");
@@ -147,13 +150,13 @@ public class Doi_MK extends javax.swing.JFrame {
                                     .addComponent(jLabel6))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
+                                    .addComponent(txtUser, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
                                     .addComponent(txtMKold)
                                     .addComponent(txtMKnew))))
                         .addGap(21, 21, 21))))
         );
 
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jTextField1, txtComfirmPass, txtMKnew, txtMKold});
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txtComfirmPass, txtMKnew, txtMKold, txtUser});
 
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -163,7 +166,7 @@ public class Doi_MK extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -209,11 +212,15 @@ public class Doi_MK extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        int comfirm = JOptionPane.showConfirmDialog(this, "Đổi Mật Khẩu Thành Công", "Thành Công", JOptionPane.OK_CANCEL_OPTION);
+            if(chk()){
+            int comfirm = JOptionPane.showConfirmDialog(this, "Đổi Mật Khẩu ", "Đổi Mật Khẩu", JOptionPane.OK_CANCEL_OPTION);
         if (comfirm == 0) {
-            Dang_nhap dn = new Dang_nhap();
-            dn.setVisible(true);
-            this.dispose();
+            JOptionPane.showMessageDialog(this,"Đổi Mật khẩu thành công");
+            NV_SV.UpdatePassword(getNhanVien());
+        }
+//            Dang_nhap dn = new Dang_nhap();
+//            dn.setVisible(true);
+//            this.dispose();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -281,9 +288,25 @@ public class Doi_MK extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JPasswordField txtComfirmPass;
     private javax.swing.JPasswordField txtMKnew;
     private javax.swing.JPasswordField txtMKold;
+    private javax.swing.JTextField txtUser;
     // End of variables declaration//GEN-END:variables
+    public NhanVien_Model getNhanVien(){
+        NhanVien_Model nv = NV_SV.getByMa(txtUser.getText());
+        nv.setPassWord(txtMKnew.getText());
+        return nv;
+    }
+    public boolean chk(){
+        if(NV_SV.LoginNhanVien(txtUser.getText(), txtMKold.getText())==null){
+            JOptionPane.showMessageDialog(this,"Sai Thông tin tài khoản", "Lỗi",JOptionPane.ERROR_MESSAGE);
+            return false;
+        }else if(!txtMKnew.getText().equals(txtComfirmPass.getText())){
+            JOptionPane.showMessageDialog(this,"Xác nhận mật khẩu không chính xác", "Lỗi",JOptionPane.ERROR_MESSAGE);
+            return false;
+        }else{
+            return true;
+        }
+    }
 }

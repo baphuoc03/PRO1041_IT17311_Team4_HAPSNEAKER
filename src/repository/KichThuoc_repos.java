@@ -16,7 +16,7 @@ import ultinities.JDBC_Helper;
  *
  * @author baphuoc
  */
-public class KichThuoc_repos implements IKichThuoc_repo {
+public class KichThuoc_repos implements IKichThuoc_repos {
 
     @Override
     public List<KichThuoc_Model> getAllKichThuoc() {
@@ -37,7 +37,7 @@ public class KichThuoc_repos implements IKichThuoc_repo {
     @Override
     public KichThuoc_Model getByMa(String ma) {
         KichThuoc_Model KT = null;
-        String sql = "SELECT * FROM Sneaker_hap.kichthuoc WHERE MaSize = ?";
+        String sql = "SELECT * FROM kichthuoc WHERE MaSize = ?";
         ResultSet rs = JDBC_Helper.Query(sql,ma);
         try {
             while (rs.next()) {

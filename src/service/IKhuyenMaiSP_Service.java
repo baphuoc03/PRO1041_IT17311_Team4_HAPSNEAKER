@@ -4,6 +4,7 @@
  */
 package service;
 
+import java.util.Date;
 import java.util.List;
 import model.KmSp_Model;
 import viewmodel.KhuyenMaiSP_view;
@@ -16,4 +17,5 @@ public interface IKhuyenMaiSP_Service {
     List<KhuyenMaiSP_view> getSanPhamByKM(String maKM);
     int add(KmSp_Model kmsp);
     int deleteByMaKM(String MaKM);
+    List<KhuyenMaiSP_view> getSanPhamByGetDate(Date getDate);
 }

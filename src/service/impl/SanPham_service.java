@@ -7,34 +7,34 @@ package service.impl;
 import java.util.ArrayList;
 import java.util.List;
 import model.SanPham_Model;
-import viewmodel.SanPham_ViewModel;
+import viewmodel.SanPham_View;
 import repository.SanPham_repos;
 import service.impl.SanPham_service;
 import repository.ThuongHieu_repos;
 import repository.MauSac_repos;
 import model.ThuongHieu_Model;
 import model.MauSac_Model;
+import repository.IMauSac_repos;
+import repository.ISanPham_repos;
+import repository.IThuongHieu_Repos;
 import service.ISanPham_Service;
-import repository.IMauSac_repo;
-import repository.ISanPham_repo;
-import repository.IThuongHieu_Repo;
 /**
  *
  * @author 84353
  */
 public class SanPham_service implements ISanPham_Service{
     List<SanPham_Model> list;
-    ISanPham_repo repo = new SanPham_repos();
-    IThuongHieu_Repo THrepo = new ThuongHieu_repos();
-    IMauSac_repo MSrepo = new MauSac_repos();
+    ISanPham_repos repo = new SanPham_repos();
+    IThuongHieu_Repos THrepo = new ThuongHieu_repos();
+    IMauSac_repos MSrepo = new MauSac_repos();
      
     @Override
-    public List<SanPham_ViewModel> GetAllSanPham(){
-        List<SanPham_ViewModel> lst_view = new ArrayList<>();
+    public List<SanPham_View> GetAllSanPham(){
+        List<SanPham_View> lst_view = new ArrayList<>();
         list = repo.GetAllSanPham();
         int stt = 1;
         for(SanPham_Model s : list){
-            lst_view.add(new SanPham_ViewModel(stt++, s.getMa(), s.getTen(), s.getThuongHieu().getMa(), s.getMauSac().getMa(), s.getMoTa(), s.getGiaNhap(), s.getGiaBan(), s.getTrangThai()));
+            lst_view.add(new SanPham_View(stt++, s.getMa(), s.getTen(), s.getThuongHieu().getMa(), s.getMauSac().getMa(), s.getMoTa(), s.getGiaNhap(), s.getGiaBan(), s.getTrangThai()));
         }
         return lst_view;
     }
@@ -76,4 +76,19 @@ public class SanPham_service implements ISanPham_Service{
         return repo.GetSanPhamByMa(ma);
     }
 
+    @Override
+    public SanPham_Model GetByMa(String ma){
+        return repo.GetSanPhamByMa(ma);
+    }
+    
+    
+    public List<SanPham_View> Search(String key){
+        List<SanPham_View> lst_view = new ArrayList<>();
+        list = repo.serchSP(key);
+        int stt = 1;
+        for(SanPham_Model s : list){
+            lst_view.add(new SanPham_View(stt++, s.getMa(), s.getTen(), s.getThuongHieu().getMa(), s.getMauSac().getMa(), s.getMoTa(), s.getGiaNhap(), s.getGiaBan(), s.getTrangThai()));
+        }
+        return lst_view;
+    }
 }

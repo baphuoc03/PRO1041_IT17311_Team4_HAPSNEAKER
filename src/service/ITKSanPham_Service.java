@@ -4,6 +4,7 @@
  */
 package service;
 
+import java.util.Date;
 import java.util.List;
 import viewmodel.TKSanPham_View;
 
@@ -13,4 +14,5 @@ import viewmodel.TKSanPham_View;
  */
 public interface ITKSanPham_Service {
     List<TKSanPham_View> getTKSanPham();
+    List<TKSanPham_View> getTKSanPham(String batDau,String ketThuc);
 }

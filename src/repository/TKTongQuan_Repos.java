@@ -17,15 +17,15 @@ import ultinities.JDBC_Helper;
  *
  * @author baphuoc
  */
-public class TKTongQuan_Repos implements ITKTongQuan_Repo {
+public class TKTongQuan_Repos implements ITKTongQuan_Repos {
 
     @Override
     public TKTongQuan_Model tkHomNay() {
         TKTongQuan_Model tk = null;
-        String sql = "SELECT (SELECT count(donhang.MaDonHang) FROM donhang WHERE donhang.NgayTao = CURDATE() ) AS DONHANG, \n"
-                + "sum(ctdonhang.SL), SUM(ctdonhang.DonGia) FROM donhang\n"
-                + "left JOIN ctdonhang on donhang.MaDonHang = ctdonhang.MaDonHang\n"
-                + "WHERE donhang.NgayTao = CURDATE()";
+        String sql = "SELECT (SELECT count(donhang.MaDonHang) FROM donhang WHERE DATE(donhang.NgayTao)  = CURDATE() ) AS DONHANG, \n" +
+"                sum(ctdonhang.SL), SUM(ctdonhang.DonGia) FROM donhang\n" +
+"                left JOIN ctdonhang on donhang.MaDonHang = ctdonhang.MaDonHang\n" +
+"                WHERE DATE(donhang.NgayTao)  = CURDATE()";
         ResultSet rs = JDBC_Helper.Query(sql);
         try {
             while (rs.next()) {
@@ -38,12 +38,12 @@ public class TKTongQuan_Repos implements ITKTongQuan_Repo {
     }
 
     @Override
-    public TKTongQuan_Model tkTheoNgay(Date batDau, Date ketThuc) {
+    public TKTongQuan_Model tkTheoNgay(String batDau, String ketThuc) {
         TKTongQuan_Model tk = null;
-        String sql = "SELECT (SELECT count(donhang.MaDonHang) FROM donhang WHERE donhang.NgayTao BETWEEN ? and ?   )  AS DONHANG, \n"
+        String sql = "SELECT (SELECT count(donhang.MaDonHang) FROM donhang WHERE DATE(donhang.NgayTao) BETWEEN ? and ?   )  AS DONHANG, \n"
                 + "sum(ctdonhang.SL), SUM(ctdonhang.DonGia) FROM donhang\n"
                 + "left JOIN ctdonhang on donhang.MaDonHang = ctdonhang.MaDonHang\n"
-                + "WHERE donhang.NgayTao BETWEEN ? and ?  ";
+                + "WHERE DATE(donhang.NgayTao) BETWEEN ? and ?  ";
         ResultSet rs = JDBC_Helper.Query(sql, batDau, ketThuc, batDau, ketThuc);
         try {
             while (rs.next()) {
@@ -56,7 +56,7 @@ public class TKTongQuan_Repos implements ITKTongQuan_Repo {
     }
 
     public static void main(String[] args) {
-        ITKTongQuan_Repo repo = new TKTongQuan_Repos();
+        ITKTongQuan_Repos repo = new TKTongQuan_Repos();
         System.out.println(repo.tkHomNay().toString());
     }
 

@@ -14,5 +14,5 @@ import viewmodel.TKDoanhThu_View;
  * @author baphuoc
  */
 public interface ITKDoanhThu_service {
-    List<TKDoanhThu_View> getTKDoanhThu();
+    List<TKDoanhThu_View> getTKDoanhThu(Integer nam);
 }

@@ -2,10 +2,10 @@ package View;
 
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
-import service.IMauSac_Service;
 import service.impl.MauSac_Service;
 import viewmodel.MauSac_View;
 import model.MauSac_Model;
+import service.IMauSac_Service;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -29,6 +29,34 @@ public class QLMauSac extends javax.swing.JPanel {
         filltable();
     }
 
+    public void filltable(){
+        list = MS_Service.getAllMauSac();
+        mol = (DefaultTableModel) tblMauSac.getModel();
+        mol.setRowCount(0);
+        for (MauSac_View m : list) {
+            mol.addRow(new Object[]{m.getStt(),m.getMa(),m.getTen()});
+        }
+    }
+    public void filltable(String key){
+        list = MS_Service.Search(key);
+        mol = (DefaultTableModel) tblMauSac.getModel();
+        mol.setRowCount(0);
+        for (MauSac_View m : list) {
+            mol.addRow(new Object[]{m.getStt(),m.getMa(),m.getTen()});
+        }
+    }
+    public MauSac_Model GetMauSac(){
+        return new MauSac_Model(txtMa.getText(), txtTen.getText());
+    }
+    
+    public void showMauSac(){
+        int i = tblMauSac.getSelectedRow();
+        if(i == -1) return;
+        idWhenClick = tblMauSac.getModel().getValueAt(i, 1).toString();
+        var s = MS_Service.GetMauSacByMa(idWhenClick);
+        txtMa.setText(s.getMa());
+        txtTen.setText(s.getTen());
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -39,7 +67,7 @@ public class QLMauSac extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
+        txtTK = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblMauSac = new javax.swing.JTable();
@@ -51,11 +79,17 @@ public class QLMauSac extends javax.swing.JPanel {
         btnThem = new javax.swing.JButton();
         btnSua = new javax.swing.JButton();
         btnXoa = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        btnClear = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Màu Sắc Sản Phẩm"));
+
+        txtTK.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTKKeyReleased(evt);
+            }
+        });
 
         jButton1.setText("Tìm Kiếm");
 
@@ -86,7 +120,7 @@ public class QLMauSac extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtTK, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jButton1)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -97,7 +131,7 @@ public class QLMauSac extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTK, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
@@ -131,7 +165,7 @@ public class QLMauSac extends javax.swing.JPanel {
             }
         });
 
-        jButton5.setText("Clear");
+        btnClear.setText("Clear");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -158,7 +192,7 @@ public class QLMauSac extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnSua, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-                            .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btnClear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap(7, Short.MAX_VALUE))
         );
@@ -180,7 +214,7 @@ public class QLMauSac extends javax.swing.JPanel {
                 .addGap(39, 39, 39)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(95, Short.MAX_VALUE))
         );
 
@@ -233,36 +267,41 @@ public class QLMauSac extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        // TODO add your handling code here:
-//        MS_Service.(GetMauSac());
-//        filltable();
-    }//GEN-LAST:event_btnThemActionPerformed
-
-    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
-        // TODO add your handling code here:
-//        MS_Service.UPDATE(GetMauSac());
-//        filltable();
-    }//GEN-LAST:event_btnSuaActionPerformed
-
-    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-        // TODO add your handling code here:
-//        MS_Service.DELETE(GetMauSac().getMa());
-//        filltable();
-    }//GEN-LAST:event_btnXoaActionPerformed
-
     private void tblMauSacMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMauSacMouseClicked
         // TODO add your handling code here:
         showMauSac();
     }//GEN-LAST:event_tblMauSacMouseClicked
 
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
+        // TODO add your handling code here:
+        MS_Service.ADD(GetMauSac());
+        filltable();
+    }//GEN-LAST:event_btnThemActionPerformed
+
+    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
+        // TODO add your handling code here:
+        MS_Service.UPDATE(GetMauSac());
+        filltable();
+    }//GEN-LAST:event_btnSuaActionPerformed
+
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        // TODO add your handling code here:
+        MS_Service.DELETE(GetMauSac().getMa());
+        filltable();
+    }//GEN-LAST:event_btnXoaActionPerformed
+
+    private void txtTKKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTKKeyReleased
+        // TODO add your handling code here:
+        filltable(txtTK.getText());
+    }//GEN-LAST:event_txtTKKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnClear;
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnThem;
     private javax.swing.JButton btnXoa;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -270,30 +309,10 @@ public class QLMauSac extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTable tblMauSac;
     private javax.swing.JTextField txtMa;
+    private javax.swing.JTextField txtTK;
     private javax.swing.JTextField txtTen;
     // End of variables declaration//GEN-END:variables
-    public void filltable(){
-        list = MS_Service.getAllMauSac();
-        mol = (DefaultTableModel) tblMauSac.getModel();
-        mol.setRowCount(0);
-        for (MauSac_View m : list) {
-            mol.addRow(new Object[]{m.getStt(),m.getMa(),m.getTen()});
-        }
-    }
     
-    public MauSac_Model GetMauSac(){
-        return new MauSac_Model(txtMa.getText(), txtTen.getText());
-    }
-    
-    public void showMauSac(){
-        int i = tblMauSac.getSelectedRow();
-        if(i == -1) return;
-        idWhenClick = tblMauSac.getModel().getValueAt(i, 1).toString();
-        var s = MS_Service.getByMa(idWhenClick);
-        txtMa.setText(s.getMa());
-        txtTen.setText(s.getTen());
-    }
 }
