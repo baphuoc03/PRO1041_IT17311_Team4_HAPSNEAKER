@@ -9,6 +9,7 @@ package model;
  * @author baphuoc
  */
 public class ChiTietDH_model {
+    private String id;
     private DonHang_Model donHang;
     private ThuocTinhSP_Model thuocTinh;
     private int sl;
@@ -18,14 +19,23 @@ public class ChiTietDH_model {
     public ChiTietDH_model() {
     }
 
-    public ChiTietDH_model(DonHang_Model donHang, ThuocTinhSP_Model thuocTinh, int sl, float donGia, float donGiaSauGiam) {
+//    public ChiTietDH_model(DonHang_Model donHang, ThuocTinhSP_Model thuocTinh, int sl, float donGia, float donGiaSauGiam) {
+//        this.donHang = donHang;
+//        this.thuocTinh = thuocTinh;
+//        this.sl = sl;
+//        this.donGia = donGia;
+//        this.donGiaSauGiam = donGiaSauGiam;
+//    }
+
+    public ChiTietDH_model(String id, DonHang_Model donHang, ThuocTinhSP_Model thuocTinh, int sl, float donGia, float donGiaSauGiam) {
+        this.id = id;
         this.donHang = donHang;
         this.thuocTinh = thuocTinh;
         this.sl = sl;
         this.donGia = donGia;
         this.donGiaSauGiam = donGiaSauGiam;
     }
-
+    
     
 
     public DonHang_Model getDonHang() {
@@ -68,6 +78,14 @@ public class ChiTietDH_model {
         this.donGiaSauGiam = donGiaSauGiam;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+    
     @Override
     public String toString() {
         return "ChiTietDH_model{" + "donHang=" + donHang + ", thuocTinh=" + thuocTinh + ", sl=" + sl + ", donGia=" + donGia + ", donGiaSauGiam=" + donGiaSauGiam + '}';

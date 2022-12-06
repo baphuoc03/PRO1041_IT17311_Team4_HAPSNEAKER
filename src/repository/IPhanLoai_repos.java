@@ -12,12 +12,10 @@ import model.PhanLoai_Model;
  * @author baphuoc
  */
 public interface IPhanLoai_repos {
-    List<PhanLoai_Model> getAllThuongHieu();
+    List<PhanLoai_Model> getAllPhanLoai();
     PhanLoai_Model getByMa(String ma);
-    
-//    List<ThuongHieu_Model> getAllThuongHieu();
-//    ThuongHieu_Model getThuongHieuByMa(String ma);
-//    int Add(ThuongHieu_Model th);
-//    int update(ThuongHieu_Model th);
-//    int delete(String ma);
+    int add(PhanLoai_Model p);
+    int update(PhanLoai_Model p);
+    public int delete(String ma);
+    List<PhanLoai_Model> Search(String key);
 }

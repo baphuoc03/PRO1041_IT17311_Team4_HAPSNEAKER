@@ -30,8 +30,10 @@ public class DonHang_service implements IDonHang_service {
         for (DonHang_Model d : list) {
             if (d.getTrangThai() == 0) {
                 tt = "Chưa thanh toán";
-            } else {
+            } else if(d.getTrangThai() == 1) {
                 tt = "Đã Thanh Toán";
+            }else{
+                tt = "Hủy";
             }
             list_view.add(new DonHang_view(stt, d.getMa(), d.getNhanVien().getHoTen(),d.getKhachHang().getSđt(), d.getKhachHang().getHoTen(), d.getNgayTao(), tt));
             stt++;

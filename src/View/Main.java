@@ -11,6 +11,8 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.data.category.DefaultCategoryDataset;
 import service.impl.NhanVien_Service;
 import View.QLSanPham;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import service.INhanVien_Service;
 
@@ -40,7 +42,6 @@ public class Main extends javax.swing.JFrame {
 //        lblTenNV.setText(nv.getMa()+" - "+nv.getHoTen());
 //        lblChucVu.setText(nv.getChucVu().getTen());
         setLocationRelativeTo(null);
-        NhanVien_Model nv = nv_sv.getByMa(lblTenNV.getText().split(" ")[0]);
     }
 
     /**
@@ -205,7 +206,6 @@ public class Main extends javax.swing.JFrame {
         lblTenNV.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
         lblTenNV.setForeground(new java.awt.Color(2, 120, 217));
         lblTenNV.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTenNV.setText("NV1 - Đỗ Văn Tuấn");
         lblTenNV.setOpaque(true);
         lblTenNV.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -217,7 +217,6 @@ public class Main extends javax.swing.JFrame {
         lblChucVu.setFont(new java.awt.Font("Helvetica Neue", 2, 14)); // NOI18N
         lblChucVu.setForeground(new java.awt.Color(2, 120, 217));
         lblChucVu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblChucVu.setText("Nhân Viên");
         lblChucVu.setOpaque(true);
         lblChucVu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -375,8 +374,24 @@ public class Main extends javax.swing.JFrame {
 
     private void lblSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSanPhamMouseClicked
         // TODO add your handling code here:
-        fillPanel(new QLSanPham());
+        QLSanPham sp = new QLSanPham();
+        fillPanel(sp);
         lblSanPham.setHorizontalAlignment(JLabel.RIGHT);
+        NhanVien_Model nv = nv_sv.getByMa(lblTenNV.getText().split(" ")[0]);
+        if (nv.getChucVu().getTen().equalsIgnoreCase("Nhân Viên")) {
+            JButton btn[] = {sp.btnThemSP, sp.btnSuaSP, sp.btnXoaSP, sp.btnClearSP, sp.btnThemPL, sp.btnSuaPL, sp.btnXoaPL, sp.btnClearPL,sp.btnMoreMau,sp.btnMorePL,sp.btnMoreSize,sp.btnMoreTH};
+//            sp.btnThemSP.setEnabled(false);
+//            sp.btnSuaSP.setEnabled(false);
+//            sp.btnXoaSP.setEnabled(false);
+//            sp.btnClearSP.setEnabled(false);
+//            sp.btnThemPL.setEnabled(false);
+//            sp.btnSuaPL.setEnabled(false);
+//            sp.btnXoaPL.setEnabled(false);
+//            sp.btnClearPL.setEnabled(false);
+            for (JButton jButton : btn) {
+                jButton.setEnabled(false);
+            }
+        }
     }//GEN-LAST:event_lblSanPhamMouseClicked
 
     private void lblKhuyenMaiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblKhuyenMaiMouseClicked
@@ -518,7 +533,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel lblKhuyenMai;
     private javax.swing.JLabel lblNhanVien;
     private javax.swing.JLabel lblSanPham;
-    public javax.swing.JLabel lblTenNV;
+    public static javax.swing.JLabel lblTenNV;
     private javax.swing.JLabel lblThongKe;
     // End of variables declaration//GEN-END:variables
     public void SetAlignCenter() {

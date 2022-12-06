@@ -353,7 +353,7 @@ public class KhachHang extends javax.swing.JPanel {
     public void show(KhachHang_Model kh) {
         txtDC.setText(kh.getDiaChi());
         txtEmail.setText(kh.getEmail());
-        txtngaySinh.setToolTipText(kh.getNgaySinh().toString());
+        txtngaySinh.setDate(kh.getNgaySinh());
         txtSDT.setText(kh.getSđt());
         txthoTen.setText(kh.getHoTen());
         QLDonHang.txtSDT.setText(kh.getSđt());

@@ -8,6 +8,10 @@ import static View.TKChiTiet_SP.txtBD;
 import static View.TKChiTiet_SP.txtKT;
 import viewmodel.TKDoanhThu_View;
 import java.awt.Color;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
@@ -15,16 +19,25 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import model.SanPham_Model;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
+import service.ISanPham_Service;
 import service.impl.TKDoanhThu_Service;
 import service.impl.TKSanPham_Service;
 import service.impl.TKTongQuan_service;
@@ -32,24 +45,32 @@ import viewmodel.TKSanPham_View;
 import viewmodel.TKTongQuan_View;
 import service.ITKDoanhThu_service;
 import service.ITKSanPham_Service;
+import service.ITKThuocTinh_Service;
 import service.ITKTongQuan_Service;
+import service.impl.SanPham_service;
+import service.impl.TKThuocTinh_Sevice;
+import viewmodel.TKThuocTinhSP_View;
 
 /**
  *
  * @author admin
  */
 public class TK extends javax.swing.JPanel {
+
     SimpleDateFormat dateFM = new SimpleDateFormat("yyyy-MM-dd");
     private JPanel panel;
     ITKSanPham_Service tkSP_sv = new TKSanPham_Service();
     ITKTongQuan_Service tkTQ_Service = new TKTongQuan_service();
     ITKDoanhThu_service tKDoanhThu_service = new TKDoanhThu_Service();
+    ITKThuocTinh_Service tk_TTSP = new TKThuocTinh_Sevice();
+    ISanPham_Service sp_sv = new SanPham_service();
     List<TKDoanhThu_View> listDoanhThuThang;
     List<TKSanPham_View> listTkSP;
     DefaultTableModel mol;
     NumberFormat numberFM = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
     DecimalFormat decimal = new DecimalFormat("#.#");
-    public String ketthuc = "",batDau = "";
+    public String ketthuc = "", batDau = "";
+    List<TKThuocTinhSP_View> lstTKTTSP;
 
     /**
      * Creates new form TK
@@ -110,6 +131,7 @@ public class TK extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbl_TKSP = new javax.swing.JTable();
+        jButton2 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -492,21 +514,34 @@ public class TK extends javax.swing.JPanel {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
+
+        jButton2.setText("Xuất Excel");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(200, Short.MAX_VALUE)
+                .addGap(41, 41, 41)
+                .addComponent(jButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 351, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton2)
+                .addGap(162, 162, 162))
         );
 
         tabTK.addTab("Sản Phẩm", jPanel5);
@@ -538,12 +573,12 @@ public class TK extends javax.swing.JPanel {
         // TODO add your handling code here:
         if (cboLoaiTG.getItemCount() > 0) {
             if (cboLoaiTG.getSelectedIndex() == 0) {
-                
+
                 TKTongQuan_View tk = tkTQ_Service.tkHomNay();
                 txtBatDau.setEnabled(false);
                 txtKetThuc.setEnabled(false);
                 btnTK.setEnabled(false);
-                
+
                 fillTKTongQuan(tk.getDonHang(), tk.getSanPham(), tk.getDoanhthu());
             } else {
                 pnlLoaiThoiGian.setEnabled(true);
@@ -587,10 +622,10 @@ public class TK extends javax.swing.JPanel {
         frameChild.add(tksp);
         frameChild.setVisible(true);
         tksp.filtblsanpham(tkSP_sv.getTKSanPham(dateFM.format(new Date()), dateFM.format(new Date())));
-        if(cboLoaiTG.getSelectedIndex()==0){
+        if (cboLoaiTG.getSelectedIndex() == 0) {
             TKChiTiet_SP tkCTSP = new TKChiTiet_SP();
-                txtBD.setText("Hôm Nay");
-                txtKT.setText("Hôm Nay");
+            txtBD.setText("Hôm Nay");
+            txtKT.setText("Hôm Nay");
         }
 
 
@@ -606,8 +641,12 @@ public class TK extends javax.swing.JPanel {
 
     private void cboNamItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboNamItemStateChanged
         // TODO add your handling code here:
-            filltblDoanhThuThang(Integer.parseInt(cboNam.getSelectedItem().toString()));
+        filltblDoanhThuThang(Integer.parseInt(cboNam.getSelectedItem().toString()));
     }//GEN-LAST:event_cboNamItemStateChanged
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+            writeExcel();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -616,6 +655,7 @@ public class TK extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> cboNam;
     private javax.swing.ButtonGroup dangTK;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -684,4 +724,55 @@ public class TK extends javax.swing.JPanel {
         lblSanPham.setText(sanpham + "");
     }
 
+    public void writeExcel(){
+        try {
+            SimpleDateFormat dateTimeFM = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            lstTKTTSP = tk_TTSP.tkByMa();
+            String date = dateTimeFM.format(new Date());
+            FileOutputStream file = new FileOutputStream("../TK_SP/" + "TKSP_" + date + ".xlsx");
+            XSSFWorkbook worbook = new XSSFWorkbook();
+            XSSFSheet worksheet = worbook.createSheet("Thống Kê Sản Phẩm");
+            XSSFRow row;
+            XSSFCell maSP, ten, thuongHieu, mauSac, size, slBan, slVCon;
+            int i = 1;
+            row = worksheet.createRow(i);
+            maSP = row.createCell(0);
+            maSP.setCellValue("Mã Sản Phẩm");
+            ten = row.createCell(1);
+            ten.setCellValue("Tên Sản Phẩm");
+            thuongHieu = row.createCell(2);
+            thuongHieu.setCellValue("Thương Hiệu");
+            mauSac = row.createCell(3);
+            mauSac.setCellValue("Màu Sắc");
+            size = row.createCell(4);
+            size.setCellValue("Size");
+            slBan = row.createCell(5);
+            slBan.setCellValue("Số Lượng Bán");
+            slVCon = row.createCell(6);
+            slVCon.setCellValue("Số Lượng Còn");
+            for (TKThuocTinhSP_View t : lstTKTTSP) {
+                i++;
+                SanPham_Model sp = sp_sv.GetByMa(t.getMaSP());
+                row = worksheet.createRow(i);
+                maSP = row.createCell(0);
+                maSP.setCellValue(t.getMaSP());
+                ten = row.createCell(1);
+                ten.setCellValue(t.getTenSP());
+                thuongHieu = row.createCell(2);
+                thuongHieu.setCellValue(sp.getThuongHieu().getTen());
+                mauSac = row.createCell(3);
+                mauSac.setCellValue(sp.getMauSac().getTen());
+                size = row.createCell(4);
+                size.setCellValue(t.getSize());
+                slBan = row.createCell(5);
+                slBan.setCellValue(t.getSlBan());
+                slVCon = row.createCell(6);
+                slVCon.setCellValue(t.getSlCon());
+            }   worbook.write(file);
+            worbook.close();
+            file.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
 }

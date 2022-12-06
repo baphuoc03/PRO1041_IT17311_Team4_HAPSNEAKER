@@ -29,6 +29,7 @@ public class ThuocTinhSP_repos implements IThuocTinhSP_Repos {
                 + "join hap_sneaker.kichthuoc k on t.MaSize = k.MaSize\n"
                 + "join thuonghieu on s.MaThuongHieu = thuonghieu.mathuonghieu\n"
                 + "join mausac on mausac.maMau = s.maMau "
+                + "WHERE s.TrangThai = 1 "
                 + "ORDER BY s.MaSP ";
         ResultSet rs = JDBC_Helper.Query(sql);
 
@@ -149,19 +150,19 @@ public class ThuocTinhSP_repos implements IThuocTinhSP_Repos {
     }
 
     public int add(ThuocTinhSP_Model t) {
-        String sql = "insert into hap_sneaker.thuoctinhsanpham(MaSP,MaSize,SoLuong) values(?,?,?)";
+        String sql = "insert into thuoctinhsanpham(MaSP,MaSize,SoLuong) values(?,?,?)";
         return JDBC_Helper.Update(sql, t.getSanPham().getMa(), t.getKichThuoc().getMa(), t.getSl());
     }
 
     @Override
     public int delete(String id) {
-        String sql = "Delete from hap_sneaker.thuoctinhsanpham where id = ?";
+        String sql = "Delete from thuoctinhsanpham where id = ?";
         return JDBC_Helper.Update(sql, id);
     }
 
     @Override
     public int undate(ThuocTinhSP_Model t) {
-        String sql = "Update hap_sneaker.thuoctinhsanpham Set MaSP = ?,MaSize =?,SoLuong =? where id =?";
+        String sql = "Update thuoctinhsanpham Set MaSP = ?,MaSize =?,SoLuong =? where id =?";
         return JDBC_Helper.Update(sql, t.getSanPham().getMa(), t.getKichThuoc().getMa(), t.getSl(), t.getId());
     }
 

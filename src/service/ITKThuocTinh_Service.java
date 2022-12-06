@@ -13,6 +13,7 @@ import viewmodel.TKThuocTinhSP_View;
  * @author baphuoc
  */
 public interface ITKThuocTinh_Service {
+    List<TKThuocTinhSP_View> tkByMa();
     List<TKThuocTinhSP_View> tkByMa(String ma);
     List<TKThuocTinhSP_View> tkByMaTheoNgay(String ma,String batDau,String ketThuc);
 }
