@@ -71,7 +71,8 @@ public class DonHang_Model {
 
     @Override
     public String toString() {
-        return "DonHang_Model{" + "ma=" + ma + ", nhanVien=" + nhanVien + ", khachHang=" + khachHang + ", ngayTao=" + ngayTao + ", trangThai=" + trangThai + '}';
+        return "DonHang_Model{" + "ma=" + ma + ", nhanVien=" + nhanVien + ", khachHang=" + khachHang + ", ngayTao="
+                + ngayTao + ", trangThai=" + trangThai + '}';
     }
-    
+
 }

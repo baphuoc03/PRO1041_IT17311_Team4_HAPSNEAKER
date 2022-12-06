@@ -12,6 +12,14 @@ import javax.swing.JTextField;
  * @author baphuoc
  */
 public class ValiDate {
+    public static boolean isNull(JTextField txt,String mess){
+        if(txt.getText().length()==0){
+            JOptionPane.showMessageDialog(null, mess,"Lỗi", JOptionPane.ERROR_MESSAGE);
+            return true;
+        }else{
+            return false;
+        }
+    }
     public static boolean isInt(JTextField txt,String mess){
         try {
             int testInt = Integer.parseInt(txt.getText());
@@ -20,7 +28,8 @@ public class ValiDate {
             JOptionPane.showMessageDialog(null, mess,"Lỗi", JOptionPane.ERROR_MESSAGE);
             return true;
         }
-    }public static boolean isFlaot(JTextField txt,String mess){
+    }
+    public static boolean isFlaot(JTextField txt,String mess){
         try {
             float testInt = Float.parseFloat(txt.getText());
             return false;

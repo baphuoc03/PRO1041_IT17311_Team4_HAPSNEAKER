@@ -36,6 +36,7 @@ public class Dang_nhap extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -46,6 +47,14 @@ public class Dang_nhap extends javax.swing.JFrame {
         txtUser = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         txtPass = new javax.swing.JPasswordField();
+
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ENTER, 0));
+        jMenuItem1.setText("jMenuItem1");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -199,6 +208,20 @@ public class Dang_nhap extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_chkShowActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        NhanVien_Model user = getNVByForm();
+        if (user != null) {
+            Main main = new Main();
+            main.lblTenNV.setText(user.getMa()+" - "+user.getHoTen());
+            main.lblChucVu.setText(user.getChucVu().getTen());
+            main.setVisible(true);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Thông Tin Đăng Nhập Khôgn Chính Xác", "Lỗi Đăng Nhập", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -244,6 +267,7 @@ public class Dang_nhap extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPasswordField txtPass;
     private javax.swing.JTextField txtUser;

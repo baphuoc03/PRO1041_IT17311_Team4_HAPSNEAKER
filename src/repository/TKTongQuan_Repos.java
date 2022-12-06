@@ -22,10 +22,10 @@ public class TKTongQuan_Repos implements ITKTongQuan_Repos {
     @Override
     public TKTongQuan_Model tkHomNay() {
         TKTongQuan_Model tk = null;
-        String sql = "SELECT (SELECT count(donhang.MaDonHang) FROM donhang WHERE DATE(donhang.NgayTao)  = CURDATE() ) AS DONHANG, \n" +
+        String sql = "SELECT (SELECT count(donhang.MaDonHang) FROM donhang WHERE DATE(donhang.NgayTao)  = CURDATE() AND donhang.TrangThai != 2) AS DONHANG, \n" +
 "                sum(ctdonhang.SL), SUM(ctdonhang.DonGia) FROM donhang\n" +
 "                left JOIN ctdonhang on donhang.MaDonHang = ctdonhang.MaDonHang\n" +
-"                WHERE DATE(donhang.NgayTao)  = CURDATE()";
+"                WHERE DATE(donhang.NgayTao)  = CURDATE() AND donhang.TrangThai != 2";
         ResultSet rs = JDBC_Helper.Query(sql);
         try {
             while (rs.next()) {
@@ -40,10 +40,11 @@ public class TKTongQuan_Repos implements ITKTongQuan_Repos {
     @Override
     public TKTongQuan_Model tkTheoNgay(String batDau, String ketThuc) {
         TKTongQuan_Model tk = null;
-        String sql = "SELECT (SELECT count(donhang.MaDonHang) FROM donhang WHERE DATE(donhang.NgayTao) BETWEEN ? and ?   )  AS DONHANG, \n"
+        String sql = "SELECT (SELECT count(donhang.MaDonHang) FROM donhang WHERE DATE(donhang.NgayTao) BETWEEN ? and ?   AND donhang.TrangThai != 2)  AS DONHANG, \n"
                 + "sum(ctdonhang.SL), SUM(ctdonhang.DonGia) FROM donhang\n"
                 + "left JOIN ctdonhang on donhang.MaDonHang = ctdonhang.MaDonHang\n"
-                + "WHERE DATE(donhang.NgayTao) BETWEEN ? and ?  ";
+                + "WHERE DATE(donhang.NgayTao) BETWEEN ? and ?  \n"
+                + "AND donhang.TrangThai != 2";
         ResultSet rs = JDBC_Helper.Query(sql, batDau, ketThuc, batDau, ketThuc);
         try {
             while (rs.next()) {

@@ -15,6 +15,7 @@ import viewmodel.ChiTietDH_View;
 public interface IChiTietDH_Service {
     List<ChiTietDH_View> getChiTietDHByMaDH(String maHD);
     List<ChiTietDH_model> getChiTietDHMolByMaDH(String maHD);
+    ChiTietDH_model getChiTietDHById(String id);
     int add(ChiTietDH_model dh);
     int updateSL(ChiTietDH_model dh);
     int delete(ChiTietDH_model dh);

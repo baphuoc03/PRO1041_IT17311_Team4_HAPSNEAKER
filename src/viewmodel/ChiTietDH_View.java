@@ -9,7 +9,9 @@ package viewmodel;
  * @author baphuoc
  */
 public class ChiTietDH_View {
+    private String id;
     private int stt;
+    private String idThuocTinh;
     private String maSP;
     private String tenSP;
     private float size;
@@ -22,8 +24,10 @@ public class ChiTietDH_View {
     public ChiTietDH_View() {
     }
 
-    public ChiTietDH_View(int stt, String maSP, String tenSP, float size, int SL, float donGia, float thanhTien, int khuyenMai, float tienSauGiam) {
+    public ChiTietDH_View(String id, int stt, String idThuocTinh, String maSP, String tenSP, float size, int SL, float donGia, float thanhTien, int khuyenMai, float tienSauGiam) {
+        this.id = id;
         this.stt = stt;
+        this.idThuocTinh = idThuocTinh;
         this.maSP = maSP;
         this.tenSP = tenSP;
         this.size = size;
@@ -33,8 +37,6 @@ public class ChiTietDH_View {
         this.khuyenMai = khuyenMai;
         this.tienSauGiam = tienSauGiam;
     }
-
-   
 
     public float getSize() {
         return size;
@@ -110,6 +112,22 @@ public class ChiTietDH_View {
         this.tienSauGiam = tienSauGiam;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getIdThuocTinh() {
+        return idThuocTinh;
+    }
+
+    public void setIdThuocTinh(String idThuocTinh) {
+        this.idThuocTinh = idThuocTinh;
+    }
+    
     @Override
     public String toString() {
         return "ChiTietDH_View{" + "stt=" + stt + ", maSP=" + maSP + ", tenSP=" + tenSP + ", size=" + size + ", SL=" + SL + ", donGia=" + donGia + ", thanhTien=" + thanhTien + ", khuyenMai=" + khuyenMai + ", tienSauGiam=" + tienSauGiam + '}';

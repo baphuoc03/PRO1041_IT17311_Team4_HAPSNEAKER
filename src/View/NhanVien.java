@@ -59,7 +59,6 @@ public class NhanVien extends javax.swing.JPanel {
         txthoTen = new javax.swing.JTextField();
         txtDC = new javax.swing.JTextField();
         txtSDT = new javax.swing.JTextField();
-        txtPW = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -71,22 +70,23 @@ public class NhanVien extends javax.swing.JPanel {
         txtTK = new javax.swing.JTextField();
         rdoQL = new javax.swing.JRadioButton();
         rdoNV = new javax.swing.JRadioButton();
+        txtPW = new javax.swing.JPasswordField();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
         tblNV.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Mã Nhân Viên", "Họ Tên", "Giới Tính", "Ngày Sinh", "SĐT ", "Địa Chỉ", "Password", "Chức Vụ "
+                "Mã Nhân Viên", "Họ Tên", "Giới Tính", "Ngày Sinh", "SĐT ", "Địa Chỉ", "Chức Vụ "
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -218,9 +218,9 @@ public class NhanVien extends javax.swing.JPanel {
                                             .addComponent(jLabel6)
                                             .addComponent(jLabel8))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtPW, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txtSDT, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(txtSDT, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
+                                            .addComponent(txtPW))))
                                 .addGap(57, 57, 57)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -271,8 +271,8 @@ public class NhanVien extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
                             .addComponent(jLabel8)
-                            .addComponent(txtPW, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton4)))
+                            .addComponent(jButton4)
+                            .addComponent(txtPW, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(txtNS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
                 .addComponent(txtTK, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -361,7 +361,7 @@ public class NhanVien extends javax.swing.JPanel {
     private javax.swing.JTable tblNV;
     private javax.swing.JTextField txtDC;
     private com.toedter.calendar.JDateChooser txtNS;
-    private javax.swing.JTextField txtPW;
+    private javax.swing.JPasswordField txtPW;
     private javax.swing.JTextField txtSDT;
     private javax.swing.JTextField txtTK;
     private javax.swing.JTextField txthoTen;
@@ -372,7 +372,7 @@ public class NhanVien extends javax.swing.JPanel {
         mol = (DefaultTableModel) tblNV.getModel();
         mol.setRowCount(0);
         for (NhanVien_View nv : listNV) {
-            mol.addRow(new Object[]{nv.getMa(), nv.getHoTen(), nv.getGioiTinh(), nv.getNgaySinh(), nv.getSđt(), nv.getDiaChi(), nv.getPassWord(), nv.getChucVu().getTen()});
+            mol.addRow(new Object[]{nv.getMa(), nv.getHoTen(), nv.getGioiTinh(), nv.getNgaySinh(), nv.getSđt(), nv.getDiaChi(), nv.getChucVu().getTen()});
         }
     }
     

@@ -40,14 +40,16 @@ public class ChiTietDH_Service implements IChiTietDH_Service{
             float tienSauGiam = c.getDonGiaSauGiam();
             int khuyenmai =100-  Integer.parseInt(fm.format(((tienSauGiam/ donGia) *100)));
             
-            list_view.add(new ChiTietDH_View(stt,c.getThuocTinh().getSanPham().getMa(), c.getThuocTinh().getSanPham().getTen(),c.getThuocTinh().getKichThuoc().getMa(), c.getSl(), c.getThuocTinh().getSanPham().getGiaBan(),donGia, khuyenmai, tienSauGiam));
+            list_view.add(new ChiTietDH_View(c.getId(),stt,c.getThuocTinh().getId(),c.getThuocTinh().getSanPham().getMa(), c.getThuocTinh().getSanPham().getTen(),c.getThuocTinh().getKichThuoc().getMa(), c.getSl(), c.getThuocTinh().getSanPham().getGiaBan(),donGia, khuyenmai, tienSauGiam));
             stt++;
         }
         return list_view;
         
         
     }
-
+    public ChiTietDH_model getChiTietDHById(String id){
+        return ctDH_repos.getChiTietDHById(id);
+    }
     @Override
     public int add(ChiTietDH_model dh) {
         return ctDH_repos.add(dh);

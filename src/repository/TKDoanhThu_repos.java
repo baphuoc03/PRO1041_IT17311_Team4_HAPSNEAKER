@@ -28,7 +28,7 @@ public class TKDoanhThu_repos implements ITKDoanhThu_repos {
                 + "   join ctdonhang on thuoctinhsanpham.id = ctdonhang.idThuocTinh\n"
                 + "   join donhang on ctdonhang.MaDonHang = donhang.MaDonHang  \n"
                 + "   join kichthuoc on kichthuoc.MaSize = thuoctinhsanpham.MaSize \n"
-                + "   WHERE  Month(donhang.NgayTao) = ? AND YEAR(donhang.NgayTao) = ?\n"
+                + "   WHERE  Month(donhang.NgayTao) = ? AND YEAR(donhang.NgayTao) = ?\n and donhang.TrangThai != 2\n"
                 + "GROUP BY GiaSauGiam,ctdonhang.SL";
 
         for (int i = 1; i <= 12; i++) {

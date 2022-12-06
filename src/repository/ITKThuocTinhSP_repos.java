@@ -12,6 +12,7 @@ import model.TKThuocTinhSP_Model;
  * @author baphuoc
  */
 public interface ITKThuocTinhSP_repos {
+    List<TKThuocTinhSP_Model> tkByMa();
     List<TKThuocTinhSP_Model> tkByMa(String ma);
     List<TKThuocTinhSP_Model> tkByMaTheoNgay(String ma,String batDau,String ketThuc);
 }
