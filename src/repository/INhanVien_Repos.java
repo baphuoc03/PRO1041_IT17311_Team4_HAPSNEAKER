@@ -14,4 +14,5 @@ import model.NhanVien_Model;
 public interface INhanVien_Repos {
     List<NhanVien_Model> getAllNhanVien();
     NhanVien_Model getByMa(String ma);
+    NhanVien_Model getTaiKhoan(String ma, String pass);
 }

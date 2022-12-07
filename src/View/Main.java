@@ -47,6 +47,7 @@ public class Main extends javax.swing.JFrame {
         lblSanPham = new javax.swing.JLabel();
         lblKhuyenMai = new javax.swing.JLabel();
         lblThongKe = new javax.swing.JLabel();
+        lbldangxuat = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         PnlMain = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -162,6 +163,19 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        lbldangxuat.setBackground(new java.awt.Color(255, 255, 255));
+        lbldangxuat.setFont(new java.awt.Font("Lucida Grande", 1, 20)); // NOI18N
+        lbldangxuat.setForeground(new java.awt.Color(2, 120, 217));
+        lbldangxuat.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbldangxuat.setText("Đăng Xuất");
+        lbldangxuat.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(2, 120, 217)));
+        lbldangxuat.setOpaque(true);
+        lbldangxuat.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbldangxuatMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -172,6 +186,7 @@ public class Main extends javax.swing.JFrame {
             .addComponent(lblSanPham, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(lblKhuyenMai, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(lblThongKe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lbldangxuat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -187,7 +202,9 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(lblKhuyenMai, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(lblThongKe, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(275, Short.MAX_VALUE))
+                .addGap(1, 1, 1)
+                .addComponent(lbldangxuat, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(193, Short.MAX_VALUE))
         );
 
         jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {lblBanHang, lblNhanVien});
@@ -313,6 +330,13 @@ public class Main extends javax.swing.JFrame {
         lblThongKe.setHorizontalAlignment(JLabel.RIGHT);
     }//GEN-LAST:event_lblThongKeMouseClicked
 
+    private void lbldangxuatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbldangxuatMouseClicked
+        // TODO add your handling code here:
+        Dang_nhap dn = new Dang_nhap();
+        dn.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_lbldangxuatMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -363,6 +387,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel lblNhanVien;
     private javax.swing.JLabel lblSanPham;
     private javax.swing.JLabel lblThongKe;
+    private javax.swing.JLabel lbldangxuat;
     // End of variables declaration//GEN-END:variables
     public void SetAlignCenter(){
         lblBanHang.setHorizontalAlignment(JLabel.CENTER);

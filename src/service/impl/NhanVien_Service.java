@@ -34,6 +34,9 @@ public class NhanVien_Service implements INhanVien_Service{
     public NhanVien_Model getByMa(String ma) {
         return nv.getByMa(ma);
     }
-    
+        @Override
+    public NhanVien_Model getTaiKhoan(String ma, String pass) {
+        return this.nv.getTaiKhoan(ma, pass);
+    }
     
 }

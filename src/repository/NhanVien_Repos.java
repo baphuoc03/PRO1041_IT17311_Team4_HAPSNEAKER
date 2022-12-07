@@ -74,5 +74,28 @@ public class NhanVien_Repos implements INhanVien_Repos{
             return null;
         }
     }
+     @Override
+    public NhanVien_Model getTaiKhoan(String ma, String pass) {
+        NhanVien_Model tk = null;
+        String sql = "SELECT MaNV, password, chucvu.ten FROM nhanvien\n"
+                + "join chucvu on chucvu.MaChucVu = nhanvien.MaChucVu\n"
+                + "where MaNV = ? and PassWord = ? ";
+        ResultSet rs = JDBC_Helper.Query(sql,ma, pass);
+        try {
+            while (rs.next()) {
+                String manv = rs.getString(1);
+                String pw = rs.getString(2);
+
+//                ChucVu_Model cvm = new ChucVu_Model(rs.getString(3), null);
+
+                tk = new NhanVien_Model(manv, pw, null, null, null, null, null, null);
+            }
+            return tk;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+
+        }
+    }
     
 }

@@ -17,6 +17,8 @@ public class Doi_MK extends javax.swing.JFrame {
      */
     public Doi_MK() {
         initComponents();
+        setLocationRelativeTo(null);
+
     }
 
     /**
