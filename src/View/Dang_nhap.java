@@ -5,10 +5,12 @@
 package View;
 
 import View.Main;
+import java.awt.Font;
 import javax.swing.JOptionPane;
 import model.NhanVien_Model;
 import service.impl.NhanVien_Service;
 import service.INhanVien_Service;
+import ultinities.ValiDate;
 
 /**
  *
@@ -45,7 +47,7 @@ public class Dang_nhap extends javax.swing.JFrame {
         chkShow = new javax.swing.JCheckBox();
         jButton1 = new javax.swing.JButton();
         txtUser = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
+        lblDoiMK = new javax.swing.JLabel();
         txtPass = new javax.swing.JPasswordField();
 
         jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ENTER, 0));
@@ -96,14 +98,17 @@ public class Dang_nhap extends javax.swing.JFrame {
 
         txtUser.setForeground(new java.awt.Color(2, 120, 217));
 
-        jLabel6.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel6.setFont(new java.awt.Font("Lucida Grande", 2, 13)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(2, 120, 217));
-        jLabel6.setText("Đổi Mật Khẩu");
-        jLabel6.setOpaque(true);
-        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblDoiMK.setBackground(new java.awt.Color(255, 255, 255));
+        lblDoiMK.setFont(new java.awt.Font("Lucida Grande", 2, 13)); // NOI18N
+        lblDoiMK.setForeground(new java.awt.Color(2, 120, 217));
+        lblDoiMK.setText("Đổi Mật Khẩu");
+        lblDoiMK.setOpaque(true);
+        lblDoiMK.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel6MouseClicked(evt);
+                lblDoiMKMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblDoiMKMouseEntered(evt);
             }
         });
 
@@ -131,7 +136,7 @@ public class Dang_nhap extends javax.swing.JFrame {
                                         .addComponent(txtPass)
                                         .addGap(2, 2, 2))))
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel6)
+                                .addComponent(lblDoiMK)
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(139, 139, 139)
@@ -159,7 +164,7 @@ public class Dang_nhap extends javax.swing.JFrame {
                 .addGap(36, 36, 36)
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel6)
+                .addComponent(lblDoiMK)
                 .addContainerGap(8, Short.MAX_VALUE))
             .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -180,6 +185,8 @@ public class Dang_nhap extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+                if(getvalidate()==false) return;
+
         NhanVien_Model user = getNVByForm();
         if (user != null) {
             Main main = new Main();
@@ -188,16 +195,16 @@ public class Dang_nhap extends javax.swing.JFrame {
             main.setVisible(true);
             this.dispose();
         } else {
-            JOptionPane.showMessageDialog(this, "Thông Tin Đăng Nhập Khôgn Chính Xác", "Lỗi Đăng Nhập", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Thông Tin Đăng Nhập Không Chính Xác", "Lỗi Đăng Nhập", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
+    private void lblDoiMKMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDoiMKMouseClicked
         // TODO add your handling code here:
         Doi_MK doiMK = new Doi_MK();
         doiMK.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jLabel6MouseClicked
+    }//GEN-LAST:event_lblDoiMKMouseClicked
 
     private void chkShowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkShowActionPerformed
         // TODO add your handling code here:
@@ -211,6 +218,7 @@ public class Dang_nhap extends javax.swing.JFrame {
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
         NhanVien_Model user = getNVByForm();
+        if(getvalidate()==false) return;
         if (user != null) {
             Main main = new Main();
             main.lblTenNV.setText(user.getMa()+" - "+user.getHoTen());
@@ -221,6 +229,11 @@ public class Dang_nhap extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Thông Tin Đăng Nhập Khôgn Chính Xác", "Lỗi Đăng Nhập", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void lblDoiMKMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDoiMKMouseEntered
+        // TODO add your handling code here:
+//        lblDoiMK.set;
+    }//GEN-LAST:event_lblDoiMKMouseEntered
 
     /**
      * @param args the command line arguments
@@ -266,9 +279,9 @@ public class Dang_nhap extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblDoiMK;
     private javax.swing.JPasswordField txtPass;
     private javax.swing.JTextField txtUser;
     // End of variables declaration//GEN-END:variables
@@ -277,5 +290,10 @@ public class Dang_nhap extends javax.swing.JFrame {
         String pass = txtPass.getText();
         NhanVien_Model nv = nv_sv.LoginNhanVien(user, pass);
         return nv;
+    }
+    public boolean getvalidate(){
+        if(ValiDate.isNull(txtUser,"Không Để Trống Tên Đăng Nhập")) return false;
+        else if(ValiDate.isNull(txtPass, "Không Để Trống Mật Khẩu")) return false;
+        else return true;
     }
 }

@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import static java.util.Locale.filter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
@@ -38,6 +39,7 @@ import model.KichThuoc_Model;
 import model.NhanVien_Model;
 import model.SanPham_Model;
 import model.ThuocTinhSP_Model;
+import static org.apache.commons.collections4.CollectionUtils.filter;
 import service.impl.DonHang_service;
 import service.impl.ChiTietDH_Service;
 import viewmodel.ChiTietDH_View;
@@ -325,6 +327,11 @@ public class QLDonHang extends javax.swing.JPanel {
         jLabel11.setText("Phân Loại");
 
         cboPhanLoai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboPhanLoai.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cboPhanLoaiItemStateChanged(evt);
+            }
+        });
 
         Size.setText("Size");
 
@@ -939,6 +946,14 @@ public class QLDonHang extends javax.swing.JPanel {
                         dongia -= sp.getThuocTinh().getSanPham().getGiaBan() * km.getGiamGia() / 100;
                     }
                 }
+                //UPDATE SL SP 
+                ThuocTinhSP_Model tts = TTS.getById(sp.getThuocTinh().getId());
+                for (int i = 0; i < tblSP.getRowCount(); i++) {
+                    if (lstSP.get(i).getId().equalsIgnoreCase(tts.getId())) {
+                        tblSP.setValueAt(tts.getSl() + 1, i, 5);
+
+                    }
+                }
                 if (sp.getSl() == 1) {
                     ChiTietDH.delete(sp);
                 } else {
@@ -949,7 +964,8 @@ public class QLDonHang extends javax.swing.JPanel {
                     ChiTietDH.updateSL(sp);
                 }
                 TTS.updateSL(sp.getThuocTinh(), -1);
-                FillSP();
+//                FillSP();
+                
                 filltableChiTietDH(txtDonHang.getText());
             }
         } catch (Exception e) {
@@ -1055,17 +1071,27 @@ public class QLDonHang extends javax.swing.JPanel {
                 }
             }
             int sl = Integer.parseInt(comfirm);
+            
             if (sp.getThuocTinh().getSl() < sl) {
                 JOptionPane.showMessageDialog(this, "Sản phẩm không đủ số lượng!!!", "Sản phẩm không đủ số lượng!!!", JOptionPane.ERROR_MESSAGE);
                 return;
             }
+            
             int slUpdate = sl - sp.getSl();
+            //UPDATE SL SP 
+                ThuocTinhSP_Model tts = TTS.getById(sp.getThuocTinh().getId());
+                for (int i = 0; i < tblSP.getRowCount(); i++) {
+                    if (lstSP.get(i).getId().equalsIgnoreCase(tts.getId())) {
+                        tblSP.setValueAt(slUpdate, i, 5);
+
+                    }
+                }
             sp.setSl(sl);
             sp.setDonGia(sl * sp.getThuocTinh().getSanPham().getGiaBan());
             sp.setDonGiaSauGiam(sl * dongia);
             ChiTietDH.updateSL(sp);
             TTS.updateSL(sp.getThuocTinh(), slUpdate);
-            FillSP();
+//            FillSP();
             filltableChiTietDH(txtDonHang.getText());
         }
     }//GEN-LAST:event_UpdateSLActionPerformed
@@ -1075,10 +1101,17 @@ public class QLDonHang extends javax.swing.JPanel {
         int index = tblChiTietDH.getSelectedRow();
         String id = listChiTietDH.get(index).getId();
         ChiTietDH_model ctdh = ChiTietDH.getChiTietDHById(id);
+         ThuocTinhSP_Model tts = TTS.getById(ctdh.getThuocTinh().getId());
+                for (int i = 0; i < tblSP.getRowCount(); i++) {
+                    if (lstSP.get(i).getId().equalsIgnoreCase(tts.getId())) {
+                        tblSP.setValueAt(tts.getSl()+ctdh.getSl(), i, 5);
+
+                    }
+                }
         TTS.updateSL(ctdh.getThuocTinh(), -ctdh.getSl());
         ChiTietDH.delete(ctdh);
         filltableChiTietDH(txtDonHang.getText());
-        FillSP();
+//        FillSP();
     }//GEN-LAST:event_XoaSpInGioHangActionPerformed
 
     private void addMoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addMoreActionPerformed
@@ -1103,11 +1136,12 @@ public class QLDonHang extends javax.swing.JPanel {
                         dongia -= sp.getSanPham().getGiaBan() * km.getGiamGia() / 100;
                     }
                 }
+                tblSP.setValueAt(sp.getSl()-sl, index, 5);
                 boolean chk = false;
                 for (ChiTietDH_View c : listChiTietDH) {
                     if (c.getIdThuocTinh().equals(sp.getId())) {
                         ChiTietDH_model ctdh = ChiTietDH.getChiTietDHById(c.getId());
-                        ctdh.setSl(ctdh.getSl()+ sl);
+                        ctdh.setSl(ctdh.getSl() + sl);
                         ctdh.setDonGiaSauGiam(dongia * ctdh.getSl());
                         ctdh.setDonGia(ctdh.getSl() * sp.getSanPham().getGiaBan());
                         ChiTietDH.updateSL(ctdh);
@@ -1115,11 +1149,11 @@ public class QLDonHang extends javax.swing.JPanel {
                     }
                 }
                 if (chk == false) {
-                    ChiTietDH_model dh = new ChiTietDH_model(null,DH_SV.getDHByMa(txtDonHang.getText()), sp, sl, sl * sp.getSanPham().getGiaBan(), dongia * sl);
+                    ChiTietDH_model dh = new ChiTietDH_model(null, DH_SV.getDHByMa(txtDonHang.getText()), sp, sl, sl * sp.getSanPham().getGiaBan(), dongia * sl);
                     ChiTietDH.add(dh);
                 }
                 TTS.updateSL(sp, sl);
-                FillSP();
+                
                 filltableChiTietDH(txtDonHang.getText());
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, "Số lượng phải là số", "Lỗi", JOptionPane.ERROR_MESSAGE);
@@ -1142,24 +1176,21 @@ public class QLDonHang extends javax.swing.JPanel {
 
     private void txtTimKiemSPKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemSPKeyReleased
         // TODO add your handling code here:
-//        String keyWord = txtTimKiemSP.getText().trim();
-//        String maSize = (String.valueOf(cboSize.getSelectedItem()) == null) ? "" : String.valueOf(cboSize.getSelectedItem());
-//        String maTH = (String.valueOf(cboThuongHieu.getSelectedItem()).equals(" ")) ? "" : String.valueOf(cboThuongHieu.getSelectedItem()).split(" ")[0];
-//        String maMau = (String.valueOf(cboMau.getSelectedItem()).equals(" ")) ? "" : String.valueOf(cboMau.getSelectedItem()).split(" ")[0];
-//        String maPL = (String.valueOf(cboPhanLoai.getSelectedItem()).equals(" ")) ? "" : String.valueOf(cboPhanLoai.getSelectedItem()).split(" ")[0];
-//        lstSP = TTS.FilterThuocTinhSP(keyWord, maSize, maTH, maMau, maPL);
-//        FillSP(lstSP);
+        lstSP = TTS.findTTSP(txtTimKiemSP.getText().trim());
+        FillSP(lstSP);
     }//GEN-LAST:event_txtTimKiemSPKeyReleased
 
     private void cboSizeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboSizeItemStateChanged
         // TODO add your handling code here:
-//        String keyWord = txtTimKiemSP.getText() + " ";
-//        String maSize = (cboSize.getSelectedIndex()==0) ? "" : String.valueOf(cboSize.getSelectedItem());
-//        String maTH = (String.valueOf(cboThuongHieu.getSelectedItem()).equals(" ")) ? "" : String.valueOf(cboThuongHieu.getSelectedItem()).split(" ")[0];
-//        String maMau = (String.valueOf(cboMau.getSelectedItem()).equals(" ")) ? "" : String.valueOf(cboMau.getSelectedItem()).split(" ")[0];
-//        String maPL = (String.valueOf(cboPhanLoai.getSelectedItem()).equals(" ")) ? "" : String.valueOf(cboPhanLoai.getSelectedItem()).split(" ")[0];
-//        lstSP = TTS.FilterThuocTinhSP(keyWord, maSize, maTH, maMau, maPL);
-//        FillSP(lstSP);
+//        String tenSP = txtTimKiemSP.getText();
+//        String size = cboSize.getSelectedItem().toString();
+//        String thuognhieu = cboThuongHieu.getSelectedItem().toString();
+//        String mau = cboMau.getSelectedItem().toString();
+//        String phanloai = cboPhanLoai.getSelectedItem().toString();
+//        List<ThuocTinhSP_View> filterTTSP = (List<ThuocTinhSP_View>) TTS.GetAllThuocTinhSP()
+//                .stream().filter((t) -> t.getMaSP().startsWith(tenSP) || t.getTenSP().startsWith(tenSP) || t.getMaKT().startsWith(size)
+//                || t.getMauSac().startsWith(mau) || t.getThuongHieu().startsWith(thuognhieu));
+//        FillSP(filterTTSP);
     }//GEN-LAST:event_cboSizeItemStateChanged
 
     private void cboThuongHieuItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboThuongHieuItemStateChanged
@@ -1193,6 +1224,22 @@ public class QLDonHang extends javax.swing.JPanel {
         tblChiTietDH.setEnabled(false);
         System.out.println("2");
     }//GEN-LAST:event_btnHuyActionPerformed
+
+    private void cboPhanLoaiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboPhanLoaiItemStateChanged
+        // TODO add your handling code here:
+//        if(cboPhanLoai.getSelectedItem().toString().equalsIgnoreCase("ALL")){
+//            lstSP = TTS.GetAllThuocTinhSP();
+//            System.out.println("a");
+//                    FillSP(lstSP);
+//
+//        }else{
+//            String maPL = cboPhanLoai.getSelectedItem().toString().split(" ")[0];
+//            lstSP = TTS.findTTSPByPL(maPL);
+//            System.out.println("b");
+//                    FillSP(lstSP);
+//
+//        }
+    }//GEN-LAST:event_cboPhanLoaiItemStateChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPopupMenu MouseRightTblGioHang;
@@ -1362,6 +1409,8 @@ public class QLDonHang extends javax.swing.JPanel {
                 dongia -= sp.getSanPham().getGiaBan() * km.getGiamGia() / 100;
             }
         }
+                tblSP.setValueAt(sp.getSl() - 1, index, 5);
+
         if (sp.getSl() == 0) {
             JOptionPane.showMessageDialog(this, "Sản phẩm đã hết!!!", "Sản phẩm đã hết!!!", JOptionPane.ERROR_MESSAGE);
             return;
@@ -1369,7 +1418,7 @@ public class QLDonHang extends javax.swing.JPanel {
         for (ChiTietDH_View c : listChiTietDH) {
             if (sp.getId().equals(c.getIdThuocTinh())) {
                 int sl = c.getSL() + 1;
-                ChiTietDH_model ctdh =  ChiTietDH.getChiTietDHById(c.getId());
+                ChiTietDH_model ctdh = ChiTietDH.getChiTietDHById(c.getId());
                 ctdh.setSl(sl);
                 ctdh.setDonGia(sl * sp.getSanPham().getGiaBan());
                 ctdh.setDonGiaSauGiam(sl * dongia);
@@ -1379,12 +1428,12 @@ public class QLDonHang extends javax.swing.JPanel {
         }
         if (chk == true) {
             DonHang_Model dh = DH_SV.getDHByMa(txtDonHang.getText());
-            ChiTietDH_model ctdh = new ChiTietDH_model(null,dh, sp, 1, sp.getSanPham().getGiaBan(), dongia);
+            ChiTietDH_model ctdh = new ChiTietDH_model(null, dh, sp, 1, sp.getSanPham().getGiaBan(), dongia);
             ChiTietDH.add(ctdh);
             txtSDT.setText(dh.getMa());
         }
         TTS.updateSL(sp, 1);
-        FillSP();
+//        FillSP();
         filltableChiTietDH(txtDonHang.getText());
     }
 
@@ -1418,7 +1467,7 @@ public class QLDonHang extends javax.swing.JPanel {
         cboSize.removeAllItems();
         cboThuongHieu.removeAllItems();
         cboSize.addItem(" ");
-        cboPhanLoai.addItem(" ");
+        cboPhanLoai.addItem("ALL");
         cboThuongHieu.addItem(" ");
         cboMau.addItem(" ");
         for (KichThuoc_View k : lstKT) {

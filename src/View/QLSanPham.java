@@ -34,24 +34,25 @@ import viewmodel.ThuocTinhSP_View;
 import service.IPhanLoai_Service;
 import service.impl.PhanLoai_Service;
 import viewmodel.PhanLoai_View;
-import service.IPLSanPham_Service;
 import service.impl.PLSanPham_Service;
 import model.PlSp_Model;
 import viewmodel.PLSanPham_View;
 import model.PhanLoai_Model;
+import service.IPLSanPham_Service;
+import ultinities.ValiDate;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-
 /**
  *
  * @author 84353
  */
 public class QLSanPham extends javax.swing.JPanel {
+
     IThuocTinhSP_Service TTS = new ThuocTinhSP_service();
-    DefaultTableModel dtm ;
+    DefaultTableModel dtm;
     List<ThuocTinhSP_View> lstTT;
     List<ThuocTinhSP_Model> lstTTM = new ArrayList<>();
     List<SanPham_View> lstSP;
@@ -73,6 +74,7 @@ public class QLSanPham extends javax.swing.JPanel {
 
     List<PLSanPham_View> lstPLV;
     IPLSanPham_Service plS = new PLSanPham_Service();
+
     /**
      * Creates new form QLThuongHieu
      */
@@ -86,67 +88,68 @@ public class QLSanPham extends javax.swing.JPanel {
         FillFL();
         lstKT = TTS.GetAllKT();
         KTCBB.removeAllElements();
-        for(var x : lstKT){
+        for (var x : lstKT) {
             KTCBB.addElement(x.getMa());
         }
         SPCBB.removeAllElements();
         lstSPM = TTS.GetAllSP();
-        for(var x : lstSP){
+        for (var x : lstSP) {
             SPCBB.addElement(x.getMa());
         }
     }
 
-    public void FillSanPham(){
+    public void FillSanPham() {
         lstSP = SPS.GetAllSanPham();
         dtm = (DefaultTableModel) tblBangSP.getModel();
         dtm.setRowCount(0);
-        int sl = 0 ;
-        for(SanPham_View s : lstSP){
-            sl=0;
+        int sl = 0;
+        for (SanPham_View s : lstSP) {
+            sl = 0;
             for (ThuocTinhSP_View thuocTinhSP_View : TTS.GetByMaTT(s.getMa())) {
-                sl+=thuocTinhSP_View.getsL();
+                sl += thuocTinhSP_View.getsL();
             }
-            dtm.addRow(new Object[]{s.getStt(),s.getMa(),s.getTen(),s.getThuongHieu(),s.getMauSac(),s.getGiaNhap(),s.getGiaBan(),sl,s.getTrangThai()==1?"Hiển thị":"Ẩn"});
+            dtm.addRow(new Object[]{s.getStt(), s.getMa(), s.getTen(), s.getThuongHieu(), s.getMauSac(), s.getGiaNhap(), s.getGiaBan(), sl, s.getTrangThai() == 1 ? "Hiển thị" : "Ẩn"});
         }
         lstTH = SPS.GetAllTH();
-        for(var x : lstTH){
-            THCBB.addElement(x.getMa()+" - "+x.getTen());
+        for (var x : lstTH) {
+            THCBB.addElement(x.getMa() + " - " + x.getTen());
         }
-        
+
         lstMS = SPS.GetAllMS();
-        for(var x : lstMS){
-            MSCBB.addElement(x.getMa()+" - "+x.getTen());
+        for (var x : lstMS) {
+            MSCBB.addElement(x.getMa() + " - " + x.getTen());
         }
     }
-    public void FillSanPham(String ma){
+
+    public void FillSanPham(String ma) {
         lstSP = SPS.Search(ma);
         dtm = (DefaultTableModel) tblBangSP.getModel();
         dtm.setRowCount(0);
-        int sl = 0 ;
-        for(SanPham_View s : lstSP){
-            sl=0;
+        int sl = 0;
+        for (SanPham_View s : lstSP) {
+            sl = 0;
             for (ThuocTinhSP_View thuocTinhSP_View : TTS.GetByMaTT(s.getMa())) {
-                sl+=thuocTinhSP_View.getsL();
+                sl += thuocTinhSP_View.getsL();
             }
-            dtm.addRow(new Object[]{s.getStt(),s.getMa(),s.getTen(),s.getThuongHieu(),s.getMauSac(),s.getGiaNhap(),s.getGiaBan(),sl,s.getTrangThai()==1?"Hiển thị":"Ẩn"});
+            dtm.addRow(new Object[]{s.getStt(), s.getMa(), s.getTen(), s.getThuongHieu(), s.getMauSac(), s.getGiaNhap(), s.getGiaBan(), sl, s.getTrangThai() == 1 ? "Hiển thị" : "Ẩn"});
         }
 
     }
-    
-    public void FillThuocTinh(String ma){
+
+    public void FillThuocTinh(String ma) {
         lstTT = TTS.GetByMaTT(ma);
         dtm = (DefaultTableModel) tblPhanLoai.getModel();
         dtm.setRowCount(0);
-        for(ThuocTinhSP_View t : lstTT){
-            dtm.addRow(new Object[]{t.getStt(),t.getId(),t.getMaSP(),t.getMaKT(),t.getsL()});
+        for (ThuocTinhSP_View t : lstTT) {
+            dtm.addRow(new Object[]{t.getStt(), t.getId(), t.getMaSP(), t.getMaKT(), t.getsL()});
         }
-        SanPham_Model sp =  SPS.GetByMa(ma);
+        SanPham_Model sp = SPS.GetByMa(ma);
         SPCBB.setSelectedItem(sp.getMa());
         txtTenSP2.setText(sp.getTen());
-        
+
     }
-    
-    public SanPham_Model GetDataSanPham(){
+
+    public SanPham_Model GetDataSanPham() {
         String Ma = txtSanPham.getText();
         String Ten = txtTenSP.getText();
         String TH = cbbThuongHieu.getSelectedItem().toString().split(" ")[0];
@@ -156,99 +159,107 @@ public class QLSanPham extends javax.swing.JPanel {
         String moTa = txtMoTa.getText();
         String giaNhap = txtGiaNhap.getText();
         String giaBan = txtGiaBan.getText();
-        int trangThai ;
-        if(radioHienThi.isSelected() == true){
+        int trangThai;
+        if (radioHienThi.isSelected() == true) {
             trangThai = 1;
-        }else{
+        } else {
             trangThai = 2;
         }
-        
-        return new SanPham_Model(Ma, Ten, t, m, moTa, Float.valueOf(giaNhap), Float.valueOf(giaBan), trangThai);
+        if (giaBan.length() == 0) {
+            return new SanPham_Model(Ma, Ten, t, m, moTa, Float.valueOf(giaNhap), 0, trangThai);
+        } else {
+            return new SanPham_Model(Ma, Ten, t, m, moTa, Float.valueOf(giaNhap), Float.valueOf(giaBan), trangThai);
+        }
     }
-    
-    public ThuocTinhSP_Model GetDataThuocTinhSP(){
-            //String id = null;
-           
-            String maSP = cbbSP.getSelectedItem().toString();
-            SanPham_Model s = SPS.GetByMa(maSP);
-            String maKT = cbbMaSize.getSelectedItem().toString();
-            KichThuoc_Model k = KTS.getByMa(maKT);
-            String SL = txtSoLuong.getText();
-            
+
+    public ThuocTinhSP_Model GetDataThuocTinhSP() {
+        //String id = null;
+
+        String maSP = cbbSP.getSelectedItem().toString();
+        SanPham_Model s = SPS.GetByMa(maSP);
+        String maKT = cbbMaSize.getSelectedItem().toString();
+        KichThuoc_Model k = KTS.getByMa(maKT);
+        String SL = txtSoLuong.getText();
+        if (SL.length() == 0) {
+            return new ThuocTinhSP_Model(null, s, k, 0);
+        } else {
             return new ThuocTinhSP_Model(null, s, k, Integer.valueOf(SL));
         }
-    
-    public void ShowSanPham(SanPham_Model s){
+    }
+
+    public void ShowSanPham(SanPham_Model s) {
         int i = tblBangSP.getSelectedRow();
         txtSanPham.setText(s.getMa());
         txtTenSP.setText(s.getTen());
         txtMoTa.setText(s.getMoTa());
         txtGiaNhap.setText(String.valueOf(s.getGiaNhap()));
         txtGiaBan.setText(String.valueOf(s.getGiaBan()));
-        cbbThuongHieu.setSelectedItem(s.getThuongHieu().getMa()+" - "+s.getThuongHieu().getTen());
-        cbbMauSac.setSelectedItem(s.getMauSac().getMa()+" - "+s.getMauSac().getTen());
+        cbbThuongHieu.setSelectedItem(s.getThuongHieu().getMa() + " - " + s.getThuongHieu().getTen());
+        cbbMauSac.setSelectedItem(s.getMauSac().getMa() + " - " + s.getMauSac().getTen());
         txtTenSP2.setText(s.getTen());
-        if(s.getTrangThai()==1){
+        if (s.getTrangThai() == 1) {
             radioHienThi.setSelected(true);
-        }else{
+        } else {
             radioAn.setSelected(true);
         }
         cbbSP.setSelectedItem(lstSP.get(i).getMa());
         fillPLSP(s.getMa());
-        
+
     }
-    
-    public void ShowThuocTinhSP(){
+
+    public void ShowThuocTinhSP() {
         int i = tblPhanLoai.getSelectedRow();
-        if(i == -1)return;
+        if (i == -1) {
+            return;
+        }
         idWhenclick = tblPhanLoai.getModel().getValueAt(i, 1).toString();
         var t = TTS.GetThuongHieuSPByMa(idWhenclick);
         txtSoLuong.setText(String.valueOf(t.getSl()));
         cbbSP.setSelectedItem(lstTT.get(i).getMaSP());
         cbbMaSize.setSelectedItem(lstTT.get(i).getMaKT());
         //txtTenSP2.setText(lstSP.get(i).getTen());
-       
-        
-      
+
     }
-    
-   public void FillFL(){
-        lstPL = PLS.getAllPhanLoai() ;
+
+    public void FillFL() {
+        lstPL = PLS.getAllPhanLoai();
         dtm = (DefaultTableModel) tblPL.getModel();
         dtm.setRowCount(0);
-        for(PhanLoai_View p : lstPL){
-            dtm.addRow(new Object[]{p.getStt(),p.getMa(),p.getTen()});
+        for (PhanLoai_View p : lstPL) {
+            dtm.addRow(new Object[]{p.getStt(), p.getMa(), p.getTen()});
         }
     }
-   public void fillPLSP(String maSP){
-       for(int i = 0; i < tblPL.getRowCount() ;i++ ){
-           tblPL.setValueAt(false, i, 3);
 
-       }
+    public void fillPLSP(String maSP) {
+        for (int i = 0; i < tblPL.getRowCount(); i++) {
+            tblPL.setValueAt(false, i, 3);
 
-       List<PLSanPham_View> plSP = plS.GetByMa(maSP);
-       for(int i = 0; i < tblPL.getRowCount();i++){
-           for(PLSanPham_View p : plSP){
-               if(p.getMaPL().equalsIgnoreCase(tblPL.getValueAt(i, 1).toString())){
-                   tblPL.setValueAt(true, i, 3);
-                   System.out.println("333");
-               }
-           }
-           System.out.println("111");
-       }
-   }
+        }
 
-   public void addPLSP(){
-       List<PhanLoai_Model> lstPLSP = new ArrayList<>();
-       for(int i = 0 ; i < tblPL.getRowCount(); i++){
-           if(Boolean.parseBoolean(tblPL.getValueAt(i, 3).toString()) == true){
-               lstPLSP.add(PLS.getByMa(tblPL.getValueAt(i, 1)+""));
-           }
-       }
-       for(PhanLoai_Model p : lstPLSP){
-               plS.add(new PlSp_Model(p, GetDataSanPham()));
-           }
-   }
+        List<PLSanPham_View> plSP = plS.GetByMa(maSP);
+        for (int i = 0; i < tblPL.getRowCount(); i++) {
+            for (PLSanPham_View p : plSP) {
+                if (p.getMaPL().equalsIgnoreCase(tblPL.getValueAt(i, 1).toString())) {
+                    tblPL.setValueAt(true, i, 3);
+                    System.out.println("333");
+                }
+            }
+            System.out.println("111");
+        }
+    }
+
+    public void addPLSP() {
+        List<PhanLoai_Model> lstPLSP = new ArrayList<>();
+        for (int i = 0; i < tblPL.getRowCount(); i++) {
+            if (Boolean.parseBoolean(tblPL.getValueAt(i, 3).toString()) == true) {
+                lstPLSP.add(PLS.getByMa(tblPL.getValueAt(i, 1) + ""));
+            }
+        }
+        for (PhanLoai_Model p : lstPLSP) {
+            plS.add(new PlSp_Model(p, GetDataSanPham()));
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -914,8 +925,7 @@ public class QLSanPham extends javax.swing.JPanel {
 
     private void btnXoaSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaSPActionPerformed
         // TODO add your handling code here:
-        plS.delete(txtSanPham.getText());
-        SPS.DELETE(GetDataSanPham().getMa());
+        if(SPS.DELETE(GetDataSanPham().getMa())==0)return;
         FillSanPham();
     }//GEN-LAST:event_btnXoaSPActionPerformed
 
@@ -959,22 +969,24 @@ public class QLSanPham extends javax.swing.JPanel {
         // TODO add your handling code here:
         int index = tblBangSP.getSelectedRow();
         SanPham_Model sp = SPS.getSPByMa(tblBangSP.getValueAt(index, 1).toString());
-                ShowSanPham(sp);
+        ShowSanPham(sp);
 
         FillThuocTinh(tblBangSP.getValueAt(index, 1).toString());
-        
+
     }//GEN-LAST:event_tblBangSPMouseClicked
 
     private void btnThemSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemSPActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(this, SPS.ADD(GetDataSanPham()));
+        if(getValidateSP()==false) return;
+        if(SPS.ADD(GetDataSanPham())==0)return;
         FillSanPham();
         addPLSP();
     }//GEN-LAST:event_btnThemSPActionPerformed
 
     private void btnSuaSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaSPActionPerformed
         // TODO add your handling code here:
-        plS.delete(txtSanPham.getText());
+        if(getValidateSP()==false) return;
+        if(plS.delete(txtSanPham.getText())==0)return;
         addPLSP();
         SPS.UPDATE(GetDataSanPham());
         FillSanPham();
@@ -982,24 +994,26 @@ public class QLSanPham extends javax.swing.JPanel {
 
     private void btnThemPLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemPLActionPerformed
         // TODO add your handling code here:
-        TTS.ADD(GetDataThuocTinhSP());
+        if(getValiDateTTSP()==false) return;
+        if(TTS.ADD(GetDataThuocTinhSP())==0)return;
         FillThuocTinh(cbbSP.getSelectedItem().toString());
     }//GEN-LAST:event_btnThemPLActionPerformed
 
     private void btnSuaPLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaPLActionPerformed
         // TODO add your handling code here:
+        if(getValiDateTTSP()==false) return;
         int index = tblPhanLoai.getSelectedRow();
         ThuocTinhSP_Model ttsp = GetDataThuocTinhSP();
-        ttsp.setId(tblPhanLoai.getValueAt(index,1).toString());
-        TTS.UPDATE(ttsp);
+        ttsp.setId(tblPhanLoai.getValueAt(index, 1).toString());
+        if(TTS.UPDATE(ttsp)==0)return;
         FillThuocTinh(SPCBB.getSelectedItem().toString());
     }//GEN-LAST:event_btnSuaPLActionPerformed
 
     private void btnXoaPLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaPLActionPerformed
         // TODO add your handling code here:
         int index = tblPhanLoai.getSelectedRow();
-        String id = tblPhanLoai.getValueAt(index,1).toString();
-        TTS.DELETE(id);
+        String id = tblPhanLoai.getValueAt(index, 1).toString();
+        if(TTS.DELETE(id)==0)return;
         FillThuocTinh(SPCBB.getSelectedItem().toString());
     }//GEN-LAST:event_btnXoaPLActionPerformed
 
@@ -1025,7 +1039,7 @@ public class QLSanPham extends javax.swing.JPanel {
 
     private void tblBangSPKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblBangSPKeyReleased
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_tblBangSPKeyReleased
 
     private void cbbSPItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbbSPItemStateChanged
@@ -1094,14 +1108,23 @@ public class QLSanPham extends javax.swing.JPanel {
     private javax.swing.JTextField txtTenSP;
     private javax.swing.JTextField txtTenSP2;
     // End of variables declaration//GEN-END:variables
-    public void FillThuocTinh(){
+    public void FillThuocTinh() {
         lstTT = TTS.GetAllThuocTinhSP();
         dtm = (DefaultTableModel) tblPhanLoai.getModel();
         dtm.setRowCount(0);
-        for(ThuocTinhSP_View t : lstTT){
-            dtm.addRow(new Object[]{t.getStt(),t.getId(),t.getMaSP(),t.getMaKT(),t.getsL()});
+        for (ThuocTinhSP_View t : lstTT) {
+            dtm.addRow(new Object[]{t.getStt(), t.getId(), t.getMaSP(), t.getMaKT(), t.getsL()});
         }
     }
-    
-   
+    public boolean getValidateSP(){
+        if(ValiDate.isNull(txtGiaNhap, "Không Để Trống Giá Nhập")) return false;
+        else if(ValiDate.isFlaot(txtGiaNhap, "Giá Nhập Phải Là Số")) return false; 
+        else if(ValiDate.isFlaot(txtGiaBan, "Giá Bán Phải Là Số")) return false; 
+        else return true;
+    }
+    public boolean getValiDateTTSP(){
+        if(ValiDate.isFlaot(txtSoLuong, "Số Lượng Phải Là Số")) return false; 
+        else return true;
+    }
+
 }
