@@ -84,7 +84,7 @@ public class TKThuocTinhSP_repos implements ITKThuocTinhSP_repos {
                 + "                WHERE thuoctinhsanpham.MaSP = ? AND thuoctinhsanpham.MaSP NOT IN (SELECT distinct thuoctinhsanpham.MaSP from thuoctinhsanpham\n"
                 + "							join ctdonhang on ctdonhang.IdThuocTinh = thuoctinhsanpham.Id\n"
                 + "                             join donhang on donhang.MaDonHang = ctdonhang.MaDonHang\n"
-                + "							 WHERE DATE(donhang.NgayTao) between ?  and ? ) AND donhang.TrangThai != 2";
+                + "							 WHERE DATE(donhang.NgayTao) between ?  and ? AND donhang.TrangThai != 2) ";
         ResultSet rs = JDBC_Helper.Query(sql, ma, batDau, ketThuc, ma,batDau, ketThuc);
         try {
             while (rs.next()) {

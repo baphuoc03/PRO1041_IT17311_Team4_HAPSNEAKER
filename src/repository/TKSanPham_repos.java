@@ -53,7 +53,7 @@ public class TKSanPham_repos implements ITKSanPham_repos {
                 + "                join sanpham on thuoctinhsanpham.MaSP = sanpham.MaSP\n"
                 + "                join mausac on mausac.MaMau = SanPham.MaMau\n"
                 + "                join thuonghieu on thuonghieu.MaThuongHieu = sanpham.MaThuongHieu\n"
-                + "				join ctdonhang on ctdonhang.IdThuocTinh = thuoctinhsanpham.Id\n"
+                + "				right join ctdonhang on ctdonhang.IdThuocTinh = thuoctinhsanpham.Id\n"
                 + "                join donhang on donhang.MaDonHang = ctdonhang.MaDonHang\n"
                 + "                                WHERE DATE(donhang.NgayTao) between ?  and ? and donhang.TrangThai != 2\n \n"
                 + "                                group by sanpham.MaSP, sanpham.Ten,mausac.Ten,thuonghieu.Ten\n"
@@ -65,7 +65,7 @@ public class TKSanPham_repos implements ITKSanPham_repos {
                 + "WHERE thuoctinhsanpham.MaSP not in (SELECT distinct thuoctinhsanpham.MaSP from thuoctinhsanpham\n"
                 + "				join ctdonhang on ctdonhang.IdThuocTinh = thuoctinhsanpham.Id\n"
                 + "                join donhang on donhang.MaDonHang = ctdonhang.MaDonHang\n"
-                + "                                WHERE DATE(donhang.NgayTao) between ?   and ? and donhang.TrangThai != 2\n)";
+                + "                                WHERE DATE(donhang.NgayTao) between ?   and ? and donhang.TrangThai != 2)\n";
         ResultSet rs = JDBC_Helper.Query(sql, batDau, ketThuc,batDau,ketThuc);
         try {
             while (rs.next()) {

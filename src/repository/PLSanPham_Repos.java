@@ -16,7 +16,7 @@ import java.sql.*;
  *
  * @author baphuoc
  */
-    public class PLSanPham_Repo implements IPLSanPham{
+    public class PLSanPham_Repos implements IPLSanPham{
     public List<PlSp_Model> getByMa(String ma) {
         List<PlSp_Model> lst = new ArrayList<>();
         String sql = "SELECT * FROM pl_sp where MaSP = ?";

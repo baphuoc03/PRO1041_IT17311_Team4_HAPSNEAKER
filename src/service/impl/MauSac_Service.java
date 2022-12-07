@@ -6,6 +6,7 @@ package service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import model.MauSac_Model;
 import repository.MauSac_repos;
 import viewmodel.MauSac_View;
@@ -40,17 +41,45 @@ public class MauSac_Service implements IMauSac_Service {
 
     @Override
     public int ADD(MauSac_Model m) {
+        if(m.getMa().length()==0){
+            JOptionPane.showMessageDialog(null, "Không Để Trống Mã Màu Sắc", "Lỗi",JOptionPane.ERROR_MESSAGE);
+            return 0;
+        }else if(m.getTen().length()==0){
+            JOptionPane.showMessageDialog(null, "Không Để Trống Tên Màu Sắc", "Lỗi",JOptionPane.ERROR_MESSAGE);
+            return 0;
+        }else if(GetMauSacByMa(m.getMa())!=null){
+            JOptionPane.showMessageDialog(null, "Mã Màu Sắc Đã Tồn Tại", "Lỗi",JOptionPane.ERROR_MESSAGE);
+            return 0;
+        }else{
         return MS_repos.add(m);
+    
+        }
     }
 
     @Override
     public int DELETE(String ma) {
+        if(GetMauSacByMa(ma)==null){
+            JOptionPane.showMessageDialog(null, "Màu Sắc Không Tồn Tại", "Lỗi",JOptionPane.ERROR_MESSAGE);
+            return 0;
+        }else{
         return MS_repos.delete(ma);
+        }
     }
 
     @Override
     public int UPDATE(MauSac_Model m) {
+        if(m.getMa().length()==0){
+            JOptionPane.showMessageDialog(null, "Không Để Trống Mã Màu Sắc", "Lỗi",JOptionPane.ERROR_MESSAGE);
+            return 0;
+        }else if(m.getTen().length()==0){
+            JOptionPane.showMessageDialog(null, "Không Để Trống Tên Màu Sắc", "Lỗi",JOptionPane.ERROR_MESSAGE);
+            return 0;
+        }else if(GetMauSacByMa(m.getMa())==null){
+            JOptionPane.showMessageDialog(null, "Màu Sắc Không Tồn Tại", "Lỗi",JOptionPane.ERROR_MESSAGE);
+            return 0;
+        }else{
         return MS_repos.update(m);
+        }
     }
 
     @Override
