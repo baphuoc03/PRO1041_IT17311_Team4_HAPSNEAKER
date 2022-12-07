@@ -7,10 +7,10 @@ package service.impl;
 import java.util.ArrayList;
 import java.util.List;
 import model.TKDoanhThu_Model;
-import repository.ITKDoanhThu_repos;
 import repository.TKDoanhThu_repos;
-import service.ITKDoanhThu_service;
 import viewmodel.TKDoanhThu_View;
+import repository.ITKDoanhThu_repos;
+import service.ITKDoanhThu_service;
 
 /**
  *
@@ -22,9 +22,9 @@ public class TKDoanhThu_Service implements ITKDoanhThu_service {
     List<TKDoanhThu_Model> list;
 
     @Override
-    public List<TKDoanhThu_View> getTKDoanhThu() {
+    public List<TKDoanhThu_View> getTKDoanhThu(Integer nam) {
         List<TKDoanhThu_View> list_view = new ArrayList<>();
-        list = TK_repos.getTKDoanhThu();
+        list = TK_repos.getTKDoanhThu(nam);
         for (TKDoanhThu_Model tK : list) {
             list_view.add(new TKDoanhThu_View(tK.getThang(), tK.getSlSanPham(), tK.getTongGiaBan(), tK.getTongGiaGia(), tK.getTongDoanhThu()));
         }

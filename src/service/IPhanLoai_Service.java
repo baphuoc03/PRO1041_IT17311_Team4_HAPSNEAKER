@@ -13,6 +13,11 @@ import viewmodel.PhanLoai_View;
  * @author baphuoc
  */
 public interface IPhanLoai_Service {
-    List<PhanLoai_View> getAllThuongHieu();
+    List<PhanLoai_View> getAllPhanLoai();
     PhanLoai_Model getByMa(String ma);
+    int ADD(PhanLoai_Model p);
+    int UPDATE(PhanLoai_Model p);
+    int DELETE(String ma);
+    PhanLoai_Model GetPhanLoaiByMa(String ma);
+    List<PhanLoai_View> Search(String key);
 }

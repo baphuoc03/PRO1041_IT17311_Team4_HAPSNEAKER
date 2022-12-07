@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import model.DonHang_Model;
 import repository.DonHang_Repos;
-import repository.IDonHang_Repos;
 import viewmodel.DonHang_view;
+import repository.IDonHang_Repos;
 import service.IDonHang_service;
 
 /**
@@ -30,8 +30,10 @@ public class DonHang_service implements IDonHang_service {
         for (DonHang_Model d : list) {
             if (d.getTrangThai() == 0) {
                 tt = "Chưa thanh toán";
-            } else {
+            } else if(d.getTrangThai() == 1) {
                 tt = "Đã Thanh Toán";
+            }else{
+                tt = "Hủy";
             }
             list_view.add(new DonHang_view(stt, d.getMa(), d.getNhanVien().getHoTen(),d.getKhachHang().getSđt(), d.getKhachHang().getHoTen(), d.getNgayTao(), tt));
             stt++;
@@ -70,6 +72,11 @@ public class DonHang_service implements IDonHang_service {
     @Override
     public DonHang_Model getDHByMa(String ma) {
         return DH_repos.getDHByMa(ma);
+    }
+
+    @Override
+    public int updateKH(DonHang_Model dh) {
+        return DH_repos.updateKH(dh);
     }
 
 }

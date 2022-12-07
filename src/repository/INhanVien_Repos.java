@@ -13,6 +13,12 @@ import model.NhanVien_Model;
  */
 public interface INhanVien_Repos {
     List<NhanVien_Model> getAllNhanVien();
+    List<NhanVien_Model> getNVbyCV(String maCV);
     NhanVien_Model getByMa(String ma);
-    NhanVien_Model getTaiKhoan(String ma, String pass);
+    NhanVien_Model LoginNhanVien(String ma,String pass);
+    List<NhanVien_Model> FindNhanVien(String keyWord);
+    int addNV(NhanVien_Model nv);
+    int delNV(String manv);
+    int updateNV(NhanVien_Model nv);
+    int UpdatePassword(NhanVien_Model nv);
 }

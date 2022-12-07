@@ -2,14 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package view;
+package View;
 
-import java.util.ArrayList;
-import java.util.List;
+import View.Main;
 import javax.swing.JOptionPane;
 import model.NhanVien_Model;
 import service.impl.NhanVien_Service;
-import ultinities.CheckTK;
+import service.INhanVien_Service;
 
 /**
  *
@@ -17,8 +16,7 @@ import ultinities.CheckTK;
  */
 public class Dang_nhap extends javax.swing.JFrame {
 
-    private List<NhanVien_Model> list;
-    private NhanVien_Service NV_SV;
+    INhanVien_Service nv_sv = new NhanVien_Service();
 
     /**
      * Creates new form Dang_nhap
@@ -26,8 +24,6 @@ public class Dang_nhap extends javax.swing.JFrame {
     public Dang_nhap() {
         initComponents();
         setLocationRelativeTo(null);
-        NV_SV = new NhanVien_Service();
-        list = new ArrayList<>();
     }
 
     /**
@@ -40,66 +36,69 @@ public class Dang_nhap extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        Cbhinthi = new javax.swing.JCheckBox();
-        btndangnhap = new javax.swing.JButton();
-        txtname = new javax.swing.JTextField();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        chkShow = new javax.swing.JCheckBox();
+        jButton1 = new javax.swing.JButton();
+        txtUser = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        pwdpass = new javax.swing.JPasswordField();
+        txtPass = new javax.swing.JPasswordField();
+
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ENTER, 0));
+        jMenuItem1.setText("jMenuItem1");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setForeground(new java.awt.Color(255, 51, 51));
 
-        jLabel5.setBackground(new java.awt.Color(255, 102, 255));
+        jLabel5.setBackground(new java.awt.Color(2, 120, 217));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/sneaker.jpeg"))); // NOI18N
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/logo_Withe.png"))); // NOI18N
+        jLabel5.setOpaque(true);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 51, 51));
+        jLabel1.setForeground(new java.awt.Color(2, 120, 217));
         jLabel1.setText("Đăng Nhập");
 
+        jLabel2.setForeground(new java.awt.Color(2, 120, 217));
         jLabel2.setText("Tên Đăng Nhập:");
 
+        jLabel3.setForeground(new java.awt.Color(2, 120, 217));
         jLabel3.setText("Mật Khẩu:");
 
-        jLabel4.setText("Vai Trò:");
-
-        Cbhinthi.setText("Hiển Thị Mật Khẩu");
-        Cbhinthi.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                CbhinthiMouseClicked(evt);
-            }
-        });
-
-        btndangnhap.setBackground(new java.awt.Color(255, 51, 51));
-        btndangnhap.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
-        btndangnhap.setForeground(new java.awt.Color(255, 255, 255));
-        btndangnhap.setText("Đăng Nhập");
-        btndangnhap.addActionListener(new java.awt.event.ActionListener() {
+        chkShow.setForeground(new java.awt.Color(2, 120, 217));
+        chkShow.setText("Hiển Thị Mật Khẩu");
+        chkShow.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btndangnhapActionPerformed(evt);
+                chkShowActionPerformed(evt);
             }
         });
 
-        buttonGroup1.add(jRadioButton1);
-        jRadioButton1.setSelected(true);
-        jRadioButton1.setText("Nhân Viên");
+        jButton1.setBackground(new java.awt.Color(2, 120, 217));
+        jButton1.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Đăng Nhập");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
-        buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setText("Quản Lý");
+        txtUser.setForeground(new java.awt.Color(2, 120, 217));
 
         jLabel6.setBackground(new java.awt.Color(255, 255, 255));
         jLabel6.setFont(new java.awt.Font("Lucida Grande", 2, 13)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 51, 51));
+        jLabel6.setForeground(new java.awt.Color(2, 120, 217));
         jLabel6.setText("Đổi Mật Khẩu");
         jLabel6.setOpaque(true);
         jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -108,68 +107,61 @@ public class Dang_nhap extends javax.swing.JFrame {
             }
         });
 
+        txtPass.setForeground(new java.awt.Color(2, 120, 217));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(33, 33, 33)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4))
+                                    .addComponent(jLabel3))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtname, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
-                                    .addComponent(Cbhinthi)
+                                    .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(chkShow)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jRadioButton2)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jRadioButton1)
-                                        .addGap(2, 2, 2))
-                                    .addComponent(pwdpass)))
+                                        .addComponent(txtPass)
+                                        .addGap(2, 2, 2))))
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(jLabel6)
-                                .addComponent(btndangnhap, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(112, 112, 112)
+                        .addGap(139, 139, 139)
                         .addComponent(jLabel1)))
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txtPass, txtUser});
+
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(txtname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(20, 20, 20)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3)
-                            .addComponent(pwdpass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Cbhinthi)
-                        .addGap(27, 27, 27)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jRadioButton1)
-                                .addComponent(jRadioButton2)))
-                        .addGap(18, 18, 18)
-                        .addComponent(btndangnhap)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel6)))
+                .addGap(23, 23, 23)
+                .addComponent(jLabel1)
+                .addGap(48, 48, 48)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(23, 23, 23)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(chkShow)
+                .addGap(36, 36, 36)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel6)
                 .addContainerGap(8, Short.MAX_VALUE))
+            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -186,9 +178,19 @@ public class Dang_nhap extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btndangnhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndangnhapActionPerformed
-        dangNhap();
-    }//GEN-LAST:event_btndangnhapActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        NhanVien_Model user = getNVByForm();
+        if (user != null) {
+            Main main = new Main();
+            main.lblTenNV.setText(user.getMa()+" - "+user.getHoTen());
+            main.lblChucVu.setText(user.getChucVu().getTen());
+            main.setVisible(true);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Thông Tin Đăng Nhập Khôgn Chính Xác", "Lỗi Đăng Nhập", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
         // TODO add your handling code here:
@@ -197,10 +199,28 @@ public class Dang_nhap extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jLabel6MouseClicked
 
-    private void CbhinthiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CbhinthiMouseClicked
+    private void chkShowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkShowActionPerformed
         // TODO add your handling code here:
-        hienthiMK();
-    }//GEN-LAST:event_CbhinthiMouseClicked
+        if (chkShow.isSelected() == true) {
+            txtPass.setEchoChar((char) 0);
+        } else {
+            txtPass.setEchoChar('*');
+        }
+    }//GEN-LAST:event_chkShowActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        NhanVien_Model user = getNVByForm();
+        if (user != null) {
+            Main main = new Main();
+            main.lblTenNV.setText(user.getMa()+" - "+user.getHoTen());
+            main.lblChucVu.setText(user.getChucVu().getTen());
+            main.setVisible(true);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Thông Tin Đăng Nhập Khôgn Chính Xác", "Lỗi Đăng Nhập", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -238,50 +258,24 @@ public class Dang_nhap extends javax.swing.JFrame {
         });
     }
 
-    private void dangNhap() {
-
-        String ma = txtname.getText();
-        String pass = new String(pwdpass.getPassword());
-        CheckTK.user = NV_SV.getTaiKhoan(ma, pass);
-        if (ma.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Không Được Để Trống Tên Đăng Nhập");
-        } else if (pass.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Không Được Để Trống Mật Khẩu");
-
-        } else if (CheckTK.user != null) {
-
-            JOptionPane.showMessageDialog(this, "Đăng Nhập Thành Công");
-            this.dispose();
-            Main ni = new Main();
-            ni.setVisible(true);
-            
-
-        } else {
-            JOptionPane.showMessageDialog(this, "Tên Đăng Nhập Hoặc Mật Khẩu Không Đúng");
-        }
-    }
-
-    private void hienthiMK() {
-        if (Cbhinthi.isSelected()) {
-            pwdpass.setEchoChar((char) 0);
-        } else {
-            pwdpass.setEchoChar('*');
-        }
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBox Cbhinthi;
-    private javax.swing.JButton btndangnhap;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JCheckBox chkShow;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JPasswordField pwdpass;
-    private javax.swing.JTextField txtname;
+    private javax.swing.JPasswordField txtPass;
+    private javax.swing.JTextField txtUser;
     // End of variables declaration//GEN-END:variables
+    public NhanVien_Model getNVByForm() {
+        String user = txtUser.getText();
+        String pass = txtPass.getText();
+        NhanVien_Model nv = nv_sv.LoginNhanVien(user, pass);
+        return nv;
+    }
 }
