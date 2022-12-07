@@ -8,16 +8,16 @@ import java.util.ArrayList;
 import java.util.List;
 import model.PlSp_Model;
 import repository.IPLSanPham;
-import repository.PLSanPham_Repo;
-import service.IPLSanPham_Service;
+import repository.PLSanPham_Repos;
 import viewmodel.PLSanPham_View;
+import service.IPLSanPham_Service;
 
 /**
  *
  * @author baphuoc
  */
 public class PLSanPham_Service implements IPLSanPham_Service{
-    IPLSanPham repo = new PLSanPham_Repo();
+    IPLSanPham repo = new PLSanPham_Repos();
     PLSanPham_View plv;
     List<PlSp_Model> lstPL ;
 

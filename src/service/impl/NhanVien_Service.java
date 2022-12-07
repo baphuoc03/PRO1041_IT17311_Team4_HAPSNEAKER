@@ -6,6 +6,7 @@ package service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import model.NhanVien_Model;
 import repository.NhanVien_Repos;
 import viewmodel.NhanVien_View;
@@ -38,7 +39,7 @@ public class NhanVien_Service implements INhanVien_Service {
 
     @Override
     public NhanVien_Model LoginNhanVien(String ma, String pass) {
-        return nv.LoginNhanVien(ma, pass);
+            return nv.LoginNhanVien(ma, pass);
     }
 
     @Override

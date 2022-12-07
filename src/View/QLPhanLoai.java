@@ -264,19 +264,19 @@ public class QLPhanLoai extends javax.swing.JPanel {
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
-        PL_service.ADD(GetPhanLoai());
+        if(PL_service.ADD(GetPhanLoai())==0)return;
         filltable();
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
-        PL_service.UPDATE(GetPhanLoai());
+        if(PL_service.UPDATE(GetPhanLoai())==0)return;
         filltable();
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         // TODO add your handling code here:
-        PL_service.DELETE(GetPhanLoai().getMa());
+        if(PL_service.DELETE(GetPhanLoai().getMa())==0)return;
         filltable();
     }//GEN-LAST:event_btnXoaActionPerformed
 

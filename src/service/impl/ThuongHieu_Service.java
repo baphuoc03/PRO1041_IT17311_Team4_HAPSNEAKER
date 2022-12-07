@@ -6,6 +6,7 @@ package service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import model.ThuongHieu_Model;
 import repository.ThuongHieu_repos;
 import viewmodel.ThuongHieu_View;
@@ -40,17 +41,49 @@ public class ThuongHieu_Service implements IThuongHieu_Service {
 
     @Override
     public int Add(ThuongHieu_Model th) {
-        return TH_repos.Add(th);
+        if (th.getMa().length() == 0) {
+            JOptionPane.showMessageDialog(null, "Không Để Trống Mã Thương Hiệu", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return 0;
+        } else if (th.getTen().length() == 0) {
+            JOptionPane.showMessageDialog(null, "Không Để Trống Tên Thương Hiệu", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return 0;
+        } else if (GetThuongHieuByMa(th.getMa()) != null) {
+            JOptionPane.showMessageDialog(null, "Thương Hiệu Đã Tồn Tại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return 0;
+        } else {
+            JOptionPane.showMessageDialog(null, "Thêm Thành Công Thương Hiệu " + th.getTen());
+            return TH_repos.Add(th);
+
+        }
     }
 
     @Override
     public int Update(ThuongHieu_Model th) {
-        return TH_repos.update(th);
+        if (th.getMa().length() == 0) {
+            JOptionPane.showMessageDialog(null, "Không Để Trống Mã Thương Hiệu", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return 0;
+        } else if (th.getTen().length() == 0) {
+            JOptionPane.showMessageDialog(null, "Không Để Trống Tên Thương Hiệu", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return 0;
+        } else if (GetThuongHieuByMa(th.getMa()) == null) {
+            JOptionPane.showMessageDialog(null, "Thương Hiệu Không Tồn Tại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return 0;
+        } else {
+            JOptionPane.showMessageDialog(null, "Cập Nhật Thành Công Thương Hiệu " + th.getTen());
+            return TH_repos.update(th);
+        }
     }
 
     @Override
     public int Delete(String ma) {
-        return TH_repos.delete(ma);
+        if (GetThuongHieuByMa(ma) == null) {
+            JOptionPane.showMessageDialog(null, "Thương Hiệu Không Tồn Tại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return 0;
+        } else {
+            ThuongHieu_Model th = GetThuongHieuByMa(ma);
+            JOptionPane.showMessageDialog(null, "Cập Nhật Thành Công Thương Hiệu " + th.getTen());
+            return TH_repos.delete(ma);
+        }
     }
 
     @Override

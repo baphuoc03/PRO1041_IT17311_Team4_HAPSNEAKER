@@ -279,19 +279,19 @@ public class QLMauSac extends javax.swing.JPanel {
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
-        MS_Service.ADD(GetMauSac());
+        if(MS_Service.ADD(GetMauSac())==0)return;
         filltable();
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
-        MS_Service.UPDATE(GetMauSac());
+        if(MS_Service.UPDATE(GetMauSac())==0)return;
         filltable();
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         // TODO add your handling code here:
-        MS_Service.DELETE(GetMauSac().getMa());
+        if(MS_Service.DELETE(GetMauSac().getMa())==0)return;
         filltable();
     }//GEN-LAST:event_btnXoaActionPerformed
 

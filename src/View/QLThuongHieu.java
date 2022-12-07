@@ -287,19 +287,19 @@ public class QLThuongHieu extends javax.swing.JPanel {
 
     private void btnThemTHActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnThemTHActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(this, th.Add(GetThuongHieu()));
+        if(th.Add(GetThuongHieu())==0) return;
         fillTableThuongHieu();
     }// GEN-LAST:event_btnThemTHActionPerformed
 
     private void btnSuaTHActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnSuaTHActionPerformed
         // TODO add your handling code here:
-        th.Update(GetThuongHieu());
+        if(th.Update(GetThuongHieu())==0) return;
         fillTableThuongHieu();
     }// GEN-LAST:event_btnSuaTHActionPerformed
 
     private void btnXoaTHActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnXoaTHActionPerformed
         // TODO add your handling code here:
-        th.Delete(GetThuongHieu().getMa());
+        if(th.Delete(GetThuongHieu().getMa())==0) return;
         fillTableThuongHieu();
     }// GEN-LAST:event_btnXoaTHActionPerformed
 

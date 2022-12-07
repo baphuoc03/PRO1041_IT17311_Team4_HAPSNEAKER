@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 import model.NhanVien_Model;
 import service.INhanVien_Service;
 import service.impl.NhanVien_Service;
+import ultinities.ValiDate;
 
 /**
  *
@@ -238,11 +239,18 @@ public class DoiMK_in_Main extends javax.swing.JPanel {
         return nv;
     }
     public boolean chk(){
-        if(NV_SV.LoginNhanVien(txtUser.getText(), txtMKold.getText())==null){
+        if(ValiDate.isNull(txtUser,"Không Để Trống User")) return false;
+        else if(ValiDate.isNull(txtMKold,"Không Để Trống Mật Khẩu")) return false;
+        else if(ValiDate.isNull(txtMKnew,"Vui Lòng Nhập Mật Khẩu Mới")) return false;
+        else if(ValiDate.isNull(txtComfirmPass,"Vui Lòng Xác Nhận Mật Khẩu")) return false;
+        else if(NV_SV.LoginNhanVien(txtUser.getText(), txtMKold.getText())==null){
             JOptionPane.showMessageDialog(this,"Sai Thông tin tài khoản", "Lỗi",JOptionPane.ERROR_MESSAGE);
             return false;
         }else if(!txtMKnew.getText().equals(txtComfirmPass.getText())){
             JOptionPane.showMessageDialog(this,"Xác nhận mật khẩu không chính xác", "Lỗi",JOptionPane.ERROR_MESSAGE);
+            return false;
+        }else if(txtComfirmPass.getText().equals(txtMKold.getText())){
+            JOptionPane.showMessageDialog(this,"Mật Khẩu Mới Không Được Giống Mật Khẩu Cũ", "Lỗi",JOptionPane.ERROR_MESSAGE);
             return false;
         }else{
             return true;

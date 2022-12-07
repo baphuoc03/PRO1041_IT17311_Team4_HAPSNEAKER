@@ -357,17 +357,19 @@ public class Main extends javax.swing.JFrame {
 
     private void lblNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNhanVienMouseClicked
         // TODO add your handling code here:
-//        NhanVien_Model nv= nv_sv.getByMa(lblTenNV.getText().split(" ")[0]);
-//        if(nv.getChucVu().getTen().equalsIgnoreCase("quản lý")){
-        fillPanel(new NhanVien());
-        lblNhanVien.setHorizontalAlignment(JLabel.RIGHT);
-//        }else{
-//            JOptionPane.showMessageDialog(this,"Chức năng chỉ dành cho quản lý","Lỗi", JOptionPane.ERROR_MESSAGE);
-//        }
+        NhanVien_Model nv = nv_sv.getByMa(lblTenNV.getText().split(" ")[0]);
+
+        if (nv.getChucVu().getTen().equalsIgnoreCase("nhân viên")) {
+            JOptionPane.showMessageDialog(this, "Nhân Viên Không Được Phép Sử Dụng Tính Năng Này", "Thông Báo", JOptionPane.ERROR_MESSAGE);
+        } else {
+            fillPanel(new NhanVien());
+            lblNhanVien.setHorizontalAlignment(JLabel.RIGHT);
+        }
     }//GEN-LAST:event_lblNhanVienMouseClicked
 
     private void lblKHMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblKHMouseClicked
         // TODO add your handling code here:
+
         fillPanel(new KhachHang());
         lblKH.setHorizontalAlignment(JLabel.RIGHT);
     }//GEN-LAST:event_lblKHMouseClicked
@@ -379,15 +381,7 @@ public class Main extends javax.swing.JFrame {
         lblSanPham.setHorizontalAlignment(JLabel.RIGHT);
         NhanVien_Model nv = nv_sv.getByMa(lblTenNV.getText().split(" ")[0]);
         if (nv.getChucVu().getTen().equalsIgnoreCase("Nhân Viên")) {
-            JButton btn[] = {sp.btnThemSP, sp.btnSuaSP, sp.btnXoaSP, sp.btnClearSP, sp.btnThemPL, sp.btnSuaPL, sp.btnXoaPL, sp.btnClearPL,sp.btnMoreMau,sp.btnMorePL,sp.btnMoreSize,sp.btnMoreTH};
-//            sp.btnThemSP.setEnabled(false);
-//            sp.btnSuaSP.setEnabled(false);
-//            sp.btnXoaSP.setEnabled(false);
-//            sp.btnClearSP.setEnabled(false);
-//            sp.btnThemPL.setEnabled(false);
-//            sp.btnSuaPL.setEnabled(false);
-//            sp.btnXoaPL.setEnabled(false);
-//            sp.btnClearPL.setEnabled(false);
+            JButton btn[] = {sp.btnThemSP, sp.btnSuaSP, sp.btnXoaSP, sp.btnClearSP, sp.btnThemPL, sp.btnSuaPL, sp.btnXoaPL, sp.btnClearPL, sp.btnMoreMau, sp.btnMorePL, sp.btnMoreSize, sp.btnMoreTH};
             for (JButton jButton : btn) {
                 jButton.setEnabled(false);
             }
@@ -396,38 +390,47 @@ public class Main extends javax.swing.JFrame {
 
     private void lblKhuyenMaiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblKhuyenMaiMouseClicked
         // TODO add your handling code here:
-        fillPanel(new QLKhuyenMai());
-        lblKhuyenMai.setHorizontalAlignment(JLabel.RIGHT);
+        NhanVien_Model nv = nv_sv.getByMa(lblTenNV.getText().split(" ")[0]);
+
+        if (nv.getChucVu().getTen().equalsIgnoreCase("nhân viên")) {
+            JOptionPane.showMessageDialog(this, "Nhân Viên Không Được Phép Sử Dụng Tính Năng Này", "Thông Báo", JOptionPane.ERROR_MESSAGE);
+        } else {
+            fillPanel(new QLKhuyenMai());
+            lblKhuyenMai.setHorizontalAlignment(JLabel.RIGHT);
+        }
     }//GEN-LAST:event_lblKhuyenMaiMouseClicked
 
     private void lblThongKeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThongKeMouseClicked
         // TODO add your handling code here:
         NhanVien_Model nv = nv_sv.getByMa(lblTenNV.getText().split(" ")[0]);
-        TK tk = new TK();
-        fillPanel(new TK());
-        lblThongKe.setHorizontalAlignment(JLabel.RIGHT);
+
         if (nv.getChucVu().getTen().equalsIgnoreCase("nhân viên")) {
-            tk.tabTK.removeAll();
-            tk.pnlLoaiThoiGian.removeAll();
-            tk.cboLoaiTG.setEnabled(false);
+            JOptionPane.showMessageDialog(this, "Nhân Viên Không Được Phép Sử Dụng Tính Năng Này", "Thông Báo", JOptionPane.ERROR_MESSAGE);
+        } else {
+            TK tk = new TK();
+            fillPanel(new TK());
+            lblThongKe.setHorizontalAlignment(JLabel.RIGHT);
         }
+//        tk.tabTK.removeAll();
+//            tk.pnlLoaiThoiGian.removeAll();
+//            tk.cboLoaiTG.setEnabled(false);
 //        fillPanel(new TK());
 //        lblThongKe.setHorizontalAlignment(JLabel.RIGHT);
     }//GEN-LAST:event_lblThongKeMouseClicked
 
     private void lblDangXuatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDangXuatMouseClicked
-        // TODO add your handling code here:
-        if (guiBC == false) {
-            int comfirm = JOptionPane.showConfirmDialog(this, "Hôm nay bạn chưa gửi báo cáo?\nBạn có muốn gửi", "Gửi Báo Cáo", JOptionPane.YES_NO_OPTION);
-            if (comfirm == JOptionPane.YES_OPTION) {
-                JOptionPane.showMessageDialog(this, "Gửi Báo Cáo Thành công");
-            }
-            dn.setVisible(true);
-            this.dispose();
-        } else {
-            dn.setVisible(true);
-            this.dispose();
-        }
+//        // TODO add your handling code here:
+//        if (guiBC == false) {
+//            int comfirm = JOptionPane.showConfirmDialog(this, "Hôm nay bạn chưa gửi báo cáo?\nBạn có muốn gửi", "Gửi Báo Cáo", JOptionPane.YES_NO_OPTION);
+//            if (comfirm == JOptionPane.YES_OPTION) {
+//                JOptionPane.showMessageDialog(this, "Gửi Báo Cáo Thành công");
+//            }
+//            dn.setVisible(true);
+//            this.dispose();
+//        } else {
+        dn.setVisible(true);
+        this.dispose();
+//        }
     }//GEN-LAST:event_lblDangXuatMouseClicked
 
     private void lblTenNVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTenNVMouseClicked
