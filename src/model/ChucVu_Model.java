@@ -41,5 +41,4 @@ public class ChucVu_Model {
         return "ChucVu_Model{" + "ma=" + ma + ", ten=" + ten + '}';
     }
     
-    
 }

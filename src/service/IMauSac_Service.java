@@ -15,4 +15,9 @@ import viewmodel.MauSac_View;
 public interface IMauSac_Service {
     List<MauSac_View> getAllMauSac();
     MauSac_Model getByMa(String ma);
+    int ADD(MauSac_Model m);
+    int DELETE(String ma);
+    int UPDATE(MauSac_Model m);
+    MauSac_Model GetMauSacByMa(String ma);
+    List<MauSac_View> Search(String key);
 }

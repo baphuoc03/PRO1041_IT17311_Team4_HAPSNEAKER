@@ -15,9 +15,11 @@ import viewmodel.NhanVien_View;
 public interface INhanVien_Service {
      List<NhanVien_View> getAllNhanVien();
      List<NhanVien_View> getNVbyCV(String maCV);
-     List<NhanVien_View> FindNhanVien(String keyWord);
      NhanVien_Model getByMa(String ma);
+     NhanVien_Model LoginNhanVien(String ma, String pass);
+     List<NhanVien_View> FindNhanVien(String keyWord);
      int addNV(NhanVien_Model nv);
      int delNV(String manv);
      int updateNV(NhanVien_Model nv);
+     int UpdatePassword(NhanVien_Model nv);
 }

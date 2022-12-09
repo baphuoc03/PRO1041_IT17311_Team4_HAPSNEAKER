@@ -7,10 +7,10 @@ package service.impl;
 import java.util.ArrayList;
 import java.util.List;
 import model.KhachHang_Model;
-import repository.IKhachHang_repos;
 import repository.Khachhang_Repos;
-import service.IKhachHang_Service;
 import viewmodel.KhachHang_View;
+import repository.IKhachHang_repos;
+import service.IKhachHang_Service;
 
 /**
  *
@@ -34,7 +34,6 @@ public class KhachHang_Service implements IKhachHang_Service{
     public KhachHang_Model getBySĐT(String SĐT) {
         return kh.getBySĐT(SĐT);
     }
-
     @Override
     public int addKH(KhachHang_Model kh) {
         return this.kh.addKH(kh);
@@ -49,7 +48,7 @@ public class KhachHang_Service implements IKhachHang_Service{
     public int updateKH(KhachHang_Model kh) {
         return this.kh.updateKH(kh);
     }
-
+    
     @Override
     public List<KhachHang_View> FindKhachHang(String keyWord) {
         List<KhachHang_View> list_view = new ArrayList<>();
@@ -59,6 +58,4 @@ public class KhachHang_Service implements IKhachHang_Service{
         }
         return list_view;
     }
-    
-
 }

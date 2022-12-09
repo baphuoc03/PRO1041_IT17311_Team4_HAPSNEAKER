@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package view;
+package View;
 
 import java.util.Date;
 import java.util.List;
@@ -21,10 +21,12 @@ import viewmodel.NhanVien_View;
  * @author admin
  */
 public class NhanVien extends javax.swing.JPanel {
+
     INhanVien_Service NV_SV = new NhanVien_Service();
     IChucVu_Service CV_SV = new ChucVu_Service();
     DefaultTableModel mol;
     List<NhanVien_View> listNV;
+
     /**
      * Creates new form NV
      */
@@ -57,7 +59,6 @@ public class NhanVien extends javax.swing.JPanel {
         txthoTen = new javax.swing.JTextField();
         txtDC = new javax.swing.JTextField();
         txtSDT = new javax.swing.JTextField();
-        txtPW = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -69,22 +70,23 @@ public class NhanVien extends javax.swing.JPanel {
         txtTK = new javax.swing.JTextField();
         rdoQL = new javax.swing.JRadioButton();
         rdoNV = new javax.swing.JRadioButton();
+        txtPW = new javax.swing.JPasswordField();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
         tblNV.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Mã Nhân Viên", "Họ Tên", "Giới Tính", "Ngày Sinh", "SĐT ", "Địa Chỉ", "Password", "Chức Vụ "
+                "Mã Nhân Viên", "Họ Tên", "Giới Tính", "Ngày Sinh", "SĐT ", "Địa Chỉ", "Chức Vụ "
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -113,10 +115,25 @@ public class NhanVien extends javax.swing.JPanel {
         jLabel8.setText("Password");
 
         btnXoa.setText("Xóa");
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaActionPerformed(evt);
+            }
+        });
 
         btnSua.setText("Sửa");
+        btnSua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSuaActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Làm Mới");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setText("Mã Nhân Viên");
@@ -201,9 +218,9 @@ public class NhanVien extends javax.swing.JPanel {
                                             .addComponent(jLabel6)
                                             .addComponent(jLabel8))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtPW, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txtSDT, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(txtSDT, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
+                                            .addComponent(txtPW))))
                                 .addGap(57, 57, 57)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -254,8 +271,8 @@ public class NhanVien extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
                             .addComponent(jLabel8)
-                            .addComponent(txtPW, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton4)))
+                            .addComponent(jButton4)
+                            .addComponent(txtPW, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(txtNS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
                 .addComponent(txtTK, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -266,14 +283,14 @@ public class NhanVien extends javax.swing.JPanel {
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         NhanVien_Model nv = getNV();
-            int xacnhan = JOptionPane.showConfirmDialog(this, "Thêm Nhân Viên" + txthoTen.getText() + "?");
-            if(xacnhan == JOptionPane.YES_OPTION){
-               NV_SV.addNV(nv);
-               fillTableNhanVien(nv.getChucVu().getMa());
-               JOptionPane.showMessageDialog(this, "Thêm Nhân Viên Thành Công" + txthoTen.getText());
-           }else{
-                JOptionPane.showMessageDialog(this, "Lỗi");
-           }
+        int xacnhan = JOptionPane.showConfirmDialog(this, "Thêm Nhân Viên" + txthoTen.getText() + "?");
+        if (xacnhan == JOptionPane.YES_OPTION) {
+            NV_SV.addNV(nv);
+            fillTableNhanVien();
+            JOptionPane.showMessageDialog(this, "Thêm Nhân Viên Thành Công" + txthoTen.getText());
+        } else {
+            JOptionPane.showMessageDialog(this, "Lỗi");
+        }
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void tblNVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblNVMouseClicked
@@ -282,7 +299,40 @@ public class NhanVien extends javax.swing.JPanel {
         show(nv);
     }//GEN-LAST:event_tblNVMouseClicked
 
+    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
+        // TODO add your handling code here:
+        NhanVien_Model nv = getNV();
+        int xacnhan = JOptionPane.showConfirmDialog(this, "Sửa Nhân Viên" + txthoTen.getText() + "?");
+        if (xacnhan == JOptionPane.YES_OPTION) {
+            NV_SV.updateNV(nv);
+            fillTableNhanVien();
+            JOptionPane.showMessageDialog(this, "Sửa Nhân Viên Thành Công" + txthoTen.getText());
+        } else {
+            JOptionPane.showMessageDialog(this, "Lỗi");
+        }
+    }//GEN-LAST:event_btnSuaActionPerformed
+
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        // TODO add your handling code here:
+        NhanVien_Model nv = getNV();
+        int xacnhan = JOptionPane.showConfirmDialog(this, "Xóa Nhân Viên" + txthoTen.getText() + "?");
+        if (xacnhan == JOptionPane.YES_OPTION) {
+            NV_SV.delNV(nv.getMa());
+            fillTableNhanVien();
+            clear();
+            JOptionPane.showMessageDialog(this, "Xóa Nhân Viên Thành Công" + txthoTen.getText());
+        } else {
+            JOptionPane.showMessageDialog(this, "Lỗi");
+        }
+    }//GEN-LAST:event_btnXoaActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        clear();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
     private void txtTKKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTKKeyReleased
+        // TODO add your handling code here:
         NV_SV.FindNhanVien(txtTK.getText());
         FindNhanVien(txtTK.getText());
     }//GEN-LAST:event_txtTKKeyReleased
@@ -311,31 +361,30 @@ public class NhanVien extends javax.swing.JPanel {
     private javax.swing.JTable tblNV;
     private javax.swing.JTextField txtDC;
     private com.toedter.calendar.JDateChooser txtNS;
-    private javax.swing.JTextField txtPW;
+    private javax.swing.JPasswordField txtPW;
     private javax.swing.JTextField txtSDT;
     private javax.swing.JTextField txtTK;
     private javax.swing.JTextField txthoTen;
     private javax.swing.JTextField txtmaNV;
     // End of variables declaration//GEN-END:variables
-    public void fillTableNhanVien(){
+    public void fillTableNhanVien() {
         listNV = NV_SV.getAllNhanVien();
         mol = (DefaultTableModel) tblNV.getModel();
         mol.setRowCount(0);
-        for(NhanVien_View nv : listNV){
-            mol.addRow(new Object[]{nv.getMa(), nv.getHoTen(), nv.getGioiTinh(), nv.getNgaySinh(), nv.getSđt(), nv.getDiaChi(), nv.getPassWord(), nv.getChucVu().getTen()});
+        for (NhanVien_View nv : listNV) {
+            mol.addRow(new Object[]{nv.getMa(), nv.getHoTen(), nv.getGioiTinh(), nv.getNgaySinh(), nv.getSđt(), nv.getDiaChi(), nv.getChucVu().getTen()});
         }
     }
     
-    public void fillTableNhanVien(String maCV){
-        listNV = NV_SV.getNVbyCV(maCV);
-        mol = (DefaultTableModel) tblNV.getModel();
-        mol.setRowCount(0);
-        for(NhanVien_View nv : listNV){
-            mol.addRow(new Object[]{nv.getMa(), nv.getHoTen(), nv.getGioiTinh(), nv.getNgaySinh(), nv.getSđt(), nv.getDiaChi(), nv.getPassWord(), nv.getChucVu().getTen()});
-        }
-    }
-    
-    public void FindNhanVien(String sdt){
+//    public void fillTableNhanVien(String maCV) {
+//        listNV = NV_SV.getNVbyCV(maCV);
+//        mol = (DefaultTableModel) tblNV.getModel();
+//        mol.setRowCount(0);
+//        for (NhanVien_View nv : listNV) {
+//            mol.addRow(new Object[]{nv.getMa(), nv.getHoTen(), nv.getGioiTinh(), nv.getNgaySinh(), nv.getSđt(), nv.getDiaChi(), nv.getPassWord(), nv.getChucVu().getTen()});
+//        }
+//    }
+     public void FindNhanVien(String sdt){
         listNV = NV_SV.FindNhanVien(sdt);
         mol = (DefaultTableModel) tblNV.getModel();
         mol.setRowCount(0);
@@ -343,40 +392,51 @@ public class NhanVien extends javax.swing.JPanel {
             mol.addRow(new Object[]{nv.getMa(), nv.getHoTen(), nv.getGioiTinh(), nv.getNgaySinh(), nv.getSđt(), nv.getDiaChi(), nv.getPassWord(), nv.getChucVu().getTen()});
         }
     }
-    
-    public NhanVien_Model getNV(){
+    public NhanVien_Model getNV() {
         String ma = txtmaNV.getText();
         String hoTen = txthoTen.getText();
-        String gt = rdoNam.isSelected() ? "Nam" : "Nữ";
+        String gt = rdoNam.isSelected() == true ? "Nam" : "Nữ";
         Date ns = txtNS.getDate();
         String sdt = txtSDT.getText();
         String dc = txtDC.getText();
         String pw = txtPW.getText();
         ChucVu_Model cv = null;
-        if(rdoNV.isSelected() == true){
-            CV_SV.getByMa("CV01");
-        }else{
-            CV_SV.getByMa("CV02");
+        if (rdoNV.isSelected() == true) {
+            cv = CV_SV.getByMa("CV01");
+        } else {
+            cv = CV_SV.getByMa("CV02");
         }
         return new NhanVien_Model(ma, pw, hoTen, hoTen, ns, sdt, dc, cv);
+
     }
-    
-     public void show(NhanVien_Model nv){
+
+    public void show(NhanVien_Model nv) {
         txtmaNV.setText(nv.getMa());
         txthoTen.setText(nv.getHoTen());
-        if(nv.getGioiTinh().equals("Nam")){
+        if (nv.getGioiTinh().equals("Nam")) {
             rdoNam.setSelected(true);
-        }else{
+        } else {
             rdoNu.setSelected(true);
         }
         txtNS.setDate(nv.getNgaySinh());
         txtSDT.setText(nv.getSđt());
         txtDC.setText(nv.getDiaChi());
         txtPW.setText(nv.getPassWord());
-        if(nv.getChucVu().getTen().equals("Nhân Viên")){
+        if (nv.getChucVu().getTen().equals("Nhân Viên")) {
             rdoNV.setSelected(true);
-        }else{
+        } else {
             rdoQL.setSelected(true);
         }
+    }
+
+    public void clear() {
+        txtmaNV.setText("");
+        txthoTen.setText("");
+        rdoNam.setSelected(true);
+        txtNS.setDate(new Date());
+        txtSDT.setText("");
+        txtDC.setText("");
+        txtPW.setText("");
+        rdoNV.setSelected(true);
     }
 }

@@ -34,5 +34,8 @@ public class ChucVu_Service implements IChucVu_Service{
     public ChucVu_Model getByMa(String ma) {
         return CV_repos.getByMa(ma);
     }
-    
+    public static void main(String[] args) {
+        IChucVu_Service sv = new ChucVu_Service();
+        System.out.println(sv.getByMa("CV01").toString());
+    }
 }

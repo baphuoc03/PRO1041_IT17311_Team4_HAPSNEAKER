@@ -13,5 +13,10 @@ import model.ThuongHieu_Model;
  */
 public interface IThuongHieu_Repos {
     List<ThuongHieu_Model> getAllThuongHieu();
-    ThuongHieu_Model getThuongHieuByMa(String ma);
+//    ThuongHieu_Model getThuongHieuByMa(String ma);
+    int Add(ThuongHieu_Model th);
+    ThuongHieu_Model getThuongHieuByMa1(String ma);
+    int update(ThuongHieu_Model th);
+    int delete(String ma);
+    List<ThuongHieu_Model> Search(String key);
 }

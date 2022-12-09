@@ -13,6 +13,7 @@ import model.ChiTietDH_model;
  */
 public interface IChiTietDH_repos {
     List<ChiTietDH_model> getChiTietDHByMaDH(String maHD);
+    ChiTietDH_model getChiTietDHById(String id);
     int add(ChiTietDH_model dh);
     int updateSL(ChiTietDH_model dh);
     int delete(ChiTietDH_model dh);

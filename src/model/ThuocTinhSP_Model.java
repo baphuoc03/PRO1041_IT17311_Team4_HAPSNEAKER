@@ -55,5 +55,10 @@ public class ThuocTinhSP_Model {
     public void setSl(int sl) {
         this.sl = sl;
     }
+
+    @Override
+    public String toString() {
+        return "ThuocTinhSP_Model{" + "id=" + id + ", sanPham=" + sanPham + ", kichThuoc=" + kichThuoc + ", sl=" + sl + '}';
+    }
     
 }
