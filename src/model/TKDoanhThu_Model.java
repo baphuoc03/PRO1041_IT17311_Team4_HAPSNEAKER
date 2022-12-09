@@ -14,17 +14,28 @@ public class TKDoanhThu_Model {
     private float tongGiaBan;
     private float tongGiaGia;
     private float tongDoanhThu;
-
+    private float loiNhuan;
     public TKDoanhThu_Model() {
     }
 
-    public TKDoanhThu_Model(int thang, int slSanPham, float tongGiaBan, float tongGiaGia, float tongDoanhThu) {
+    public TKDoanhThu_Model(int thang, int slSanPham, float tongGiaBan, float tongGiaGia, float tongDoanhThu, float loiNhuan) {
         this.thang = thang;
         this.slSanPham = slSanPham;
         this.tongGiaBan = tongGiaBan;
         this.tongGiaGia = tongGiaGia;
         this.tongDoanhThu = tongDoanhThu;
+        this.loiNhuan = loiNhuan;
     }
+
+    public float getLoiNhuan() {
+        return loiNhuan;
+    }
+
+    public void setLoiNhuan(float loiNhuan) {
+        this.loiNhuan = loiNhuan;
+    }
+
+    
 
     public int getThang() {
         return thang;

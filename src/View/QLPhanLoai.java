@@ -1,5 +1,6 @@
 package View;
 
+import static View.QLSanPham.tblPL;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import service.impl.PhanLoai_Service;
@@ -21,6 +22,7 @@ public class QLPhanLoai extends javax.swing.JPanel {
     List<PhanLoai_View> list;
     DefaultTableModel mol;
     String idWhenClick;
+    DefaultTableModel dtm;
     /**
      * Creates new form QLThuongHieu
      */
@@ -264,20 +266,35 @@ public class QLPhanLoai extends javax.swing.JPanel {
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
-        PL_service.ADD(GetPhanLoai());
+        if(PL_service.ADD(GetPhanLoai())==0)return;
         filltable();
+        dtm = (DefaultTableModel) QLSanPham.tblPL.getModel();
+        dtm.setRowCount(0);
+        for (PhanLoai_View p : PL_service.getAllPhanLoai()) {
+            dtm.addRow(new Object[]{p.getStt(), p.getMa(), p.getTen()});
+        }
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
-        PL_service.UPDATE(GetPhanLoai());
+        if(PL_service.UPDATE(GetPhanLoai())==0)return;
         filltable();
+        dtm = (DefaultTableModel) QLSanPham.tblPL.getModel();
+        dtm.setRowCount(0);
+        for (PhanLoai_View p : PL_service.getAllPhanLoai()) {
+            dtm.addRow(new Object[]{p.getStt(), p.getMa(), p.getTen()});
+        }
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         // TODO add your handling code here:
-        PL_service.DELETE(GetPhanLoai().getMa());
+        if(PL_service.DELETE(GetPhanLoai().getMa())==0)return;
         filltable();
+        dtm = (DefaultTableModel) QLSanPham.tblPL.getModel();
+        dtm.setRowCount(0);
+        for (PhanLoai_View p : PL_service.getAllPhanLoai()) {
+            dtm.addRow(new Object[]{p.getStt(), p.getMa(), p.getTen()});
+        }
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed

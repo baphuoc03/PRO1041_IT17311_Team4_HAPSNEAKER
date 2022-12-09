@@ -26,7 +26,7 @@ public class TKDoanhThu_Service implements ITKDoanhThu_service {
         List<TKDoanhThu_View> list_view = new ArrayList<>();
         list = TK_repos.getTKDoanhThu(nam);
         for (TKDoanhThu_Model tK : list) {
-            list_view.add(new TKDoanhThu_View(tK.getThang(), tK.getSlSanPham(), tK.getTongGiaBan(), tK.getTongGiaGia(), tK.getTongDoanhThu()));
+            list_view.add(new TKDoanhThu_View(tK.getThang(), tK.getSlSanPham(), tK.getTongGiaBan(), tK.getTongGiaGia(), tK.getTongDoanhThu(),tK.getLoiNhuan()));
         }
         return list_view;
         

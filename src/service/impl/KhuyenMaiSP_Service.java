@@ -22,18 +22,16 @@ import service.IKhuyenMaiSP_Service;
  *
  * @author baphuoc
  */
-public class KhuyenMaiSP_Service implements IKhuyenMaiSP_Service {
-
-    IKhuyenmaiSP_repos repo = new KhuyenmaiSP_repos();
-    IKhuyenMai_repos KM_repo = new KhuyenMai_repos();
-    List<KmSp_Model> list = new ArrayList<>();
-
+public class KhuyenMaiSP_Service implements IKhuyenMaiSP_Service{
+        IKhuyenmaiSP_repos repo = new KhuyenmaiSP_repos();
+        IKhuyenMai_repos KM_repo = new KhuyenMai_repos();
+        List<KmSp_Model> list = new ArrayList<>();
     @Override
     public List<KhuyenMaiSP_view> getSanPhamByKM(String maKM) {
         list = repo.getSanPhamByKM(maKM);
         List<KhuyenMaiSP_view> list_view = new ArrayList<>();
         for (KmSp_Model k : list) {
-            list_view.add(new KhuyenMaiSP_view(k.getSanPham().getMa(), k.getKhuyenMai().getMa()));
+            list_view.add(new KhuyenMaiSP_view(k.getSanPham().getMa(),k.getKhuyenMai().getMa()));
         }
         return list_view;
     }
@@ -45,11 +43,11 @@ public class KhuyenMaiSP_Service implements IKhuyenMaiSP_Service {
 
     @Override
     public int deleteByMaKM(String MaKM) {
-        if (KM_repo.getKhuyenMaiByMa(MaKM) == null) {
+        if(KM_repo.getKhuyenMaiByMa(MaKM)==null){
             JOptionPane.showMessageDialog(null, "Khuyến Mãi Không Tồn Tại", "Lỗi", JOptionPane.ERROR_MESSAGE);
             return 0;
-        } else {
-            return repo.deleteByMaKM(MaKM);
+        }else{
+        return repo.deleteByMaKM(MaKM);
         }
     }
 
@@ -58,9 +56,9 @@ public class KhuyenMaiSP_Service implements IKhuyenMaiSP_Service {
         list = repo.getSanPhamByGetDate(getDate);
         List<KhuyenMaiSP_view> list_view = new ArrayList<>();
         for (KmSp_Model k : list) {
-            list_view.add(new KhuyenMaiSP_view(k.getSanPham().getMa(), k.getKhuyenMai().getMa()));
+            list_view.add(new KhuyenMaiSP_view(k.getSanPham().getMa(),k.getKhuyenMai().getMa()));
         }
         return list_view;
     }
-
+    
 }

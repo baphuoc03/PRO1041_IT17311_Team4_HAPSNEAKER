@@ -28,7 +28,7 @@ public class KhuyenmaiSP_repos implements IKhuyenmaiSP_repos {
         ResultSet rs = JDBC_Helper.Query(sql, maKM);
         try {
             while (rs.next()) {
-                SanPham_Model sp = new SanPham_Model(rs.getString(1), null, null, null, null, 0, 0, 0);
+                SanPham_Model sp = new SanPham_Model(rs.getString(1), null, null, null, null, 0, 0, 0,null);
                 list.add(new KmSp_Model(new KhuyenMai_Model(rs.getString(2), sql, 0, null, null), sp));
             }
             return list;
@@ -59,7 +59,7 @@ public class KhuyenmaiSP_repos implements IKhuyenmaiSP_repos {
         ResultSet rs = JDBC_Helper.Query(sql, getDate);
         try {
             while (rs.next()) {
-                SanPham_Model sp = new SanPham_Model(rs.getString(1), null, null, null, null, 0, 0, 0);
+                SanPham_Model sp = new SanPham_Model(rs.getString(1), null, null, null, null, 0, 0, 0,null);
                 list.add(new KmSp_Model(new KhuyenMai_Model(rs.getString(2), sql, rs.getInt(3), null, null), sp));
             }
             return list;

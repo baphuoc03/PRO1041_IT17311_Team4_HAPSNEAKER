@@ -23,6 +23,8 @@ public interface IThuocTinhSP_Service {
 
     List<ThuocTinhSP_View> FilterThuocTinhSP(String keyWord, String maSize, String MaTH, String MaMau,
             String MaPL);
+    List<ThuocTinhSP_View> findTTSP(String keyWord);
+    List<ThuocTinhSP_View> findTTSPByPL(String PL);
 
     ThuocTinhSP_Model GetThuongHieuSPByMa(String id);
 

@@ -23,8 +23,20 @@ public class TKThuocTinhSP_repos implements ITKThuocTinhSP_repos {
         String sql = "SELECT thuoctinhsanpham.MaSP, sanpham.Ten,thuoctinhsanpham.MaSize, SUM(ctdonhang.SL),thuoctinhsanpham.SoLuong FROM thuoctinhsanpham\n"
                 + "join sanpham on thuoctinhsanpham.MaSP = sanpham.MaSP\n"
                 + "left join ctdonhang on ctdonhang.IdThuocTinh = thuoctinhsanpham.Id\n"
+                + "join donhang on donhang.MaDonHang = ctdonhang.MaDonHang\n"
                 + "join kichthuoc on thuoctinhsanpham.MaSize = kichthuoc.MaSize\n"
-                + "group by sanpham.MaSP, sanpham.Ten,thuoctinhsanpham.SoLuong,thuoctinhsanpham.MaSize";
+                + "WHERE donhang.TrangThai != 2\n"
+                + "group by sanpham.MaSP, sanpham.Ten,thuoctinhsanpham.SoLuong,thuoctinhsanpham.MaSize\n"
+                + "UNION\n"
+                + "SELECT sanpham.MaSP, sanpham.Ten,thuoctinhsanpham.MaSize, 0,thuoctinhsanpham.SoLuong FROM thuoctinhsanpham\n" +
+"                left join sanpham on thuoctinhsanpham.MaSP = sanpham.MaSP\n" +
+"                join kichthuoc on thuoctinhsanpham.MaSize = kichthuoc.MaSize\n" +
+"                WHERE sanpham.MaSP not in (SELECT sanpham.MaSP FROM thuoctinhsanpham\n" +
+"											left join sanpham on thuoctinhsanpham.MaSP = sanpham.MaSP\n" +
+"											left join ctdonhang on ctdonhang.IdThuocTinh = thuoctinhsanpham.Id\n" +
+"											join donhang on donhang.MaDonHang = ctdonhang.MaDonHang\n" +
+"											WHERE donhang.TrangThai != 2)\n" +
+"                group by sanpham.MaSP, sanpham.Ten,thuoctinhsanpham.SoLuong,thuoctinhsanpham.MaSize";
         ResultSet rs = JDBC_Helper.Query(sql);
         try {
             while (rs.next()) {
@@ -49,8 +61,18 @@ public class TKThuocTinhSP_repos implements ITKThuocTinhSP_repos {
                 + "join kichthuoc on thuoctinhsanpham.MaSize = kichthuoc.MaSize\n"
                 + "join donhang on donhang.MaDonHang = ctdonhang.MaDonHang\n"
                 + "WHERE thuoctinhsanpham.MaSP = ? and donhang.TrangThai != 2\n"
-                + "group by sanpham.MaSP, sanpham.Ten,thuoctinhsanpham.SoLuong,thuoctinhsanpham.MaSize";
-        ResultSet rs = JDBC_Helper.Query(sql, ma);
+                + "group by sanpham.MaSP, sanpham.Ten,thuoctinhsanpham.SoLuong,thuoctinhsanpham.MaSize\n"
+                + "UNION\n"
+                + "SELECT sanpham.MaSP, sanpham.Ten,thuoctinhsanpham.MaSize, 0,thuoctinhsanpham.SoLuong FROM thuoctinhsanpham\n" +
+"                left join sanpham on thuoctinhsanpham.MaSP = sanpham.MaSP\n" +
+"                join kichthuoc on thuoctinhsanpham.MaSize = kichthuoc.MaSize\n" +
+"                WHERE sanpham.MaSP = ? AND sanpham.MaSP not in (SELECT sanpham.MaSP FROM thuoctinhsanpham\n" +
+"											left join sanpham on thuoctinhsanpham.MaSP = sanpham.MaSP\n" +
+"											left join ctdonhang on ctdonhang.IdThuocTinh = thuoctinhsanpham.Id\n" +
+"											join donhang on donhang.MaDonHang = ctdonhang.MaDonHang\n" +
+"											WHERE donhang.TrangThai != 2)\n" +
+"                group by sanpham.MaSP, sanpham.Ten,thuoctinhsanpham.SoLuong,thuoctinhsanpham.MaSize";
+        ResultSet rs = JDBC_Helper.Query(sql, ma,ma);
         try {
             while (rs.next()) {
                 int slban = 0;
@@ -84,7 +106,7 @@ public class TKThuocTinhSP_repos implements ITKThuocTinhSP_repos {
                 + "                WHERE thuoctinhsanpham.MaSP = ? AND thuoctinhsanpham.MaSP NOT IN (SELECT distinct thuoctinhsanpham.MaSP from thuoctinhsanpham\n"
                 + "							join ctdonhang on ctdonhang.IdThuocTinh = thuoctinhsanpham.Id\n"
                 + "                             join donhang on donhang.MaDonHang = ctdonhang.MaDonHang\n"
-                + "							 WHERE DATE(donhang.NgayTao) between ?  and ? ) AND donhang.TrangThai != 2";
+                + "							 WHERE DATE(donhang.NgayTao) between ?  and ? AND donhang.TrangThai != 2) ";
         ResultSet rs = JDBC_Helper.Query(sql, ma, batDau, ketThuc, ma,batDau, ketThuc);
         try {
             while (rs.next()) {

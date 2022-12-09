@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 import model.NhanVien_Model;
 import service.INhanVien_Service;
 import service.impl.NhanVien_Service;
+import ultinities.ValiDate;
 
 /**
  *
@@ -212,16 +213,16 @@ public class Doi_MK extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-            if(chk()){
+            if(chk() == false) return;
             int comfirm = JOptionPane.showConfirmDialog(this, "Đổi Mật Khẩu ", "Đổi Mật Khẩu", JOptionPane.OK_CANCEL_OPTION);
         if (comfirm == 0) {
             JOptionPane.showMessageDialog(this,"Đổi Mật khẩu thành công");
             NV_SV.UpdatePassword(getNhanVien());
+            Dang_nhap dn = new Dang_nhap();
+            dn.setVisible(true);
+            this.dispose();
         }
-//            Dang_nhap dn = new Dang_nhap();
-//            dn.setVisible(true);
-//            this.dispose();
-        }
+            
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void txtMKoldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMKoldActionPerformed
@@ -299,11 +300,24 @@ public class Doi_MK extends javax.swing.JFrame {
         return nv;
     }
     public boolean chk(){
-        if(NV_SV.LoginNhanVien(txtUser.getText(), txtMKold.getText())==null){
+        if(ValiDate.isNull(txtUser,"Không Để Trống User")) return false;
+        else if(ValiDate.isNull(txtMKold,"Không Để Trống Mật Khẩu")) return false;
+        else if(ValiDate.isNull(txtMKnew,"Vui Lòng Nhập Mật Khẩu Mới")) return false;
+        else if(ValiDate.isNull(txtComfirmPass,"Vui Lòng Xác Nhận Mật Khẩu")) return false;
+        else if(NV_SV.LoginNhanVien(txtUser.getText(), txtMKold.getText())==null){
             JOptionPane.showMessageDialog(this,"Sai Thông tin tài khoản", "Lỗi",JOptionPane.ERROR_MESSAGE);
+            return false;
+        }else if (!txtMKnew.getText().matches("\\w{1,}")) {
+            JOptionPane.showMessageDialog(this, "PassWord Không Có Ký Tự Đặc Biệt", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return false;
+        } else if (txtMKnew.getText().length() > 20) {
+            JOptionPane.showMessageDialog(this, "PassWord Không Quá 20 ký Tự", "Lỗi", JOptionPane.ERROR_MESSAGE);
             return false;
         }else if(!txtMKnew.getText().equals(txtComfirmPass.getText())){
             JOptionPane.showMessageDialog(this,"Xác nhận mật khẩu không chính xác", "Lỗi",JOptionPane.ERROR_MESSAGE);
+            return false;
+        }else if(txtComfirmPass.getText().equals(txtMKold.getText())){
+            JOptionPane.showMessageDialog(this,"Mật Khẩu Mới Không Được Giống Mật Khẩu Cũ", "Lỗi",JOptionPane.ERROR_MESSAGE);
             return false;
         }else{
             return true;

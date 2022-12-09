@@ -4,8 +4,6 @@
  */
 package View;
 
-import static View.TKChiTiet_SP.txtBD;
-import static View.TKChiTiet_SP.txtKT;
 import viewmodel.TKDoanhThu_View;
 import java.awt.Color;
 import java.io.FileInputStream;
@@ -22,6 +20,7 @@ import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -71,6 +70,8 @@ public class TK extends javax.swing.JPanel {
     DecimalFormat decimal = new DecimalFormat("#.#");
     public String ketthuc = "", batDau = "";
     List<TKThuocTinhSP_View> lstTKTTSP;
+//    String dateBatDau;
+//    String dateKetThuc;
 
     /**
      * Creates new form TK
@@ -107,7 +108,6 @@ public class TK extends javax.swing.JPanel {
         jPanel10 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         lblSanPham = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         cboLoaiTG = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
         pnlLoaiThoiGian = new javax.swing.JPanel();
@@ -233,8 +233,6 @@ public class TK extends javax.swing.JPanel {
                 .addContainerGap(30, Short.MAX_VALUE))
         );
 
-        jButton1.setText("Gửi Báo Cáo");
-
         cboLoaiTG.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hôm nay", "Theo ngày" }));
         cboLoaiTG.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -270,14 +268,14 @@ public class TK extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtBatDau, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(txtBatDau, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtKetThuc, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addComponent(txtKetThuc, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(btnTK)
-                .addGap(36, 36, 36))
+                .addContainerGap())
         );
         pnlLoaiThoiGianLayout.setVerticalGroup(
             pnlLoaiThoiGianLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -315,8 +313,7 @@ public class TK extends javax.swing.JPanel {
                         .addComponent(cboLoaiTG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(pnlLoaiThoiGian, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(57, 57, 57))
         );
         jPanel2Layout.setVerticalGroup(
@@ -326,17 +323,14 @@ public class TK extends javax.swing.JPanel {
                     .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlLoaiThoiGian, javax.swing.GroupLayout.PREFERRED_SIZE, 29, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 6, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
                             .addComponent(cboLoaiTG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                    .addComponent(pnlLoaiThoiGian, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -366,29 +360,29 @@ public class TK extends javax.swing.JPanel {
 
         tblTK_Thang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Tháng", "Sản Phẩm Bán", "Tổng Giá Bán", "Tổng Giá Giảm", "Doanh Thu"
+                "Tháng", "Sản Phẩm Bán", "Tổng Giá Bán", "Tổng Giá Giảm", "Doanh Thu", "Lợi Nhuận"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -621,11 +615,15 @@ public class TK extends javax.swing.JPanel {
         frameChild.setLocationRelativeTo(null);
         frameChild.add(tksp);
         frameChild.setVisible(true);
-        tksp.filtblsanpham(tkSP_sv.getTKSanPham(dateFM.format(new Date()), dateFM.format(new Date())));
         if (cboLoaiTG.getSelectedIndex() == 0) {
-            TKChiTiet_SP tkCTSP = new TKChiTiet_SP();
-            txtBD.setText("Hôm Nay");
-            txtKT.setText("Hôm Nay");
+            tksp.filtblsanpham(tkSP_sv.getTKSanPham(dateFM.format(new Date()), dateFM.format(new Date())));
+//            TKChiTiet_SP tkCTSP = new TKChiTiet_SP();
+            TKChiTiet_SP.txtBD.setText("Hôm Nay");
+            TKChiTiet_SP.txtKT.setText("Hôm Nay");
+        } else {
+            tksp.filtblsanpham(tkSP_sv.getTKSanPham(dateFM.format(txtBatDau.getDate()), dateFM.format(txtKetThuc.getDate())));
+            TKChiTiet_SP.txtBD.setText(dateFM.format(txtBatDau.getDate()));
+            TKChiTiet_SP.txtKT.setText(dateFM.format(txtKetThuc.getDate()));
         }
 
 
@@ -633,6 +631,9 @@ public class TK extends javax.swing.JPanel {
 
     private void btnTKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTKActionPerformed
         // TODO add your handling code here:
+        if(txtBatDau.getDate().after(txtKetThuc.getDate())){
+            JOptionPane.showMessageDialog(this, "Ngày Bắt Đầu Phải <= Ngày Kết Thúc");
+        }
         TKTongQuan_View tkTQ = tkTQ_Service.tkTheoNgay(dateFM.format(txtBatDau.getDate()), dateFM.format(txtKetThuc.getDate()));
         ketthuc = dateFM.format(txtBatDau.getDate());
         batDau = dateFM.format(txtKetThuc.getDate());
@@ -645,7 +646,7 @@ public class TK extends javax.swing.JPanel {
     }//GEN-LAST:event_cboNamItemStateChanged
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-            writeExcel();
+        writeExcel();
     }//GEN-LAST:event_jButton2ActionPerformed
 
 
@@ -654,7 +655,6 @@ public class TK extends javax.swing.JPanel {
     public static javax.swing.JComboBox<String> cboLoaiTG;
     private javax.swing.JComboBox<String> cboNam;
     private javax.swing.ButtonGroup dangTK;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -684,8 +684,8 @@ public class TK extends javax.swing.JPanel {
     public static javax.swing.JTabbedPane tabTK;
     private javax.swing.JTable tblTK_Thang;
     private javax.swing.JTable tbl_TKSP;
-    private com.toedter.calendar.JDateChooser txtBatDau;
-    private com.toedter.calendar.JDateChooser txtKetThuc;
+    public static com.toedter.calendar.JDateChooser txtBatDau;
+    public static com.toedter.calendar.JDateChooser txtKetThuc;
     // End of variables declaration//GEN-END:variables
     public void testbarchar(int nam) {
         listDoanhThuThang = tKDoanhThu_service.getTKDoanhThu(nam);
@@ -705,7 +705,7 @@ public class TK extends javax.swing.JPanel {
         mol = (DefaultTableModel) tblTK_Thang.getModel();
         mol.setRowCount(0);
         for (TKDoanhThu_View t : listDoanhThuThang) {
-            mol.addRow(new Object[]{t.getThang(), t.getSlSanPham(), numberFM.format(t.getTongGiaBan()), numberFM.format(t.getTongGiaGia()), numberFM.format(t.getTongDoanhThu())});
+            mol.addRow(new Object[]{t.getThang(), t.getSlSanPham(), numberFM.format(t.getTongGiaBan()), numberFM.format(t.getTongGiaGia()), numberFM.format(t.getTongDoanhThu()),numberFM.format(t.getLoiNhuan())});
         }
     }
 
@@ -724,7 +724,7 @@ public class TK extends javax.swing.JPanel {
         lblSanPham.setText(sanpham + "");
     }
 
-    public void writeExcel(){
+    public void writeExcel() {
         try {
             SimpleDateFormat dateTimeFM = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             lstTKTTSP = tk_TTSP.tkByMa();
@@ -733,9 +733,13 @@ public class TK extends javax.swing.JPanel {
             XSSFWorkbook worbook = new XSSFWorkbook();
             XSSFSheet worksheet = worbook.createSheet("Thống Kê Sản Phẩm");
             XSSFRow row;
-            XSSFCell maSP, ten, thuongHieu, mauSac, size, slBan, slVCon;
+            XSSFCell maSP, ten, thuongHieu, mauSac, size, slBan, slVCon,Date;
             int i = 1;
+            row= worksheet.createRow(0);
+            Date = row.createCell(3);
+            Date.setCellValue(date);
             row = worksheet.createRow(i);
+            
             maSP = row.createCell(0);
             maSP.setCellValue("Mã Sản Phẩm");
             ten = row.createCell(1);
@@ -768,7 +772,8 @@ public class TK extends javax.swing.JPanel {
                 slBan.setCellValue(t.getSlBan());
                 slVCon = row.createCell(6);
                 slVCon.setCellValue(t.getSlCon());
-            }   worbook.write(file);
+            }
+            worbook.write(file);
             worbook.close();
             file.close();
         } catch (IOException ex) {
