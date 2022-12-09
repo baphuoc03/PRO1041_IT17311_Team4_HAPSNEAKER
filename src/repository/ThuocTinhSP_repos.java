@@ -22,7 +22,7 @@ public class ThuocTinhSP_repos implements IThuocTinhSP_Repos {
 
     public List<ThuocTinhSP_Model> GetAllThuocTinhSP() {
         List<ThuocTinhSP_Model> list = new ArrayList<>();
-        String sql = "select s.MaSP,s.Ten,s.MoTa,s.GiaNhap,s.GiaBan,s.TrangThai,k.MaSize,k.Us,k.ChieuDai,t.Id,t.SoLuong ,\n"
+        String sql = "select s.MaSP,s.Ten,s.MoTa,s.GiaNhap,s.GiaBan,s.TrangThai,s.Hinh,k.MaSize,k.Us,k.ChieuDai,t.Id,t.SoLuong ,\n"
                 + " thuonghieu.*,mausac.*\n"
                 + "from hap_sneaker.thuoctinhsanpham t\n"
                 + "join hap_sneaker.sanpham s on t.MaSP = s.MaSP \n"
@@ -35,11 +35,11 @@ public class ThuocTinhSP_repos implements IThuocTinhSP_Repos {
 
         try {
             while (rs.next()) {
-                ThuongHieu_Model th = new ThuongHieu_Model(rs.getString(12), rs.getString(13));
-                MauSac_Model MS = new MauSac_Model(rs.getString(14), rs.getString(15));
-                SanPham_Model sp = new SanPham_Model(rs.getString(1), rs.getString(2), th, MS, rs.getString(3), rs.getFloat(4), rs.getFloat(5), rs.getInt(6));
-                KichThuoc_Model kt = new KichThuoc_Model(rs.getFloat(7), rs.getFloat(8), rs.getInt(9));
-                list.add(new ThuocTinhSP_Model(rs.getString(10), sp, kt, rs.getInt(11)));
+                ThuongHieu_Model th = new ThuongHieu_Model(rs.getString(13), rs.getString(14));
+                MauSac_Model MS = new MauSac_Model(rs.getString(15), rs.getString(16));
+                SanPham_Model sp = new SanPham_Model(rs.getString(1), rs.getString(2), th, MS, rs.getString(3), rs.getFloat(4), rs.getFloat(5), rs.getInt(6),rs.getString(7));
+                KichThuoc_Model kt = new KichThuoc_Model(rs.getFloat(8), rs.getFloat(9), rs.getInt(10));
+                list.add(new ThuocTinhSP_Model(rs.getString(11), sp, kt, rs.getInt(12)));
             }
             return list;
 
@@ -53,7 +53,7 @@ public class ThuocTinhSP_repos implements IThuocTinhSP_Repos {
     @Override
     public ThuocTinhSP_Model getById(String id) {
         ThuocTinhSP_Model Sp = null;
-        String sql = "select s.MaSP,s.Ten,s.MoTa,s.GiaNhap,s.GiaBan,s.TrangThai,k.MaSize,k.Us,k.ChieuDai,t.Id,t.SoLuong ,\n"
+        String sql = "select s.MaSP,s.Ten,s.MoTa,s.GiaNhap,s.GiaBan,s.TrangThai,s.Hinh,k.MaSize,k.Us,k.ChieuDai,t.Id,t.SoLuong ,\n"
                 + " thuonghieu.*,mausac.*\n"
                 + "from hap_sneaker.thuoctinhsanpham t\n"
                 + "join hap_sneaker.sanpham s on t.MaSP = s.MaSP \n"
@@ -65,11 +65,11 @@ public class ThuocTinhSP_repos implements IThuocTinhSP_Repos {
 
         try {
             while (rs.next()) {
-                ThuongHieu_Model th = new ThuongHieu_Model(rs.getString(12), rs.getString(13));
-                MauSac_Model MS = new MauSac_Model(rs.getString(14), rs.getString(15));
-                SanPham_Model sp = new SanPham_Model(rs.getString(1), rs.getString(2), th, MS, rs.getString(3), rs.getFloat(4), rs.getFloat(5), rs.getInt(6));
-                KichThuoc_Model kt = new KichThuoc_Model(rs.getFloat(7), rs.getFloat(8), rs.getInt(9));
-                Sp = new ThuocTinhSP_Model(rs.getString(10), sp, kt, rs.getInt(11));
+                ThuongHieu_Model th = new ThuongHieu_Model(rs.getString(13), rs.getString(14));
+                MauSac_Model MS = new MauSac_Model(rs.getString(15), rs.getString(16));
+                SanPham_Model sp = new SanPham_Model(rs.getString(1), rs.getString(2), th, MS, rs.getString(3), rs.getFloat(4), rs.getFloat(5), rs.getInt(6),rs.getString(7));
+                KichThuoc_Model kt = new KichThuoc_Model(rs.getFloat(8), rs.getFloat(9), rs.getInt(10));
+                Sp = new ThuocTinhSP_Model(rs.getString(11), sp, kt, rs.getInt(12));
             }
             return Sp;
         } catch (Exception e) {
@@ -81,7 +81,7 @@ public class ThuocTinhSP_repos implements IThuocTinhSP_Repos {
 
     public List<ThuocTinhSP_Model> GetByMaTT(String maSP) {
         List<ThuocTinhSP_Model> list = new ArrayList<>();
-        String sql = "select s.MaSP,s.Ten,s.MoTa,s.GiaNhap,s.GiaBan,s.TrangThai,k.MaSize,k.Us,k.ChieuDai,t.Id,t.SoLuong from hap_sneaker.thuoctinhsanpham t \n"
+        String sql = "select s.MaSP,s.Ten,s.MoTa,s.GiaNhap,s.GiaBan,s.TrangThai,s.Hinh,k.MaSize,k.Us,k.ChieuDai,t.Id,t.SoLuong from hap_sneaker.thuoctinhsanpham t \n"
                 + "join hap_sneaker.sanpham s on t.MaSP = s.MaSP \n"
                 + "join hap_sneaker.kichthuoc k on t.MaSize = k.MaSize where s.maSP = ?"
                 + " ORDER BY k.MaSize";
@@ -89,9 +89,9 @@ public class ThuocTinhSP_repos implements IThuocTinhSP_Repos {
 
         try {
             while (rs.next()) {
-                SanPham_Model sp = new SanPham_Model(rs.getString(1), rs.getString(2), null, null, rs.getString(3), rs.getFloat(4), rs.getFloat(5), rs.getInt(6));
-                KichThuoc_Model kt = new KichThuoc_Model(rs.getFloat(7), rs.getFloat(8), rs.getInt(9));
-                list.add(new ThuocTinhSP_Model(rs.getString(10), sp, kt, rs.getInt(11)));
+                SanPham_Model sp = new SanPham_Model(rs.getString(1), rs.getString(2), null, null, rs.getString(3), rs.getFloat(4), rs.getFloat(5), rs.getInt(6),rs.getString(7));
+                KichThuoc_Model kt = new KichThuoc_Model(rs.getFloat(8), rs.getFloat(9), rs.getInt(10));
+                list.add(new ThuocTinhSP_Model(rs.getString(11), sp, kt, rs.getInt(12)));
             }
             return list;
         } catch (Exception e) {
@@ -110,7 +110,7 @@ public class ThuocTinhSP_repos implements IThuocTinhSP_Repos {
     @Override
     public List<ThuocTinhSP_Model> findTTSP(String keyWord) {
         List<ThuocTinhSP_Model> list = new ArrayList<>();
-        String sql = "   select distinct sanpham.MaSP,sanpham.Ten,sanpham.MoTa,sanpham.GiaNhap,sanpham.GiaBan,sanpham.TrangThai,\n"
+        String sql = "   select distinct sanpham.MaSP,sanpham.Ten,sanpham.MoTa,sanpham.GiaNhap,sanpham.GiaBan,sanpham.TrangThai,sanpham.Hinh,\n"
                 + "    kichthuoc.MaSize,kichthuoc.Us,kichthuoc.ChieuDai,thuoctinhsanpham.Id,thuoctinhsanpham.SoLuong ,\n"
                 + "                                   thuonghieu.*,mausac.*\n"
                 + "                                  from thuoctinhsanpham \n"
@@ -124,11 +124,11 @@ public class ThuocTinhSP_repos implements IThuocTinhSP_Repos {
 
         try {
             while (rs.next()) {
-                ThuongHieu_Model th = new ThuongHieu_Model(rs.getString(12), rs.getString(13));
-                MauSac_Model MS = new MauSac_Model(rs.getString(14), rs.getString(15));
-                SanPham_Model sp = new SanPham_Model(rs.getString(1), rs.getString(2), th, MS, rs.getString(3), rs.getFloat(4), rs.getFloat(5), rs.getInt(6));
-                KichThuoc_Model kt = new KichThuoc_Model(rs.getFloat(7), rs.getFloat(8), rs.getInt(9));
-                list.add(new ThuocTinhSP_Model(rs.getString(10), sp, kt, rs.getInt(11)));
+                ThuongHieu_Model th = new ThuongHieu_Model(rs.getString(13), rs.getString(14));
+                MauSac_Model MS = new MauSac_Model(rs.getString(15), rs.getString(16));
+                SanPham_Model sp = new SanPham_Model(rs.getString(1), rs.getString(2), th, MS, rs.getString(3), rs.getFloat(4), rs.getFloat(5), rs.getInt(6),rs.getString(7));
+                KichThuoc_Model kt = new KichThuoc_Model(rs.getFloat(8), rs.getFloat(9), rs.getInt(10));
+                list.add(new ThuocTinhSP_Model(rs.getString(11), sp, kt, rs.getInt(12)));
             }
             return list;
         } catch (Exception e) {
@@ -141,7 +141,7 @@ public class ThuocTinhSP_repos implements IThuocTinhSP_Repos {
     @Override
     public List<ThuocTinhSP_Model> FilterThuocTinhSP(String keyWord, String maSize, String MaTH, String MaMau, String MaPL) {
         List<ThuocTinhSP_Model> list = new ArrayList<>();
-        String sql = "   select distinct sanpham.MaSP,sanpham.Ten,sanpham.MoTa,sanpham.GiaNhap,sanpham.GiaBan,sanpham.TrangThai,\n"
+        String sql = "   select distinct sanpham.MaSP,sanpham.Ten,sanpham.MoTa,sanpham.GiaNhap,sanpham.GiaBan,sanpham.TrangThai,sanpham.Hinh,\n"
                 + "    kichthuoc.MaSize,kichthuoc.Us,kichthuoc.ChieuDai,thuoctinhsanpham.Id,thuoctinhsanpham.SoLuong ,\n"
                 + "                                   thuonghieu.*,mausac.*\n"
                 + "                                  from thuoctinhsanpham \n"
@@ -159,11 +159,11 @@ public class ThuocTinhSP_repos implements IThuocTinhSP_Repos {
 
         try {
             while (rs.next()) {
-                ThuongHieu_Model th = new ThuongHieu_Model(rs.getString(12), rs.getString(13));
-                MauSac_Model MS = new MauSac_Model(rs.getString(14), rs.getString(15));
-                SanPham_Model sp = new SanPham_Model(rs.getString(1), rs.getString(2), th, MS, rs.getString(3), rs.getFloat(4), rs.getFloat(5), rs.getInt(6));
-                KichThuoc_Model kt = new KichThuoc_Model(rs.getFloat(7), rs.getFloat(8), rs.getInt(9));
-                list.add(new ThuocTinhSP_Model(rs.getString(10), sp, kt, rs.getInt(11)));
+                ThuongHieu_Model th = new ThuongHieu_Model(rs.getString(13), rs.getString(14));
+                MauSac_Model MS = new MauSac_Model(rs.getString(15), rs.getString(16));
+                SanPham_Model sp = new SanPham_Model(rs.getString(1), rs.getString(2), th, MS, rs.getString(3), rs.getFloat(4), rs.getFloat(5), rs.getInt(6),rs.getString(7));
+                KichThuoc_Model kt = new KichThuoc_Model(rs.getFloat(8), rs.getFloat(9), rs.getInt(10));
+                list.add(new ThuocTinhSP_Model(rs.getString(11), sp, kt, rs.getInt(12)));
             }
             return list;
         } catch (Exception e) {
@@ -175,7 +175,7 @@ public class ThuocTinhSP_repos implements IThuocTinhSP_Repos {
     @Override
     public List<ThuocTinhSP_Model> findTTSPByPL(String PL) {
         List<ThuocTinhSP_Model> list = new ArrayList<>();
-        String sql = "   select distinct sanpham.MaSP,sanpham.Ten,sanpham.MoTa,sanpham.GiaNhap,sanpham.GiaBan,sanpham.TrangThai,\n"
+        String sql = "   select distinct sanpham.MaSP,sanpham.Ten,sanpham.MoTa,sanpham.GiaNhap,sanpham.GiaBan,sanpham.TrangThai,sanpham.Hinh,\n"
                 + "    kichthuoc.MaSize,kichthuoc.Us,kichthuoc.ChieuDai,thuoctinhsanpham.Id,thuoctinhsanpham.SoLuong ,\n"
                 + "                                   thuonghieu.*,mausac.*\n"
                 + "                                  from thuoctinhsanpham \n"
@@ -189,11 +189,11 @@ public class ThuocTinhSP_repos implements IThuocTinhSP_Repos {
 
         try {
             while (rs.next()) {
-                ThuongHieu_Model th = new ThuongHieu_Model(rs.getString(12), rs.getString(13));
-                MauSac_Model MS = new MauSac_Model(rs.getString(14), rs.getString(15));
-                SanPham_Model sp = new SanPham_Model(rs.getString(1), rs.getString(2), th, MS, rs.getString(3), rs.getFloat(4), rs.getFloat(5), rs.getInt(6));
-                KichThuoc_Model kt = new KichThuoc_Model(rs.getFloat(7), rs.getFloat(8), rs.getInt(9));
-                list.add(new ThuocTinhSP_Model(rs.getString(10), sp, kt, rs.getInt(11)));
+                ThuongHieu_Model th = new ThuongHieu_Model(rs.getString(13), rs.getString(14));
+                MauSac_Model MS = new MauSac_Model(rs.getString(15), rs.getString(16));
+                SanPham_Model sp = new SanPham_Model(rs.getString(1), rs.getString(2), th, MS, rs.getString(3), rs.getFloat(4), rs.getFloat(5), rs.getInt(6),rs.getString(7));
+                KichThuoc_Model kt = new KichThuoc_Model(rs.getFloat(8), rs.getFloat(9), rs.getInt(10));
+                list.add(new ThuocTinhSP_Model(rs.getString(11), sp, kt, rs.getInt(12)));
             }
             return list;
         } catch (Exception e) {

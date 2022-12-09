@@ -12,7 +12,16 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/Users/baphuoc/Documents/DuAn1/DuAn1/src/View/QLDonHang.java</file>
+=======
+            <file>file:/Users/baphuoc/Documents/DuAn1/DuAn1/src/View/TKChiTiet_SP.java</file>
+            <file>file:/Users/baphuoc/Documents/DuAn1/DuAn1/src/View/KhachHang.java</file>
+            <file>file:/Users/baphuoc/Documents/DuAn1/DuAn1/src/service/impl/KhachHang_Service.java</file>
+            <file>file:/Users/baphuoc/Documents/DuAn1/DuAn1/test/test/TestDate.java</file>
+            <file>file:/Users/baphuoc/Documents/DuAn1/DuAn1/src/View/TK.java</file>
+            <file>file:/Users/baphuoc/Documents/DuAn1/DuAn1/src/service/impl/NhanVien_Service.java</file>
+>>>>>>> master
         </group>
     </open-files>
 </project-private>
