@@ -246,13 +246,19 @@ public class DoiMK_in_Main extends javax.swing.JPanel {
         else if(NV_SV.LoginNhanVien(txtUser.getText(), txtMKold.getText())==null){
             JOptionPane.showMessageDialog(this,"Sai Thông tin tài khoản", "Lỗi",JOptionPane.ERROR_MESSAGE);
             return false;
+        }else if (!txtMKnew.getText().matches("\\w{1,}")) {
+            JOptionPane.showMessageDialog(this, "PassWord Không Có Ký Tự Đặc Biệt", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return false;
+        } else if (txtMKnew.getText().length() > 20) {
+            JOptionPane.showMessageDialog(this, "PassWord Không Quá 20 ký Tự", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return false;
         }else if(!txtMKnew.getText().equals(txtComfirmPass.getText())){
             JOptionPane.showMessageDialog(this,"Xác nhận mật khẩu không chính xác", "Lỗi",JOptionPane.ERROR_MESSAGE);
             return false;
-        }else if(txtComfirmPass.getText().equals(txtMKold.getText())){
+        } else if(txtComfirmPass.getText().equals(txtMKold.getText())){
             JOptionPane.showMessageDialog(this,"Mật Khẩu Mới Không Được Giống Mật Khẩu Cũ", "Lỗi",JOptionPane.ERROR_MESSAGE);
             return false;
-        }else{
+        } else{
             return true;
         }
     }

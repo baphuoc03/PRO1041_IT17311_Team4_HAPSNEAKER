@@ -36,7 +36,7 @@ public class ChiTietDH_repos implements IChiTietDH_repos {
         List<ChiTietDH_model> list = new ArrayList<>();
         String sql = "SELECT ctdonhang.id,donhang.MaDonHang,\n"
                 + " ctdonhang.SL, ctdonhang.DonGia,ctdonhang.DonGiaSauGiam,\n"
-                + "sanpham.MaSP, sanpham.Ten,sanpham.MoTa, sanpham.GiaNhap, sanpham.GiaBan, sanpham.TrangThai,\n"
+                + "sanpham.MaSP, sanpham.Ten,sanpham.MoTa, sanpham.GiaNhap, sanpham.GiaBan, sanpham.TrangThai,sanpham.Hinh,\n"
                 + " thuoctinhsanpham.id, thuoctinhsanpham.SoLuong, kichthuoc.MaSize, kichthuoc.Us, kichthuoc.ChieuDai\n"
                 + "FROM ctdonhang\n"
                 + "join donhang on ctdonhang.MaDonHang = donhang.MaDonHang\n"
@@ -48,9 +48,9 @@ public class ChiTietDH_repos implements IChiTietDH_repos {
         try {
             while (rs.next()) {
                 DonHang_Model DH = new DonHang_Model(rs.getString(2), null, null, null, 0);
-                SanPham_Model SP = new SanPham_Model(rs.getString(6), rs.getString(7), null, null, rs.getString(8), rs.getFloat(9), rs.getFloat(10), rs.getInt(11));
-                KichThuoc_Model kt = new KichThuoc_Model(rs.getFloat(14), rs.getFloat(15), rs.getInt(16));
-                ThuocTinhSP_Model ttSP = new ThuocTinhSP_Model(rs.getString(12), SP, kt, rs.getInt(13));
+                SanPham_Model SP = new SanPham_Model(rs.getString(6), rs.getString(7), null, null, rs.getString(8), rs.getFloat(9), rs.getFloat(10), rs.getInt(11),rs.getString(12));
+                KichThuoc_Model kt = new KichThuoc_Model(rs.getFloat(15), rs.getFloat(16), rs.getInt(17));
+                ThuocTinhSP_Model ttSP = new ThuocTinhSP_Model(rs.getString(13), SP, kt, rs.getInt(14));
                 list.add(new ChiTietDH_model(rs.getString(1),DH, ttSP, rs.getInt(3), rs.getFloat(4),rs.getFloat(5)));
             }
             return list;
@@ -64,7 +64,7 @@ public class ChiTietDH_repos implements IChiTietDH_repos {
         ChiTietDH_model ctdh = null;
         String sql = "SELECT ctdonhang.id,donhang.MaDonHang,\n"
                 + " ctdonhang.SL, ctdonhang.DonGia,ctdonhang.DonGiaSauGiam,\n"
-                + "sanpham.MaSP, sanpham.Ten,sanpham.MoTa, sanpham.GiaNhap, sanpham.GiaBan, sanpham.TrangThai,\n"
+                + "sanpham.MaSP, sanpham.Ten,sanpham.MoTa, sanpham.GiaNhap, sanpham.GiaBan, sanpham.TrangThai,sanpham.Hinh,\n"
                 + " thuoctinhsanpham.id, thuoctinhsanpham.SoLuong, kichthuoc.MaSize, kichthuoc.Us, kichthuoc.ChieuDai\n"
                 + "FROM ctdonhang\n"
                 + "join donhang on ctdonhang.MaDonHang = donhang.MaDonHang\n"
@@ -76,9 +76,9 @@ public class ChiTietDH_repos implements IChiTietDH_repos {
         try {
             while (rs.next()) {
                 DonHang_Model DH = new DonHang_Model(rs.getString(2), null, null, null, 0);
-                SanPham_Model SP = new SanPham_Model(rs.getString(6), rs.getString(7), null, null, rs.getString(8), rs.getFloat(9), rs.getFloat(10), rs.getInt(11));
-                KichThuoc_Model kt = new KichThuoc_Model(rs.getFloat(14), rs.getFloat(15), rs.getInt(16));
-                ThuocTinhSP_Model ttSP = new ThuocTinhSP_Model(rs.getString(12), SP, kt, rs.getInt(13));
+                SanPham_Model SP = new SanPham_Model(rs.getString(6), rs.getString(7), null, null, rs.getString(8), rs.getFloat(9), rs.getFloat(10), rs.getInt(11),rs.getString(12));
+                KichThuoc_Model kt = new KichThuoc_Model(rs.getFloat(15), rs.getFloat(16), rs.getInt(17));
+                ThuocTinhSP_Model ttSP = new ThuocTinhSP_Model(rs.getString(13), SP, kt, rs.getInt(14));
                 ctdh = new ChiTietDH_model(rs.getString(1),DH, ttSP, rs.getInt(3), rs.getFloat(4),rs.getFloat(5));
             }
             return ctdh;

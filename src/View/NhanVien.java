@@ -285,7 +285,7 @@ public class NhanVien extends javax.swing.JPanel {
         NhanVien_Model nv = getNV();
         int xacnhan = JOptionPane.showConfirmDialog(this, "Thêm Nhân Viên" + txthoTen.getText() + "?");
         if (xacnhan == JOptionPane.YES_OPTION) {
-            NV_SV.addNV(nv);
+            if(NV_SV.addNV(nv)==0)return;
             fillTableNhanVien();
             JOptionPane.showMessageDialog(this, "Thêm Nhân Viên Thành Công" + txthoTen.getText());
         } else {
@@ -304,7 +304,7 @@ public class NhanVien extends javax.swing.JPanel {
         NhanVien_Model nv = getNV();
         int xacnhan = JOptionPane.showConfirmDialog(this, "Sửa Nhân Viên" + txthoTen.getText() + "?");
         if (xacnhan == JOptionPane.YES_OPTION) {
-            NV_SV.updateNV(nv);
+            if(NV_SV.updateNV(nv)==0)return;
             fillTableNhanVien();
             JOptionPane.showMessageDialog(this, "Sửa Nhân Viên Thành Công" + txthoTen.getText());
         } else {
@@ -317,7 +317,7 @@ public class NhanVien extends javax.swing.JPanel {
         NhanVien_Model nv = getNV();
         int xacnhan = JOptionPane.showConfirmDialog(this, "Xóa Nhân Viên" + txthoTen.getText() + "?");
         if (xacnhan == JOptionPane.YES_OPTION) {
-            NV_SV.delNV(nv.getMa());
+            if(NV_SV.delNV(nv.getMa())==0)return;
             fillTableNhanVien();
             clear();
             JOptionPane.showMessageDialog(this, "Xóa Nhân Viên Thành Công" + txthoTen.getText());

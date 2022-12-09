@@ -15,18 +15,14 @@ import java.util.logging.Logger;
  * @author baphuoc
  */
 public class TestDate {
+
     public static void main(String[] args) {
-        try {
-            SimpleDateFormat dateFM = new SimpleDateFormat("yyyy-MM-dd");
-            Date batdau = dateFM.parse("2022-12-7");
-            Date ketThuc = dateFM.parse("2022-12-7");
-            if(batdau.after(ketThuc)){
-                System.out.println("Ngày Bắt Đầu Phải < Kết Thúc");
-            } else {
-                System.out.println("True");
-            }
-        } catch (ParseException ex) {
-            Logger.getLogger(TestDate.class.getName()).log(Level.SEVERE, null, ex);
+        String fmPass = "\\w";
+        String pass = "011223a23.vn";
+        if (pass.matches("[a-zA-Z0-9]{1,}@[a-zA-Z0-9.]{1,}.[a-zA-Z0-9]{1,}")) {
+            System.out.println("Đúng");
+        } else {
+            System.out.println("Sai");
         }
     }
 }
