@@ -1,4 +1,4 @@
-package view;
+package View;
 
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -58,6 +58,9 @@ public class QLPhanLoai extends javax.swing.JPanel {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Phân Loại Sản Phẩm"));
 
         txtTK.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtTKKeyPressed(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtTKKeyReleased(evt);
             }
@@ -244,23 +247,37 @@ public class QLPhanLoai extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void txtTKKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTKKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTKKeyPressed
+
+    private void txtTKKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTKKeyReleased
+        // TODO add your handling code here:
+        PL_service.Search(txtTK.getText());
+        filltable(txtTK.getText());
+    }//GEN-LAST:event_txtTKKeyReleased
+
+    private void tblPhanLoaiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPhanLoaiMouseClicked
+        // TODO add your handling code here:
+        showPhanLoai();
+    }//GEN-LAST:event_tblPhanLoaiMouseClicked
+
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
-        PL_service.ADD(GetPhanLoai());
+        if(PL_service.ADD(GetPhanLoai())==0)return;
         filltable();
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
-        PL_service.UPDATE(GetPhanLoai());
+        if(PL_service.UPDATE(GetPhanLoai())==0)return;
         filltable();
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         // TODO add your handling code here:
-        PL_service.DELETE(GetPhanLoai().getMa());
+        if(PL_service.DELETE(GetPhanLoai().getMa())==0)return;
         filltable();
-        
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
@@ -268,17 +285,6 @@ public class QLPhanLoai extends javax.swing.JPanel {
         txtTenPL.setText("");
         txtMaPL.setText("");
     }//GEN-LAST:event_btnClearActionPerformed
-
-    private void tblPhanLoaiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPhanLoaiMouseClicked
-        // TODO add your handling code here:
-        showPhanLoai();
-    }//GEN-LAST:event_tblPhanLoaiMouseClicked
-
-    private void txtTKKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTKKeyReleased
-        // TODO add your handling code here:
-        PL_service.Search(txtTK.getText());
-        filltable(txtTK.getText());
-    }//GEN-LAST:event_txtTKKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -300,18 +306,18 @@ public class QLPhanLoai extends javax.swing.JPanel {
     private javax.swing.JTextField txtTenPL;
     // End of variables declaration//GEN-END:variables
     public void filltable() {
-        list = PL_service.getAllPhanLoai();
+      list = PL_service.getAllPhanLoai();
         mol = (DefaultTableModel) tblPhanLoai.getModel();
         mol.setRowCount(0);
         for (PhanLoai_View p : list) {
             mol.addRow(new Object[]{p.getStt(),p.getMa(),p.getTen()});
         }
     }
-    
+
     public PhanLoai_Model GetPhanLoai(){
         return new PhanLoai_Model(txtMaPL.getText(), txtTenPL.getText());
     }
-    
+
     public void showPhanLoai(){
         int i = tblPhanLoai.getSelectedRow();
         if(i == -1) return;
@@ -320,10 +326,10 @@ public class QLPhanLoai extends javax.swing.JPanel {
         txtMaPL.setText(s.getMa());
         txtTenPL.setText(s.getTen());
     }
-    
+
     public void filltable(String key) {
         list = PL_service.Search(key);
-        mol = (DefaultTableModel) tblPhanLoai.getModel();
+                mol = (DefaultTableModel) tblPhanLoai.getModel();
         mol.setRowCount(0);
         for (PhanLoai_View p : list) {
             mol.addRow(new Object[]{p.getStt(),p.getMa(),p.getTen()});

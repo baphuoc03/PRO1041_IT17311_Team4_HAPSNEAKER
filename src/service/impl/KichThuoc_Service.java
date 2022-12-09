@@ -7,9 +7,9 @@ package service.impl;
 import java.util.ArrayList;
 import java.util.List;
 import model.KichThuoc_Model;
-import repository.IKichThuoc_repos;
 import repository.KichThuoc_repos;
 import viewmodel.KichThuoc_View;
+import repository.IKichThuoc_repos;
 import service.IKichThuoc_service;
 
 /**
@@ -35,7 +35,6 @@ public class KichThuoc_Service implements IKichThuoc_service{
     public KichThuoc_Model getByMa(String ma) {
         return KT_repos.getByMa(ma);
     }
-    
     @Override
     public List<KichThuoc_View> Search(String key){
         list = KT_repos.Search(key);
@@ -47,4 +46,5 @@ public class KichThuoc_Service implements IKichThuoc_service{
         }
         return list_view;
     }
+    
 }

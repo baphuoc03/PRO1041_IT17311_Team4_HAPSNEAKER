@@ -12,12 +12,12 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/84353/HAP_SNEAKER/PRO1041_IT17311_Team4_HAPSNEAKER/src/repository/PLSanPham_Repo.java</file>
+            <file>file:/C:/Users/84353/HAP_SNEAKER/PRO1041_IT17311_Team4_HAPSNEAKER/src/View/Dang_nhap.java</file>
+            <file>file:/C:/Users/84353/HAP_SNEAKER/PRO1041_IT17311_Team4_HAPSNEAKER/src/View/QLDonHang.java</file>
             <file>file:/C:/Users/84353/HAP_SNEAKER/PRO1041_IT17311_Team4_HAPSNEAKER/src/View/Main.java</file>
-            <file>file:/C:/Users/84353/HAP_SNEAKER/PRO1041_IT17311_Team4_HAPSNEAKER/src/View/QLThuongHieu.java</file>
+            <file>file:/C:/Users/84353/HAP_SNEAKER/PRO1041_IT17311_Team4_HAPSNEAKER/src/ultinities/JDBC_Helper.java</file>
             <file>file:/C:/Users/84353/HAP_SNEAKER/PRO1041_IT17311_Team4_HAPSNEAKER/src/View/QLKichThuoc.java</file>
             <file>file:/C:/Users/84353/HAP_SNEAKER/PRO1041_IT17311_Team4_HAPSNEAKER/src/View/QLSanPham.java</file>
-            <file>file:/C:/Users/84353/HAP_SNEAKER/PRO1041_IT17311_Team4_HAPSNEAKER/src/service/impl/MauSac_Service.java</file>
         </group>
     </open-files>
 </project-private>

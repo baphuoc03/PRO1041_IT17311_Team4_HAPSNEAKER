@@ -8,21 +8,19 @@ import java.util.ArrayList;
 import java.util.List;
 import model.PlSp_Model;
 import repository.IPLSanPham;
-
-import repository.PhanLoai_repos;
+import repository.PLSanPham_Repos;
 import viewmodel.PLSanPham_View;
-import repository.PLSanPham_Repo;
 import service.IPLSanPham_Service;
 
 /**
  *
- * @author 84353
+ * @author baphuoc
  */
 public class PLSanPham_Service implements IPLSanPham_Service{
-    IPLSanPham repo = new PLSanPham_Repo();
+    IPLSanPham repo = new PLSanPham_Repos();
     PLSanPham_View plv;
     List<PlSp_Model> lstPL ;
-    
+
     @Override
     public List<PLSanPham_View> GetByMa(String ma){
         lstPL = repo.getByMa(ma);
@@ -30,9 +28,9 @@ public class PLSanPham_Service implements IPLSanPham_Service{
         for (PlSp_Model p : lstPL) {
             lst.add(new PLSanPham_View(p.getPhanLoai().getMa(),p.getSanPham().getMa()));
         }
-          
+
         return lst;
-        
+
     }
 
     @Override
@@ -44,10 +42,9 @@ public class PLSanPham_Service implements IPLSanPham_Service{
     public int delete(String maSP) {
         return repo.delete(maSP);
     }
-    
+
+    @Override
     public List<PlSp_Model> GetPLByMa(String ma){
         return repo.getByMa(ma);
     }
-    
-    
 }

@@ -5,12 +5,12 @@
 package service;
 
 import java.util.List;
-import viewmodel.PLSanPham_View;
 import model.PlSp_Model;
+import viewmodel.PLSanPham_View;
 
 /**
  *
- * @author 84353
+ * @author baphuoc
  */
 public interface IPLSanPham_Service {
     List<PLSanPham_View> GetByMa(String ma);

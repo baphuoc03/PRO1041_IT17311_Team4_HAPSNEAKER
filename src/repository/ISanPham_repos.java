@@ -13,9 +13,11 @@ import model.SanPham_Model;
  */
 public interface ISanPham_repos {
     List<SanPham_Model> GetAllSanPham();
-    SanPham_Model GetSanPhamByMa(String ma);
+        SanPham_Model GetSanPhamByMa(String ma);
+        List<SanPham_Model> serchSP(String key);
+    List<SanPham_Model> GetSanPhamByMaKM(String maKM);
     int add(SanPham_Model s);
     int delete(String s);
     int update(SanPham_Model s);
-    List<SanPham_Model> serchSP(String key);
+    
 }

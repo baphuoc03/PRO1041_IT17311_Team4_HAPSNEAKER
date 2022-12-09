@@ -21,7 +21,7 @@ public class MauSac_repos implements IMauSac_repos {
     @Override
     public List<MauSac_Model> getAllMauSac() {
         List<MauSac_Model> list = new ArrayList<>();
-        String sql = "SELECT * FROM hap_sneaker.mausac;";
+        String sql = "SELECT * FROM mausac;";
         ResultSet rs = JDBC_Helper.Query(sql);
         try {
             while (rs.next()) {
@@ -36,9 +36,9 @@ public class MauSac_repos implements IMauSac_repos {
 
     @Override
     public MauSac_Model getByMa(String ma) {
-       MauSac_Model MS = null;
+        MauSac_Model MS = null;
         String sql = "SELECT * FROM hap_sneaker.mausac WHERE MaMau = ?";
-        ResultSet rs = JDBC_Helper.Query(sql,ma);
+        ResultSet rs = JDBC_Helper.Query(sql, ma);
         try {
             while (rs.next()) {
                 MS = new MauSac_Model(rs.getString(1), rs.getString(2));
@@ -49,32 +49,33 @@ public class MauSac_repos implements IMauSac_repos {
             return null;
         }
     }
-    
+
     @Override
-    public int add(MauSac_Model m){
+    public int add(MauSac_Model m) {
         String sql = "insert into hap_sneaker.mausac(MaMau,Ten) Values(?,?)";
-        return JDBC_Helper.Update(sql, m.getMa(),m.getTen());
+        return JDBC_Helper.Update(sql, m.getMa(), m.getTen());
     }
-    
+
     @Override
-    public int delete(String ma){
+    public int delete(String ma) {
         String sql = "delete from hap_sneaker.mausac where MaMau = ?";
         return JDBC_Helper.Update(sql, ma);
     }
-    
+
     @Override
-    public int update(MauSac_Model m){
+    public int update(MauSac_Model m) {
         String sql = "Update hap_sneaker.mausac Set MaMau = ?, Ten = ? where MaMau = ?";
-        return JDBC_Helper.Update(sql, m.getMa(),m.getTen(),m.getMa());
+        return JDBC_Helper.Update(sql, m.getMa(), m.getTen(), m.getMa());
     }
-    
-    public List<MauSac_Model> Search(String key){
+
+    @Override
+    public List<MauSac_Model> Search(String key) {
         List<MauSac_Model> lst = new ArrayList<>();
-        String sql = "SELECT * FROM hap_sneaker.mausac WHERE MaMau like concat('%',?,'%')\n" +
-"or Ten like concat('%',?,'%')";
-        ResultSet rs = JDBC_Helper.Query(sql, key,key);
+        String sql = "SELECT * FROM hap_sneaker.mausac WHERE MaMau like concat('%',?,'%')\n"
+                + "or Ten like concat('%',?,'%')";
+        ResultSet rs = JDBC_Helper.Query(sql, key, key);
         try {
-            while(rs.next()){
+            while (rs.next()) {
                 lst.add(new MauSac_Model(rs.getString(1), rs.getString(2)));
             }
             return lst;

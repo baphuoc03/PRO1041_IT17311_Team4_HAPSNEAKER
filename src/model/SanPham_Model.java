@@ -95,5 +95,10 @@ public class SanPham_Model {
     public void setTrangThai(int trangThai) {
         this.trangThai = trangThai;
     }
+
+    @Override
+    public String toString() {
+        return "SanPham_Model{" + "ma=" + ma + ", ten=" + ten + ", thuongHieu=" + thuongHieu + ", mauSac=" + mauSac + ", moTa=" + moTa + ", giaNhap=" + giaNhap + ", giaBan=" + giaBan + ", trangThai=" + trangThai + '}';
+    }
     
 }

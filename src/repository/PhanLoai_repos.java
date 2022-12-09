@@ -22,7 +22,7 @@ public class PhanLoai_repos implements IPhanLoai_repos {
     @Override
     public List<PhanLoai_Model> getAllPhanLoai() {
         List<PhanLoai_Model> list = new ArrayList<>();
-        String sql = "SELECT * FROM hap_sneaker.phanloai;";
+        String sql = "SELECT * FROM phanloai;";
         ResultSet rs = JDBC_Helper.Query(sql);
         try {
             while (rs.next()) {
@@ -38,7 +38,7 @@ public class PhanLoai_repos implements IPhanLoai_repos {
     @Override
     public PhanLoai_Model getByMa(String ma) {
     PhanLoai_Model PL = null;
-        String sql = "SELECT * FROM hap_sneaker.phanloai WHERE MaPhanLoai = ?";
+        String sql = "SELECT * FROM phanloai WHERE MaPhanLoai = ?";
         ResultSet rs = JDBC_Helper.Query(sql,ma);
         try {
             while (rs.next()) {
@@ -50,25 +50,24 @@ public class PhanLoai_repos implements IPhanLoai_repos {
             return null;
         }
     }
-
-    @Override
+     @Override
     public int add(PhanLoai_Model p){
-        String sql = "insert into hap_sneaker.phanloai(MaPhanLoai,TenPhanLoai) values(?,?)";
+        String sql = "insert into phanloai(MaPhanLoai,TenPhanLoai) values(?,?)";
         return JDBC_Helper.Update(sql, p.getMa(),p.getTen());
     }
-    
+
     @Override
     public int update(PhanLoai_Model p){
-        String sql = "update hap_sneaker.phanloai set MaPhanLoai = ?, TenPhanLoai = ? where MaPhanLoai = ?";
+        String sql = "update phanloai set MaPhanLoai = ?, TenPhanLoai = ? where MaPhanLoai = ?";
         return JDBC_Helper.Update(sql, p.getMa(),p.getTen(),p.getMa());
     }
-    
+
     @Override
     public int delete(String ma){
         String sql = "delete from hap_sneaker.phanloai where MaPhanLoai = ?";
         return JDBC_Helper.Update(sql, ma);
     }
-    
+
     @Override
     public List<PhanLoai_Model> Search(String key){
         List<PhanLoai_Model> list = new ArrayList<>();
@@ -85,4 +84,5 @@ public class PhanLoai_repos implements IPhanLoai_repos {
             return null;
         }
     }
+
 }

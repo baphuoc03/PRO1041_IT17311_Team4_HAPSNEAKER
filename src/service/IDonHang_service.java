@@ -18,4 +18,5 @@ public interface IDonHang_service {
     List<DonHang_view> FindDonHang(String keyWord);
     int add(DonHang_Model dh);
     int update(DonHang_Model dh);
+    int updateKH(DonHang_Model dh);
 }

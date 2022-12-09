@@ -14,4 +14,8 @@ import model.KhachHang_Model;
 public interface IKhachHang_repos {
     List<KhachHang_Model> getAllKhachHang();
     KhachHang_Model getBySĐT(String SĐT);
+    List<KhachHang_Model> FindKhachHang(String keyWord);
+    int addKH(KhachHang_Model kh);
+    int delKH(String sdt);
+    int updateKH(KhachHang_Model kh);
 }

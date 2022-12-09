@@ -8,18 +8,20 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import model.ThuongHieu_Model;
-import repository.IThuongHieu_Repos;
 import repository.ThuongHieu_repos;
-import service.IThuongHieu_Service;
 import viewmodel.ThuongHieu_View;
+import repository.IThuongHieu_Repos;
+import service.IThuongHieu_Service;
 
 /**
  *
  * @author baphuoc
  */
-public class ThuongHieu_Service implements IThuongHieu_Service{
+public class ThuongHieu_Service implements IThuongHieu_Service {
+
     IThuongHieu_Repos TH_repos = new ThuongHieu_repos();
     List<ThuongHieu_Model> lstTHM;
+
     @Override
     public List<ThuongHieu_View> getAllThuongHieu() {
         List<ThuongHieu_Model> list = TH_repos.getAllThuongHieu();
@@ -34,48 +36,64 @@ public class ThuongHieu_Service implements IThuongHieu_Service{
 
     @Override
     public ThuongHieu_Model GetThuongHieuByMa(String ma) {
-        for(ThuongHieu_Model t : lstTHM){
-            if(t.getMa().equals(ma)){
-               return t; 
-            }
-        }
-        return null;
+        return TH_repos.getThuongHieuByMa1(ma);
     }
-    
+
     @Override
-    public int Add(ThuongHieu_Model th){
-        if(th.getMa().length() == 0){
-            JOptionPane.showMessageDialog(null, "Không được để trống mã thương hiệu!!!");
+    public int Add(ThuongHieu_Model th) {
+        if (th.getMa().length() == 0) {
+            JOptionPane.showMessageDialog(null, "Không Để Trống Mã Thương Hiệu", "Lỗi", JOptionPane.ERROR_MESSAGE);
             return 0;
-        }else if(th.getTen().length() == 0){
-            JOptionPane.showMessageDialog(null, "Không được để trống tên thương hiệu!!!");
+        } else if (th.getTen().length() == 0) {
+            JOptionPane.showMessageDialog(null, "Không Để Trống Tên Thương Hiệu", "Lỗi", JOptionPane.ERROR_MESSAGE);
             return 0;
+        } else if (GetThuongHieuByMa(th.getMa()) != null) {
+            JOptionPane.showMessageDialog(null, "Thương Hiệu Đã Tồn Tại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return 0;
+        } else {
+            JOptionPane.showMessageDialog(null, "Thêm Thành Công Thương Hiệu " + th.getTen());
+            return TH_repos.Add(th);
+
         }
-        return TH_repos.Add(th);
     }
-    
+
     @Override
-    public int Update(ThuongHieu_Model th){
-        if(th.getMa().length() == 0){
-            JOptionPane.showMessageDialog(null, "Không được để trống mã thương hiệu!!!");
+    public int Update(ThuongHieu_Model th) {
+        if (th.getMa().length() == 0) {
+            JOptionPane.showMessageDialog(null, "Không Để Trống Mã Thương Hiệu", "Lỗi", JOptionPane.ERROR_MESSAGE);
             return 0;
-        }else if(th.getTen().length() == 0){
-            JOptionPane.showMessageDialog(null, "Không được để trống tên thương hiệu!!!");
+        } else if (th.getTen().length() == 0) {
+            JOptionPane.showMessageDialog(null, "Không Để Trống Tên Thương Hiệu", "Lỗi", JOptionPane.ERROR_MESSAGE);
             return 0;
+        } else if (GetThuongHieuByMa(th.getMa()) == null) {
+            JOptionPane.showMessageDialog(null, "Thương Hiệu Không Tồn Tại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return 0;
+        } else {
+            JOptionPane.showMessageDialog(null, "Cập Nhật Thành Công Thương Hiệu " + th.getTen());
+            return TH_repos.update(th);
         }
-        return TH_repos.update(th);
     }
-    
+
     @Override
-    public int Delete(String ma){
-        return TH_repos.delete(ma);
+    public int Delete(String ma) {
+        if (GetThuongHieuByMa(ma) == null) {
+            JOptionPane.showMessageDialog(null, "Thương Hiệu Không Tồn Tại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return 0;
+        } else {
+            ThuongHieu_Model th = GetThuongHieuByMa(ma);
+            JOptionPane.showMessageDialog(null, "Cập Nhật Thành Công Thương Hiệu " + th.getTen());
+            return TH_repos.delete(ma);
+        }
     }
+
     @Override
     public ThuongHieu_Model getByMa(String ma) {
-        return TH_repos.getThuongHieuByMa(ma);
+        return TH_repos.getThuongHieuByMa1(ma);
+
     }
-    
-    public List<ThuongHieu_View> Search(String key){
+
+    @Override
+    public List<ThuongHieu_View> Search(String key) {
         List<ThuongHieu_Model> list = TH_repos.Search(key);
         List<ThuongHieu_View> list_view = new ArrayList<>();
         int stt = 1;
@@ -85,5 +103,4 @@ public class ThuongHieu_Service implements IThuongHieu_Service{
         }
         return list_view;
     }
-    
 }

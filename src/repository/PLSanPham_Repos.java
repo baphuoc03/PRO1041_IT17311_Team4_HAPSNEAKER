@@ -4,21 +4,22 @@
  */
 package repository;
 
-import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import model.PlSp_Model;
-import ultinities.JDBC_Helper;
 import model.PhanLoai_Model;
+import model.PlSp_Model;
 import model.SanPham_Model;
+import ultinities.JDBC_Helper;
+import java.sql.*;
+
 /**
  *
- * @author 84353
+ * @author baphuoc
  */
-public class PLSanPham_Repo implements IPLSanPham{
+    public class PLSanPham_Repos implements IPLSanPham{
     public List<PlSp_Model> getByMa(String ma) {
         List<PlSp_Model> lst = new ArrayList<>();
-        String sql = "SELECT * FROM pl_sp where MaSP = ? Group By MaSP";
+        String sql = "SELECT * FROM pl_sp where MaSP = ?";
         ResultSet rs = JDBC_Helper.Query(sql,ma);
         try {
             while (rs.next()) {
@@ -32,19 +33,17 @@ public class PLSanPham_Repo implements IPLSanPham{
             return null;
         }
     }
-    
+
     @Override
     public int add(PlSp_Model p){
         String sql = "insert into pl_sp(MaPhanLoai,MaSP) values(?,?)";
         return JDBC_Helper.Update(sql, p.getPhanLoai().getMa(),p.getSanPham().getMa());
     }
-    
+
     @Override
     public int delete(String maSP){
         String sql = "delete from pl_sp where MaSP = ?";
         return  JDBC_Helper.Update(sql, maSP);
     }
-    
-      
-    
+
 }

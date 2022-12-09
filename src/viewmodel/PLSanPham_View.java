@@ -4,12 +4,9 @@
  */
 package viewmodel;
 
-import model.PhanLoai_Model;
-import model.SanPham_Model;
-
 /**
  *
- * @author 84353
+ * @author baphuoc
  */
 public class PLSanPham_View {
     private String maPL;
@@ -39,8 +36,4 @@ public class PLSanPham_View {
         this.maSP = maSP;
     }
 
-    
-    
-    
-    
 }
