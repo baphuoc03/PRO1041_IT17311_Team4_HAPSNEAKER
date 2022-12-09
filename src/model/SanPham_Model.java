@@ -17,11 +17,11 @@ public class SanPham_Model {
     private float giaNhap;
     private float giaBan;
     private int trangThai;
-
+    private String hinh;
     public SanPham_Model() {
     }
 
-    public SanPham_Model(String ma, String ten, ThuongHieu_Model thuongHieu, MauSac_Model mauSac, String moTa, float giaNhap, float giaBan, int trangThai) {
+    public SanPham_Model(String ma, String ten, ThuongHieu_Model thuongHieu, MauSac_Model mauSac, String moTa, float giaNhap, float giaBan, int trangThai, String hinh) {
         this.ma = ma;
         this.ten = ten;
         this.thuongHieu = thuongHieu;
@@ -30,6 +30,15 @@ public class SanPham_Model {
         this.giaNhap = giaNhap;
         this.giaBan = giaBan;
         this.trangThai = trangThai;
+        this.hinh = hinh;
+    }
+
+    public String getHinh() {
+        return hinh;
+    }
+
+    public void setHinh(String hinh) {
+        this.hinh = hinh;
     }
 
     public String getMa() {
@@ -95,6 +104,8 @@ public class SanPham_Model {
     public void setTrangThai(int trangThai) {
         this.trangThai = trangThai;
     }
+    
+    
 
     @Override
     public String toString() {

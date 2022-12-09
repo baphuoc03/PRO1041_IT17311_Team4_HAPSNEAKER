@@ -29,7 +29,16 @@ public class TKSanPham_repos implements ITKSanPham_repos {
                 + "left join ctdonhang on ctdonhang.IdThuocTinh = thuoctinhsanpham.Id\n"
                 + "join donhang on donhang.MaDonHang = ctdonhang.MaDonHang\n"
                 + "WHERE donhang.TrangThai != 2\n"
-                + "group by sanpham.MaSP, sanpham.Ten,mausac.Ten,thuonghieu.Ten";
+                + "group by sanpham.MaSP, sanpham.Ten,mausac.Ten,thuonghieu.Ten\n"
+                + "UNION\n"
+                +"SELECT distinct thuoctinhsanpham.MaSP, sanpham.Ten,mausac.Ten,thuonghieu.Ten, 0 FROM thuoctinhsanpham\n"
+                + "                join sanpham on thuoctinhsanpham.MaSP = sanpham.MaSP\n"
+                + "                join mausac on mausac.MaMau = SanPham.MaMau\n"
+                + "                join thuonghieu on thuonghieu.MaThuongHieu = sanpham.MaThuongHieu\n"
+                + "WHERE thuoctinhsanpham.MaSP not in (SELECT distinct thuoctinhsanpham.MaSP from thuoctinhsanpham\n"
+                + "				join ctdonhang on ctdonhang.IdThuocTinh = thuoctinhsanpham.Id\n"
+                + "                join donhang on donhang.MaDonHang = ctdonhang.MaDonHang\n"
+                + "                                WHERE donhang.TrangThai != 2)\n";
         ResultSet rs = JDBC_Helper.Query(sql);
         try {
             while (rs.next()) {
