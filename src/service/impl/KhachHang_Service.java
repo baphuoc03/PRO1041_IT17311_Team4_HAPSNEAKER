@@ -42,7 +42,7 @@ public class KhachHang_Service implements IKhachHang_Service {
         if (kh.getSđt().length() == 0) {
             JOptionPane.showMessageDialog(null, "Không Để Trống Số Điện Thoại", "Lỗi", JOptionPane.ERROR_MESSAGE);
             return 0;
-        } else if (kh.getSđt().matches("0\\d{9}")) {
+        } else if (!kh.getSđt().matches("0\\d{9}")) {
             JOptionPane.showMessageDialog(null, "Số Điện Thoại Không Đúng Định Dạng", "Lỗi", JOptionPane.ERROR_MESSAGE);
             return 0;
         } else if (kh.getHoTen().length() == 0) {
@@ -51,10 +51,10 @@ public class KhachHang_Service implements IKhachHang_Service {
         } else if (kh.getEmail().length() == 0) {
             JOptionPane.showMessageDialog(null, "Không Để Trống Email", "Lỗi", JOptionPane.ERROR_MESSAGE);
             return 0;
-        } else if (kh.getEmail().matches("[a-zA-Z0-9]{1,}@[a-zA-Z0-9.]{1,}.[a-zA-Z0-9]{1,}")) {
+        } /*else if (!kh.getEmail().matches("[a-zA-Z0-9]{1,}@[a-zA-Z0-9.]{1,}.[a-zA-Z0-9]{1,}")) {
             JOptionPane.showMessageDialog(null, "Email Không Đúng Định Dạng", "Lỗi", JOptionPane.ERROR_MESSAGE);
             return 0;
-        } else if (this.kh.getBySĐT(kh.getSđt()) != null) {
+        } */else if (this.kh.getBySĐT(kh.getSđt()) != null) {
             JOptionPane.showMessageDialog(null, "Khách Hàng Đã Tồn Tại", "Lỗi", JOptionPane.ERROR_MESSAGE);
             return 0;
         } else {
@@ -80,7 +80,7 @@ public class KhachHang_Service implements IKhachHang_Service {
         if (kh.getSđt().length() == 0) {
             JOptionPane.showMessageDialog(null, "Không Để Trống Số Điện Thoại", "Lỗi", JOptionPane.ERROR_MESSAGE);
             return 0;
-        } else if (kh.getSđt().matches("0\\d{9}")) {
+        } else if (!kh.getSđt().matches("0\\d{9}")) {
             JOptionPane.showMessageDialog(null, "Số Điện Thoại Không Đúng Định Dạng", "Lỗi", JOptionPane.ERROR_MESSAGE);
             return 0;
         } else if (kh.getHoTen().length() == 0) {
@@ -89,10 +89,10 @@ public class KhachHang_Service implements IKhachHang_Service {
         } else if (kh.getEmail().length() == 0) {
             JOptionPane.showMessageDialog(null, "Không Để Trống Email", "Lỗi", JOptionPane.ERROR_MESSAGE);
             return 0;
-        } else if (kh.getEmail().matches("[a-zA-Z0-9]{1,}@[a-zA-Z0-9.]{1,}.[a-zA-Z0-9]{1,}")) {
+        } /*else if (!kh.getEmail().matches("[a-zA-Z0-9]{1,}@[a-zA-Z0-9.]{1,}.[a-zA-Z0-9]{1,}")) {
             JOptionPane.showMessageDialog(null, "Email Không Đúng Định Dạng", "Lỗi", JOptionPane.ERROR_MESSAGE);
             return 0;
-        } else if (this.kh.getBySĐT(kh.getSđt()) == null) {
+        }*/ else if (this.kh.getBySĐT(kh.getSđt()) == null) {
             JOptionPane.showMessageDialog(null, "Khách Hàng Không Tồn Tại", "Lỗi", JOptionPane.ERROR_MESSAGE);
             return 0;
         } else {

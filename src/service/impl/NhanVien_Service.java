@@ -63,7 +63,7 @@ public class NhanVien_Service implements INhanVien_Service {
         } else if (nv.getSđt().length() == 0) {
             JOptionPane.showMessageDialog(null, "Không Để Trống Số Điện Thoại", "Lỗi", JOptionPane.ERROR_MESSAGE);
             return 0;
-        }  else if (nv.getSđt().matches("0\\d{9}")) {
+        }  else if (!nv.getSđt().matches("0\\d{9}")) {
             JOptionPane.showMessageDialog(null, "Số Điện Thoại Không Đúng Định Dạng", "Lỗi", JOptionPane.ERROR_MESSAGE);
             return 0;
         } else if (nv.getPassWord().length() == 0) {
@@ -107,7 +107,7 @@ public class NhanVien_Service implements INhanVien_Service {
         } else if (nv.getSđt().length() == 0) {
             JOptionPane.showMessageDialog(null, "Không Để Trống Số Điện Thoại", "Lỗi", JOptionPane.ERROR_MESSAGE);
             return 0;
-        }  else if (nv.getSđt().matches("0\\d{9}")) {
+        }  else if (!nv.getSđt().matches("0\\d{9}")) {
             JOptionPane.showMessageDialog(null, "Số Điện Thoại Không Đúng Định Dạng", "Lỗi", JOptionPane.ERROR_MESSAGE);
             return 0;
         } else if (nv.getPassWord().length() == 0) {

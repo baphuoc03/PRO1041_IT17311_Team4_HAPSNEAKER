@@ -72,7 +72,7 @@ public class SanPham_service implements ISanPham_Service {
             return 0;
         } else {
             SanPham_Model sp = GetByMa(s);
-            JOptionPane.showMessageDialog(null, "Cập Nhật Thành Công Sản Phẩm " + sp.getTen());
+            JOptionPane.showMessageDialog(null, "Xóa Thành Công Sản Phẩm " + sp.getTen());
         return repo.delete(s);
         }
     }

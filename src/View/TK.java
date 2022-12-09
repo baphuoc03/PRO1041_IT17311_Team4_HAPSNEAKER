@@ -733,9 +733,13 @@ public class TK extends javax.swing.JPanel {
             XSSFWorkbook worbook = new XSSFWorkbook();
             XSSFSheet worksheet = worbook.createSheet("Thống Kê Sản Phẩm");
             XSSFRow row;
-            XSSFCell maSP, ten, thuongHieu, mauSac, size, slBan, slVCon;
+            XSSFCell maSP, ten, thuongHieu, mauSac, size, slBan, slVCon,Date;
             int i = 1;
+            row= worksheet.createRow(0);
+            Date = row.createCell(3);
+            Date.setCellValue(date);
             row = worksheet.createRow(i);
+            
             maSP = row.createCell(0);
             maSP.setCellValue("Mã Sản Phẩm");
             ten = row.createCell(1);
