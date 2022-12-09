@@ -58,7 +58,7 @@ public class KhachHang_Service implements IKhachHang_Service {
             JOptionPane.showMessageDialog(null, "Khách Hàng Đã Tồn Tại", "Lỗi", JOptionPane.ERROR_MESSAGE);
             return 0;
         } else {
-            JOptionPane.showConfirmDialog(null, "Thêm Thành Công Khách Hàng " + kh.getHoTen());
+            JOptionPane.showMessageDialog(null, "Thêm Thành Công Khách Hàng " + kh.getHoTen());
             return this.kh.addKH(kh);
         }
     }
@@ -70,7 +70,7 @@ public class KhachHang_Service implements IKhachHang_Service {
             JOptionPane.showMessageDialog(null, "Khách Hàng Không Tồn Tại", "Lỗi", JOptionPane.ERROR_MESSAGE);
             return 0;
         } else {
-            JOptionPane.showConfirmDialog(null, "Xóa Thành Công Khách Hàng " + kh.getHoTen());
+            JOptionPane.showMessageDialog(null, "Xóa Thành Công Khách Hàng " + kh.getHoTen());
             return this.kh.delKH(sdt);
         }
     }
@@ -96,7 +96,7 @@ public class KhachHang_Service implements IKhachHang_Service {
             JOptionPane.showMessageDialog(null, "Khách Hàng Không Tồn Tại", "Lỗi", JOptionPane.ERROR_MESSAGE);
             return 0;
         } else {
-            JOptionPane.showConfirmDialog(null, "Xóa Thành Công Khách Hàng " + kh.getHoTen());
+            JOptionPane.showMessageDialog(null, "Xóa Thành Công Khách Hàng " + kh.getHoTen());
             return this.kh.updateKH(kh);
         }
     }
