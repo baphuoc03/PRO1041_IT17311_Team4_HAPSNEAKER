@@ -1061,6 +1061,7 @@ public class QLDonHang extends javax.swing.JPanel {
                 }
             }
             int sl = Integer.parseInt(comfirm);
+
             if (sp.getThuocTinh().getSl() < sl) {
                 JOptionPane.showMessageDialog(this, "Sản phẩm không đủ số lượng!!!", "Sản phẩm không đủ số lượng!!!", JOptionPane.ERROR_MESSAGE);
                 return;

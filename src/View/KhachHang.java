@@ -74,9 +74,9 @@ public class KhachHang extends javax.swing.JPanel {
         btnThem = new javax.swing.JButton();
         btnSua = new javax.swing.JButton();
         btnXoa = new javax.swing.JButton();
+        txtngaySinh = new com.toedter.calendar.JDateChooser();
         txtTK = new javax.swing.JTextField();
         txtClear = new javax.swing.JButton();
-        txtngaySinh = new com.toedter.calendar.JDateChooser();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -168,10 +168,12 @@ public class KhachHang extends javax.swing.JPanel {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
                         .addComponent(txtTK, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 916, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -398,6 +400,5 @@ public class KhachHang extends javax.swing.JPanel {
         QLDonHang.txtSDT.setText("");
         QLDonHang.txtTenKH.setText("");
     }
-    
 
 }

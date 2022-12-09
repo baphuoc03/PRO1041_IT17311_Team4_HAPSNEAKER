@@ -39,11 +39,7 @@ public class NhanVien_Service implements INhanVien_Service {
 
     @Override
     public NhanVien_Model LoginNhanVien(String ma, String pass) {
-<<<<<<< HEAD
-            return nv.LoginNhanVien(ma, pass);
-=======
         return nv.LoginNhanVien(ma, pass);
->>>>>>> ed5456ee238872155e615de70522c0d52e24e243
     }
 
     @Override
@@ -58,9 +54,6 @@ public class NhanVien_Service implements INhanVien_Service {
 
     @Override
     public int addNV(NhanVien_Model nv) {
-<<<<<<< HEAD
-        return this.nv.addNV(nv);
-=======
         if (nv.getMa().length() == 0) {
             JOptionPane.showMessageDialog(null, "Không Để Trống Mã Nhân Viên", "Lỗi", JOptionPane.ERROR_MESSAGE);
             return 0;
@@ -89,14 +82,10 @@ public class NhanVien_Service implements INhanVien_Service {
             JOptionPane.showMessageDialog(null, "Thêm Thành Công Nhân Viên " + nv.getHoTen());
             return this.nv.addNV(nv);
         }
->>>>>>> ed5456ee238872155e615de70522c0d52e24e243
     }
 
     @Override
     public int delNV(String manv) {
-<<<<<<< HEAD
-        return nv.delNV(manv);
-=======
         NhanVien_Model nv = this.nv.getByMa(manv);
         if (nv == null) {
             JOptionPane.showMessageDialog(null, "Nhân Viên Không Tồn Tại", "Lỗi", JOptionPane.ERROR_MESSAGE);
@@ -105,14 +94,10 @@ public class NhanVien_Service implements INhanVien_Service {
             JOptionPane.showMessageDialog(null, "Xóa Công Nhân Viên " + nv.getHoTen());
             return this.nv.delNV(manv);
         }
->>>>>>> ed5456ee238872155e615de70522c0d52e24e243
     }
 
     @Override
     public int updateNV(NhanVien_Model nv) {
-<<<<<<< HEAD
-        return this.nv.updateNV(nv);
-=======
         if (nv.getMa().length() == 0) {
             JOptionPane.showMessageDialog(null, "Không Để Trống Mã Nhân Viên", "Lỗi", JOptionPane.ERROR_MESSAGE);
             return 0;
@@ -141,7 +126,6 @@ public class NhanVien_Service implements INhanVien_Service {
             JOptionPane.showMessageDialog(null, "Cập Nhật Công Nhân Viên " + nv.getHoTen());
             return this.nv.updateNV(nv);
         }
->>>>>>> ed5456ee238872155e615de70522c0d52e24e243
     }
 
     @Override
