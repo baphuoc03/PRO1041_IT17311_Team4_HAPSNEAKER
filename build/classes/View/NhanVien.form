@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <NonVisualComponents>
     <Component class="javax.swing.ButtonGroup" name="ChucVu">
     </Component>
@@ -80,6 +80,7 @@
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                           <Component id="txtSDT" pref="169" max="32767" attributes="0"/>
                                           <Component id="txtPW" max="32767" attributes="0"/>
+                                          <Component id="chkShow" alignment="1" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -154,8 +155,16 @@
                   </Group>
                   <Component id="txtNS" alignment="1" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-              <Component id="txtTK" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                      <Component id="txtTK" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="chkShow" min="-2" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="375" max="-2" attributes="0"/>
           </Group>
@@ -381,6 +390,14 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JPasswordField" name="txtPW">
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="chkShow">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Hi&#x1ec3;n Th&#x1ecb; M&#x1ead;t Kh&#x1ea9;u"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkShowActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

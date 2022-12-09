@@ -1,23 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
-        <file>
-            <url>src/repository/ThuongHieu_repos.java</url>
-            <bookmark id="1">
-                <name/>
-                <line>27</line>
-                <key/>
-            </bookmark>
-        </file>
-    </editor-bookmarks>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/admin/DUAN1/PRO1041_IT17311_Team4_HAPSNEAKER/src/service/impl/KhuyenMaiSP_Service.java</file>
-            <file>file:/C:/Users/admin/DUAN1/PRO1041_IT17311_Team4_HAPSNEAKER/src/View/TK.java</file>
+            <file>file:/C:/Users/admin/DUAN1/PRO1041_IT17311_Team4_HAPSNEAKER/src/View/KhachHang.java</file>
+            <file>file:/C:/Users/admin/DUAN1/PRO1041_IT17311_Team4_HAPSNEAKER/src/View/Dang_nhap.java</file>
             <file>file:/C:/Users/admin/DUAN1/PRO1041_IT17311_Team4_HAPSNEAKER/src/ultinities/JDBC_Helper.java</file>
-            <file>file:/C:/Users/admin/DUAN1/PRO1041_IT17311_Team4_HAPSNEAKER/src/View/QLSanPham.java</file>
             <file>file:/C:/Users/admin/DUAN1/PRO1041_IT17311_Team4_HAPSNEAKER/src/View/QLDonHang.java</file>
-            <file>file:/C:/Users/admin/DUAN1/PRO1041_IT17311_Team4_HAPSNEAKER/src/View/QLKhuyenMai.java</file>
+            <file>file:/C:/Users/admin/DUAN1/PRO1041_IT17311_Team4_HAPSNEAKER/src/model/KmSp_Model.java</file>
         </group>
     </open-files>
 </project-private>

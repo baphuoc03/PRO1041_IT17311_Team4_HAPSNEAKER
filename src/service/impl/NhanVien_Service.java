@@ -39,7 +39,11 @@ public class NhanVien_Service implements INhanVien_Service {
 
     @Override
     public NhanVien_Model LoginNhanVien(String ma, String pass) {
+<<<<<<< HEAD
             return nv.LoginNhanVien(ma, pass);
+=======
+        return nv.LoginNhanVien(ma, pass);
+>>>>>>> ed5456ee238872155e615de70522c0d52e24e243
     }
 
     @Override
@@ -54,17 +58,90 @@ public class NhanVien_Service implements INhanVien_Service {
 
     @Override
     public int addNV(NhanVien_Model nv) {
+<<<<<<< HEAD
         return this.nv.addNV(nv);
+=======
+        if (nv.getMa().length() == 0) {
+            JOptionPane.showMessageDialog(null, "Không Để Trống Mã Nhân Viên", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return 0;
+        } else if (nv.getHoTen().length() == 0) {
+            JOptionPane.showMessageDialog(null, "Không Để Trống Tên Nhân Viên", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return 0;
+        } else if (nv.getSđt().length() == 0) {
+            JOptionPane.showMessageDialog(null, "Không Để Trống Số Điện Thoại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return 0;
+        }  else if (!nv.getSđt().matches("0\\d{9}")) {
+            JOptionPane.showMessageDialog(null, "Số Điện Thoại Không Đúng Định Dạng", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return 0;
+        } else if (nv.getPassWord().length() == 0) {
+            JOptionPane.showMessageDialog(null, "Không Để Trống PassWord", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return 0;
+        }else if (!nv.getPassWord().matches("\\w{1,}")) {
+            JOptionPane.showMessageDialog(null, "PassWord Không Có Ký Tự Đặc Biệt", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return 0;
+        } else if (nv.getPassWord().length() > 20) {
+            JOptionPane.showMessageDialog(null, "PassWord Không Quá 20 ký Tự", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return 0;
+        }  else if (this.nv.getByMa(nv.getMa()) != null) {
+            JOptionPane.showMessageDialog(null, "Nhân Viên Đã Tồn Tại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return 0;
+        } else {
+            JOptionPane.showMessageDialog(null, "Thêm Thành Công Nhân Viên " + nv.getHoTen());
+            return this.nv.addNV(nv);
+        }
+>>>>>>> ed5456ee238872155e615de70522c0d52e24e243
     }
 
     @Override
     public int delNV(String manv) {
+<<<<<<< HEAD
         return nv.delNV(manv);
+=======
+        NhanVien_Model nv = this.nv.getByMa(manv);
+        if (nv == null) {
+            JOptionPane.showMessageDialog(null, "Nhân Viên Không Tồn Tại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return 0;
+        } else {
+            JOptionPane.showMessageDialog(null, "Xóa Công Nhân Viên " + nv.getHoTen());
+            return this.nv.delNV(manv);
+        }
+>>>>>>> ed5456ee238872155e615de70522c0d52e24e243
     }
 
     @Override
     public int updateNV(NhanVien_Model nv) {
+<<<<<<< HEAD
         return this.nv.updateNV(nv);
+=======
+        if (nv.getMa().length() == 0) {
+            JOptionPane.showMessageDialog(null, "Không Để Trống Mã Nhân Viên", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return 0;
+        } else if (nv.getHoTen().length() == 0) {
+            JOptionPane.showMessageDialog(null, "Không Để Trống Tên Nhân Viên", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return 0;
+        } else if (nv.getSđt().length() == 0) {
+            JOptionPane.showMessageDialog(null, "Không Để Trống Số Điện Thoại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return 0;
+        }  else if (!nv.getSđt().matches("0\\d{9}")) {
+            JOptionPane.showMessageDialog(null, "Số Điện Thoại Không Đúng Định Dạng", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return 0;
+        } else if (nv.getPassWord().length() == 0) {
+            JOptionPane.showMessageDialog(null, "Không Để Trống PassWord", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return 0;
+        } else if (!nv.getPassWord().matches("\\w{1,}")) {
+            JOptionPane.showMessageDialog(null, "PassWord Không Có Ký Tự Đặc Biệt", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return 0;
+        } else if (nv.getPassWord().length() > 20) {
+            JOptionPane.showMessageDialog(null, "PassWord Không Quá 20 ký Tự", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return 0;
+        }  else if (this.nv.getByMa(nv.getMa()) == null) {
+            JOptionPane.showMessageDialog(null, "Nhân Viên Không Tồn Tại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return 0;
+        } else {
+            JOptionPane.showMessageDialog(null, "Cập Nhật Công Nhân Viên " + nv.getHoTen());
+            return this.nv.updateNV(nv);
+        }
+>>>>>>> ed5456ee238872155e615de70522c0d52e24e243
     }
 
     @Override

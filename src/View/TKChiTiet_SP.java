@@ -98,6 +98,10 @@ public class TKChiTiet_SP extends javax.swing.JPanel {
 
         jLabel1.setText("Bắt Đầu");
 
+        txtBD.setEditable(false);
+
+        txtKT.setEditable(false);
+
         jLabel2.setText("Kết Thúc");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

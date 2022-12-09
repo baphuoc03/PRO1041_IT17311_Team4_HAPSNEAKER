@@ -24,7 +24,7 @@ import java.sql.*;
         try {
             while (rs.next()) {
                 PhanLoai_Model pl = new PhanLoai_Model(rs.getString(1), null);
-                SanPham_Model sp = new SanPham_Model(rs.getString(2), null, null, null,null, 0, 0, 0);
+                SanPham_Model sp = new SanPham_Model(rs.getString(2), null, null, null,null, 0, 0, 0,null);
                 lst.add(new PlSp_Model(pl, sp));
             }
             return lst;
