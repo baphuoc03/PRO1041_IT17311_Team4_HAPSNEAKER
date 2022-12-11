@@ -27,8 +27,8 @@ public class ThuocTinhSP_repos implements IThuocTinhSP_Repos {
                 + "from hap_sneaker.thuoctinhsanpham t\n"
                 + "join hap_sneaker.sanpham s on t.MaSP = s.MaSP \n"
                 + "join hap_sneaker.kichthuoc k on t.MaSize = k.MaSize\n"
-                + "join thuonghieu on s.MaThuongHieu = thuonghieu.mathuonghieu\n"
-                + "join mausac on mausac.maMau = s.maMau "
+                + "left join thuonghieu on s.MaThuongHieu = thuonghieu.mathuonghieu\n"
+                + "left join mausac on mausac.maMau = s.maMau "
                 + "WHERE s.TrangThai = 1 "
                 + "ORDER BY s.MaSP ";
         ResultSet rs = JDBC_Helper.Query(sql);
@@ -58,8 +58,8 @@ public class ThuocTinhSP_repos implements IThuocTinhSP_Repos {
                 + "from hap_sneaker.thuoctinhsanpham t\n"
                 + "join hap_sneaker.sanpham s on t.MaSP = s.MaSP \n"
                 + "join hap_sneaker.kichthuoc k on t.MaSize = k.MaSize\n"
-                + "join thuonghieu on s.MaThuongHieu = thuonghieu.mathuonghieu\n"
-                + "join mausac on mausac.maMau = s.maMau"
+                + "left join thuonghieu on s.MaThuongHieu = thuonghieu.mathuonghieu\n"
+                + "left join mausac on mausac.maMau = s.maMau"
                 + " WHERE t.Id = ?";
         ResultSet rs = JDBC_Helper.Query(sql, id);
 
@@ -116,8 +116,8 @@ public class ThuocTinhSP_repos implements IThuocTinhSP_Repos {
                 + "                                  from thuoctinhsanpham \n"
                 + "                                  join sanpham  on thuoctinhsanpham.MaSP = sanpham.MaSP \n"
                 + "                                  join kichthuoc on thuoctinhsanpham.MaSize = kichthuoc.MaSize\n"
-                + "                                  join thuonghieu on sanpham.MaThuongHieu = thuonghieu.mathuonghieu\n"
-                + "                                  join mausac on mausac.maMau = sanpham.maMau\n"
+                + "                                  left join thuonghieu on sanpham.MaThuongHieu = thuonghieu.mathuonghieu\n"
+                + "                                  left join mausac on mausac.maMau = sanpham.maMau\n"
                 + "                                  join pl_sp on pl_sp.MaSP = sanpham.MaSP \n"
                 + "                 WHERE (sanpham.Ten LIKE CONCAT('%',?,'%') OR sanpham.MaSP LIKE CONCAT('%',?,'%'))\n";
         ResultSet rs = JDBC_Helper.Query(sql, keyWord, keyWord);
@@ -181,8 +181,8 @@ public class ThuocTinhSP_repos implements IThuocTinhSP_Repos {
                 + "                                  from thuoctinhsanpham \n"
                 + "                                  join sanpham  on thuoctinhsanpham.MaSP = sanpham.MaSP \n"
                 + "                                  join kichthuoc on thuoctinhsanpham.MaSize = kichthuoc.MaSize\n"
-                + "                                  join thuonghieu on sanpham.MaThuongHieu = thuonghieu.mathuonghieu\n"
-                + "                                  join mausac on mausac.maMau = sanpham.maMau\n"
+                + "                                  left join thuonghieu on sanpham.MaThuongHieu = thuonghieu.mathuonghieu\n"
+                + "                                  left join mausac on mausac.maMau = sanpham.maMau\n"
                 + "                                  join pl_sp on pl_sp.MaSP = sanpham.MaSP \n"
                 + "                 WHERE pl_sp.MaPhanLoai = ?";
         ResultSet rs = JDBC_Helper.Query(sql, PL);

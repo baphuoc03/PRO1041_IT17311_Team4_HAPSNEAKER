@@ -47,7 +47,7 @@ public class QLMauSac extends javax.swing.JPanel {
         }
     }
     public MauSac_Model GetMauSac(){
-        return new MauSac_Model(txtMa.getText(), txtTen.getText());
+        return new MauSac_Model(txtMa.getText().trim(), txtTen.getText().trim());
     }
     
     public void showMauSac(){
