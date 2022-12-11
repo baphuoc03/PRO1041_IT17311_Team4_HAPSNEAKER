@@ -215,6 +215,7 @@ public class DoiMK_in_Main extends javax.swing.JPanel {
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
         // TODO add your handling code here:
+        clear();
     }//GEN-LAST:event_btnClearActionPerformed
 
 
@@ -237,6 +238,12 @@ public class DoiMK_in_Main extends javax.swing.JPanel {
         NhanVien_Model nv = NV_SV.getByMa(txtUser.getText());
         nv.setPassWord(txtMKnew.getText());
         return nv;
+    }
+    public void clear(){
+        txtUser.setText("");
+        txtMKold.setText("");
+        txtMKnew.setText("");
+        txtComfirmPass.setText("");
     }
     public boolean chk(){
         if(ValiDate.isNull(txtUser,"Không Để Trống User")) return false;
