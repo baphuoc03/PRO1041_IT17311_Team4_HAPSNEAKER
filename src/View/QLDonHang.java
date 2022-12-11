@@ -12,6 +12,7 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.mysql.cj.util.StringUtils;
 import java.awt.Dimension;
+import java.awt.HeadlessException;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -1060,9 +1061,15 @@ public class QLDonHang extends javax.swing.JPanel {
                     dongia -= sp.getThuocTinh().getSanPham().getGiaBan() * km.getGiamGia() / 100;
                 }
             }
-            int sl = Integer.parseInt(comfirm);
+            int sl =0;
+            try {
+                sl = Integer.parseInt(comfirm);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Không Để Trống Số Lượng và Số Lượng Phải Là Số", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
-            if (sp.getThuocTinh().getSl() < sl) {
+            if (sp.getThuocTinh().getSl()+sp.getSl() < sl) {
                 JOptionPane.showMessageDialog(this, "Sản phẩm không đủ số lượng!!!", "Sản phẩm không đủ số lượng!!!", JOptionPane.ERROR_MESSAGE);
                 return;
             }
@@ -1072,7 +1079,7 @@ public class QLDonHang extends javax.swing.JPanel {
             ThuocTinhSP_Model tts = TTS.getById(sp.getThuocTinh().getId());
             for (int i = 0; i < tblSP.getRowCount(); i++) {
                 if (lstSP.get(i).getId().equalsIgnoreCase(tts.getId())) {
-                    tblSP.setValueAt(slUpdate, i, 5);
+                    tblSP.setValueAt(sp.getThuocTinh().getSl() - slUpdate, i, 5);
 
                 }
             }
@@ -1122,7 +1129,13 @@ public class QLDonHang extends javax.swing.JPanel {
         if (comfirm != null) {
             try {
                 int index = tblSP.getSelectedRow();
-                int sl = Integer.parseInt(comfirm);
+                int sl = 0;
+                try {
+                    sl = Integer.parseInt(comfirm);
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(this, "Không Để Trống Số Lượng và Số Lượng Phải Là Số", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                return;
+                }
                 String id = lstSP.get(index).getId();
                 ThuocTinhSP_Model sp = TTS.getById(id);
                 if (sp.getSl() < sl) {

@@ -117,11 +117,13 @@ public class QLSanPham extends javax.swing.JPanel {
             dtm.addRow(new Object[]{s.getStt(), s.getMa(), s.getTen(), s.getThuongHieu(), s.getMauSac(), s.getGiaNhap(), s.getGiaBan(), sl, s.getTrangThai() == 1 ? "Hiển thị" : "Ẩn"});
         }
         lstTH = SPS.GetAllTH();
+        THCBB.removeAllElements();
         for (var x : lstTH) {
             THCBB.addElement(x.getMa() + " - " + x.getTen());
         }
 
         lstMS = SPS.GetAllMS();
+        MSCBB.removeAllElements();
         for (var x : lstMS) {
             MSCBB.addElement(x.getMa() + " - " + x.getTen());
         }
@@ -1024,12 +1026,14 @@ public class QLSanPham extends javax.swing.JPanel {
         if (getValidateSP() == false) {
             return;
         }
-        if (plS.delete(txtSanPham.getText()) == 0) {
+
+        if (SPS.UPDATE(GetDataSanPham()) == 0) {
             return;
         }
 
+        plS.delete(txtSanPham.getText());
+
         addPLSP();
-        SPS.UPDATE(GetDataSanPham());
 
         FillSanPham();
 
@@ -1043,12 +1047,14 @@ public class QLSanPham extends javax.swing.JPanel {
         if (TTS.ADD(GetDataThuocTinhSP()) == 0) {
             return;
         }
+        FillSanPham();
         FillThuocTinh(cbbSP.getSelectedItem().toString());
     }//GEN-LAST:event_btnThemPLActionPerformed
 
     private void btnSuaPLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaPLActionPerformed
         // TODO add your handling code here:
-        if (getValiDateTTSP() == false) {
+        try {
+            if (getValiDateTTSP() == false) {
             return;
         }
         int index = tblPhanLoai.getSelectedRow();
@@ -1057,7 +1063,11 @@ public class QLSanPham extends javax.swing.JPanel {
         if (TTS.UPDATE(ttsp) == 0) {
             return;
         }
+        FillSanPham();
         FillThuocTinh(SPCBB.getSelectedItem().toString());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this,"Vui lòng chọn thuộc tính trong danh sách");
+        }
     }//GEN-LAST:event_btnSuaPLActionPerformed
 
     private void btnXoaPLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaPLActionPerformed
@@ -1067,6 +1077,7 @@ public class QLSanPham extends javax.swing.JPanel {
         if (TTS.DELETE(id) == 0) {
             return;
         }
+        FillSanPham();
         FillThuocTinh(SPCBB.getSelectedItem().toString());
     }//GEN-LAST:event_btnXoaPLActionPerformed
 
@@ -1231,6 +1242,5 @@ public class QLSanPham extends javax.swing.JPanel {
         lblAnh.setIcon(icon);
 //        lblAnh.setPreferredSize(new Dimension(width, height));
     }
-
 
 }
