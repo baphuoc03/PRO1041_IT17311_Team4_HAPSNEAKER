@@ -36,16 +36,6 @@ public class KhachHang_Service implements IKhachHang_Service {
     public KhachHang_Model getBySĐT(String SĐT) {
         return kh.getBySĐT(SĐT);
     }
-<<<<<<< HEAD
-    @Override
-    public int addKH(KhachHang_Model kh) {
-        return this.kh.addKH(kh);
-    }
-
-    @Override
-    public int delKH(String sdt) {
-        return this.kh.delKH(sdt);
-=======
 
     @Override
     public int addKH(KhachHang_Model kh) {
@@ -83,16 +73,10 @@ public class KhachHang_Service implements IKhachHang_Service {
             JOptionPane.showMessageDialog(null, "Xóa Thành Công Khách Hàng " + kh.getHoTen());
             return this.kh.delKH(sdt);
         }
->>>>>>> origin/baphuoc
     }
 
     @Override
     public int updateKH(KhachHang_Model kh) {
-<<<<<<< HEAD
-        return this.kh.updateKH(kh);
-    }
-    
-=======
         if (kh.getSđt().length() == 0) {
             JOptionPane.showMessageDialog(null, "Không Để Trống Số Điện Thoại", "Lỗi", JOptionPane.ERROR_MESSAGE);
             return 0;
@@ -117,18 +101,12 @@ public class KhachHang_Service implements IKhachHang_Service {
         }
     }
 
->>>>>>> origin/baphuoc
     @Override
     public List<KhachHang_View> FindKhachHang(String keyWord) {
         List<KhachHang_View> list_view = new ArrayList<>();
         list = kh.FindKhachHang(keyWord);
-<<<<<<< HEAD
-        for(KhachHang_Model k : list){
-            list_view.add(new KhachHang_View(k.getSđt(),k.getHoTen(), k.getGioiTinh(), k.getNgaySinh(), k.getEmail(), k.getDiaChi()));
-=======
         for (KhachHang_Model k : list) {
             list_view.add(new KhachHang_View(k.getSđt(), k.getHoTen(), k.getGioiTinh(), k.getNgaySinh(), k.getEmail(), k.getDiaChi()));
->>>>>>> origin/baphuoc
         }
         return list_view;
     }

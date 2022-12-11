@@ -41,7 +41,7 @@ import model.KichThuoc_Model;
 import model.NhanVien_Model;
 import model.SanPham_Model;
 import model.ThuocTinhSP_Model;
-//import org.apache.commons.collections4.CollectionUtils.filter;
+import static org.apache.commons.collections4.CollectionUtils.filter;
 import service.impl.DonHang_service;
 import service.impl.ChiTietDH_Service;
 import viewmodel.ChiTietDH_View;
@@ -1061,6 +1061,7 @@ public class QLDonHang extends javax.swing.JPanel {
                 }
             }
             int sl = Integer.parseInt(comfirm);
+
             if (sp.getThuocTinh().getSl() < sl) {
                 JOptionPane.showMessageDialog(this, "Sản phẩm không đủ số lượng!!!", "Sản phẩm không đủ số lượng!!!", JOptionPane.ERROR_MESSAGE);
                 return;
