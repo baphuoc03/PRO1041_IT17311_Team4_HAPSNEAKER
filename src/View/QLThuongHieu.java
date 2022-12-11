@@ -58,9 +58,10 @@ public class QLThuongHieu extends javax.swing.JPanel {
         for (ThuongHieu_View t : list) {
             mol.addRow(new Object[]{t.getStt(),t.getMa(),t.getTen()});
         }
+        
     }
     public ThuongHieu_Model GetThuongHieu() {
-        return new ThuongHieu_Model(txtMaTH.getText(), txtTenTH.getText());
+        return new ThuongHieu_Model(txtMaTH.getText().trim(), txtTenTH.getText().trim());
     }
 
 
@@ -312,7 +313,10 @@ public class QLThuongHieu extends javax.swing.JPanel {
         QLSanPham.cbbThuongHieu.removeAllItems();
         for (ThuongHieu_View t : th.getAllThuongHieu()) {
             QLSanPham.cbbThuongHieu.addItem(t.getMa()+" - "+t.getTen());
+            
         }
+        QLSanPham sp = new QLSanPham();
+        sp.FillSanPham();
     }// GEN-LAST:event_btnXoaTHActionPerformed
 
     private void tblThuongHieuMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_tblThuongHieuMouseClicked
