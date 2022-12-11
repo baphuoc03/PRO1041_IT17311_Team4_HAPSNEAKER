@@ -274,9 +274,13 @@ public class KhachHang extends javax.swing.JPanel {
 
     private void tblKHMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblKHMouseClicked
         // TODO add your handling code here:
-        int index = tblKH.getSelectedRow();
+        try {
+            int index = tblKH.getSelectedRow();
         KhachHang_Model kh = KH_SV.getBySĐT(tblKH.getValueAt(index, 1).toString());
         show(kh);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_tblKHMouseClicked
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed

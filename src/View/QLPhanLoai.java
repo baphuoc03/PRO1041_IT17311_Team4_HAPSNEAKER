@@ -332,7 +332,7 @@ public class QLPhanLoai extends javax.swing.JPanel {
     }
 
     public PhanLoai_Model GetPhanLoai(){
-        return new PhanLoai_Model(txtMaPL.getText(), txtTenPL.getText());
+        return new PhanLoai_Model(txtMaPL.getText().trim(), txtTenPL.getText().trim());
     }
 
     public void showPhanLoai(){
