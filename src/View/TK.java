@@ -729,7 +729,7 @@ public class TK extends javax.swing.JPanel {
             SimpleDateFormat dateTimeFM = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             lstTKTTSP = tk_TTSP.tkByMa();
             String date = dateTimeFM.format(new Date());
-            FileOutputStream file = new FileOutputStream("../TK_SP/" + "TKSP_" + date + ".xlsx");
+            FileOutputStream file = new FileOutputStream("../TK_SP/" + "TKSP.xlsx");
             XSSFWorkbook worbook = new XSSFWorkbook();
             XSSFSheet worksheet = worbook.createSheet("Thống Kê Sản Phẩm");
             XSSFRow row;

@@ -115,9 +115,9 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="jPanel3" max="32767" attributes="0"/>
+                          <Component id="jPanel2" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace pref="365" max="32767" attributes="0"/>
                   </Group>
@@ -307,7 +307,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="cboPhanLoai" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="jScrollPane2" alignment="0" pref="697" max="32767" attributes="0"/>
+                      <Component id="jScrollPane2" alignment="0" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
@@ -678,7 +678,7 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="txtTenKH">
                       <Properties>
-                        <Property name="enabled" type="boolean" value="false"/>
+                        <Property name="editable" type="boolean" value="false"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtTenKHActionPerformed"/>
@@ -689,7 +689,7 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="txtSDT">
                       <Properties>
-                        <Property name="enabled" type="boolean" value="false"/>
+                        <Property name="editable" type="boolean" value="false"/>
                       </Properties>
                       <AuxValues>
                         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
@@ -745,7 +745,7 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="txtDonHang">
                       <Properties>
-                        <Property name="enabled" type="boolean" value="false"/>
+                        <Property name="editable" type="boolean" value="false"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtDonHangActionPerformed"/>
