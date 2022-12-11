@@ -823,7 +823,7 @@ public class QLDonHang extends javax.swing.JPanel {
         int index = tblDonHang.getSelectedRow();
         showDonHang(DH_SV.getAllDonHang().get(index));
         String tienkhach = txtTienKhach.getText();
-                lblThanhTien.setText(numberFM.format(getThanhTien()));
+        lblThanhTien.setText(numberFM.format(getThanhTien()));
 //        fillTableDonHang();
 
     }//GEN-LAST:event_tblDonHangMouseClicked
@@ -1061,15 +1061,18 @@ public class QLDonHang extends javax.swing.JPanel {
                     dongia -= sp.getThuocTinh().getSanPham().getGiaBan() * km.getGiamGia() / 100;
                 }
             }
-            int sl =0;
+            int sl = 0;
             try {
                 sl = Integer.parseInt(comfirm);
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, "Không Để Trống Số Lượng và Số Lượng Phải Là Số", "Lỗi", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-
-            if (sp.getThuocTinh().getSl()+sp.getSl() < sl) {
+            if (sl <= 0) {
+                JOptionPane.showMessageDialog(this, "Số Lượng Phải > 0", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (sp.getThuocTinh().getSl() + sp.getSl() < sl) {
                 JOptionPane.showMessageDialog(this, "Sản phẩm không đủ số lượng!!!", "Sản phẩm không đủ số lượng!!!", JOptionPane.ERROR_MESSAGE);
                 return;
             }
@@ -1091,11 +1094,11 @@ public class QLDonHang extends javax.swing.JPanel {
 //            FillSP();
             filltableChiTietDH(txtDonHang.getText());
             String tienkhach = txtTienKhach.getText();
-                if (tienkhach.length() == 0) {
-                    lblTienThua.setText(numberFM.format(getThanhTien()));
-                } else {
-                    lblTienThua.setText(numberFM.format(Float.parseFloat(tienkhach) - getThanhTien()));
-                }
+            if (tienkhach.length() == 0) {
+                lblTienThua.setText(numberFM.format(getThanhTien()));
+            } else {
+                lblTienThua.setText(numberFM.format(Float.parseFloat(tienkhach) - getThanhTien()));
+            }
         }
     }//GEN-LAST:event_UpdateSLActionPerformed
 
@@ -1115,11 +1118,11 @@ public class QLDonHang extends javax.swing.JPanel {
         ChiTietDH.delete(ctdh);
         filltableChiTietDH(txtDonHang.getText());
         String tienkhach = txtTienKhach.getText();
-                if (tienkhach.length() == 0) {
-                    lblTienThua.setText(numberFM.format(getThanhTien()));
-                } else {
-                    lblTienThua.setText(numberFM.format(Float.parseFloat(tienkhach) - getThanhTien()));
-                }
+        if (tienkhach.length() == 0) {
+            lblTienThua.setText(numberFM.format(getThanhTien()));
+        } else {
+            lblTienThua.setText(numberFM.format(Float.parseFloat(tienkhach) - getThanhTien()));
+        }
 //        FillSP();
     }//GEN-LAST:event_XoaSpInGioHangActionPerformed
 
@@ -1134,7 +1137,11 @@ public class QLDonHang extends javax.swing.JPanel {
                     sl = Integer.parseInt(comfirm);
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(this, "Không Để Trống Số Lượng và Số Lượng Phải Là Số", "Lỗi", JOptionPane.ERROR_MESSAGE);
-                return;
+                    return;
+                }
+                if (sl <= 0) {
+                    JOptionPane.showMessageDialog(this, "Số Lượng Phải > 0", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                    return;
                 }
                 String id = lstSP.get(index).getId();
                 ThuocTinhSP_Model sp = TTS.getById(id);

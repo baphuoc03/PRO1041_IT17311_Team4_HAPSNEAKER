@@ -121,6 +121,7 @@ public class KhachHang extends javax.swing.JPanel {
         jLabel6.setText("Địa Chỉ");
 
         buttonGroup1.add(rdonam);
+        rdonam.setSelected(true);
         rdonam.setText("Nam");
 
         buttonGroup1.add(rdoNu);
@@ -168,12 +169,10 @@ public class KhachHang extends javax.swing.JPanel {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(txtTK, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 916, Short.MAX_VALUE)))
                 .addContainerGap())

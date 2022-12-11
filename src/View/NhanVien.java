@@ -430,7 +430,7 @@ public class NhanVien extends javax.swing.JPanel {
         } else {
             cv = CV_SV.getByMa("CV02");
         }
-        return new NhanVien_Model(ma, pw, hoTen, hoTen, ns, sdt, dc, cv);
+        return new NhanVien_Model(ma, pw, hoTen, gt, ns, sdt, dc, cv);
 
     }
 
