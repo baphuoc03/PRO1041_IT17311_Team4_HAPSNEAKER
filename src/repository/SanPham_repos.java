@@ -22,8 +22,8 @@ public class SanPham_repos implements ISanPham_repos{
     public List<SanPham_Model> GetAllSanPham(){
         List<SanPham_Model> list = new ArrayList<>();
         String sql = "select t.MaThuongHieu,t.Ten,m.MaMau,m.Ten,s.MaSP,s.Ten,s.MoTa,s.GiaNhap,s.GiaBan,s.TrangThai,s.Hinh from hap_sneaker.sanpham s \n" +
-        "join hap_sneaker.thuonghieu t on s.MaThuongHieu = t.MaThuongHieu\n" +
-        "join hap_sneaker.mausac m on s.MaMau = m.MaMau"
+        "left join hap_sneaker.thuonghieu t on s.MaThuongHieu = t.MaThuongHieu\n" +
+        "left join hap_sneaker.mausac m on s.MaMau = m.MaMau"
                 + " ORDER BY s.MaSP ";
         ResultSet rs = JDBC_Helper.Query(sql);
         try {
@@ -43,8 +43,8 @@ public class SanPham_repos implements ISanPham_repos{
     public SanPham_Model GetSanPhamByMa(String ma){
         SanPham_Model SP =null;
         String sql = "select t.MaThuongHieu,t.Ten,m.MaMau,m.Ten,s.MaSP,s.Ten,s.MoTa,s.GiaNhap,s.GiaBan,s.TrangThai,s.Hinh from hap_sneaker.sanpham s \n" +
-        "join hap_sneaker.thuonghieu t on s.MaThuongHieu = t.MaThuongHieu\n" +
-        "join hap_sneaker.mausac m on s.MaMau = m.MaMau"
+        "left join hap_sneaker.thuonghieu t on s.MaThuongHieu = t.MaThuongHieu\n" +
+        "left join hap_sneaker.mausac m on s.MaMau = m.MaMau"
                 + " WHERE s.MaSP = ?";
         ResultSet rs = JDBC_Helper.Query(sql,ma);
         try {
@@ -81,8 +81,8 @@ public class SanPham_repos implements ISanPham_repos{
     public List<SanPham_Model> serchSP(String key){
         List<SanPham_Model> lst = new ArrayList<>();
         String sql = "select t.MaThuongHieu,t.Ten,m.MaMau,m.Ten,s.MaSP,s.Ten,s.MoTa,s.GiaNhap,s.GiaBan,s.TrangThai,s.Hinh from hap_sneaker.sanpham s \n" +
-"        join hap_sneaker.thuonghieu t on s.MaThuongHieu = t.MaThuongHieu\n" +
-"        join hap_sneaker.mausac m on s.MaMau = m.MaMau where s.MaSP like concat('%',?,'%')	\n" +
+"        left join hap_sneaker.thuonghieu t on s.MaThuongHieu = t.MaThuongHieu\n" +
+"        left join hap_sneaker.mausac m on s.MaMau = m.MaMau where s.MaSP like concat('%',?,'%')	\n" +
 "        or s.Ten like concat('%',?,'%')"
                 + " ORDER BY s.MaSP ";
          ResultSet rs = JDBC_Helper.Query(sql, key, key);
@@ -103,8 +103,6 @@ public class SanPham_repos implements ISanPham_repos{
         String sql = "SELECT sanpham.masp FROM sanpham\n"
                 + "join km_sp on sanpham.MaSP = km_sp.MaSP\n"
                 + "join khuyenmai on khuyenmai.MaKM = km_sp.MaKM \n"
-                + "join thuonghieu on thuonghieu.mathuonghieu = sanpham.mathuonghieu\n"
-                + "join mausac on mausac.mamau = sanpham.mamau\n"
                 + "WHERE khuyenmai.MaKM = ?"
                 + " ORDER BY s.MaSP ";
         ResultSet rs = JDBC_Helper.Query(sql, maKM);
